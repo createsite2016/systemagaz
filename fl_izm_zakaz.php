@@ -139,7 +139,7 @@ $params = mysql_fetch_array($get_params);
 
 
 <center><h4><i class="icon-time"></i>Итория заказа</h4></center>
-<!-- Панель истории заказов -->
+<!-- Панель лога действий заказов -->
 <section class="panel"> 
   <br><b></b><br><br>
             <div class="table">
