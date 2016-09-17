@@ -152,13 +152,29 @@ $params = mysql_fetch_array($get_params);
                     <th><b>Комментарий</b></th>
                   </tr>
                 </thead>
-                  <tbody><tr>
-                    <td bgcolor="#E7D627"><b><font color="black"></font></b></td>
-                    <td bgcolor="#E7D627"><b><font color="black"></font></b></td>
-                    <td bgcolor="#E7D627"><b><font color="black"></font></b></td>
-                    <td bgcolor="#E7D627"><b><font color="black"></font></b></td>
+                  <tbody>
+<?php 
+include('showdata_forpeople.php');
+if ($user_role=='1') {
+  $sql_get_history = mysql_query("SELECT * FROM `log_priem` WHERE `id_zakaz` = '$id' ORDER BY `datatime` DESC ",$db);
+while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+                  <tr>
+                    <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['meneger'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['status'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
                   </tr>
-                    
+<?php }}
+if ($user_role=='3') {
+  $sql_get_history = mysql_query("SELECT * FROM `log_priem` WHERE `id_zakaz` = '$id' ORDER BY `datatime` DESC ",$db);
+while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+                  <tr>
+                    <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['meneger'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['status'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
+                  </tr>
+<?php }} ?>              
               </tbody>
               </table>
               </div></section>

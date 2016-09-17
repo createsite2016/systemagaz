@@ -25,7 +25,21 @@ while ($data_get_device2 = mysql_fetch_assoc($sql_get_device2))
 
 
 
-$sql_izm_zakaz = mysql_query("UPDATE `priem` SET `phone`='$phone',`fio`='$fio',`adress`='$adress',`rem_datatime`='$datatime',`status`='$name_status',`color`='$status',`tovar`='$tovar',`sklad`='$sklad',`dostavka`='$dostavka',`user_name`='$user_name' WHERE `id`='$id' ",$db);
+$sql_izm_zakaz = mysql_query("UPDATE `priem` SET `phone`='$phone',`fio`='$fio',`adress`='$adress',`datatime`='$datatime',`status`='$name_status',`color`='$status',`tovar`='$tovar',`sklad`='$sklad',`dostavka`='$dostavka',`user_name`='$user_name' WHERE `id`='$id' ",$db);
+
+$sql_add_history = mysql_query("INSERT INTO `log_priem` (
+	`id_zakaz`,
+	`datatime`,
+	`meneger`,
+	`status`,
+	`komment`
+	) VALUES (
+	'$id',
+	'$datatime',
+	'$user_name',
+	'$name_status',
+	'$tovar'
+	)",$db);
 
 exit("<html><head><meta charset='utf8'><meta http-equiv='Refresh' content='0; URL=index.php'></head></html>");
 ?>

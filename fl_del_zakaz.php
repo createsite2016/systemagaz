@@ -16,6 +16,8 @@ $id = stripslashes($id); // обработка от sql инекций
 $id = htmlspecialchars($id); // обработка от sql инекций
 
 $sql_del_uchet = mysql_query("DELETE FROM `priem` WHERE `id` = '$id'",$db);
+
+$sql_del_history = mysql_query("DELETE FROM `log_priem` WHERE `id_zakaz` = '$id'",$db);
 exit("<html><head><meta http-equiv='Refresh' content='0; URL=index.php'></head></html>");
 }
 ?>

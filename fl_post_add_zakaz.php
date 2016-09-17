@@ -25,7 +25,43 @@ while ($data_get_device2 = mysql_fetch_assoc($sql_get_device2))
 
 
 
-$sql_add_zakaz = mysql_query("INSERT INTO `priem` (`phone`,`fio`,`adress`,`user_name`,`datatime`,`sklad`,`tovar`,`status`,`color`,`dostavka`) VALUES ('$phone','$fio','$adress','$user_name','$datatime','$user_sc','$tovar','$name_status','$status','$dostavka')",$db);
+$sql_add_zakaz = mysql_query("INSERT INTO `priem` (
+	`phone`,
+	`fio`,
+	`adress`,
+	`user_name`,
+	`datatime`,
+	`sklad`,
+	`tovar`,
+	`status`,
+	`color`,
+	`dostavka`
+	) VALUES (
+	'$phone',
+	'$fio',
+	'$adress',
+	'$user_name',
+	'$datatime',
+	'$user_sc',
+	'$tovar',
+	'$name_status',
+	'$status',
+	'$dostavka'
+	)",$db); // доб нов заказа
+$id_zakaza=mysql_insert_id(); // получаем id только что добавленного заказа
+$sql_add_history = mysql_query("INSERT INTO `log_priem` (
+	`id_zakaz`,
+	`datatime`,
+	`meneger`,
+	`status`,
+	`komment`
+	) VALUES (
+	'$id_zakaza',
+	'$datatime',
+	'$user_name',
+	'$name_status',
+	'$tovar'
+	)",$db);
 
 exit("<html><head><meta http-equiv='Refresh' content='0; URL=index.php'></head></html>");
 ?>
