@@ -22,6 +22,7 @@ $us_ids = mysql_fetch_array($sql_us);
           <li><a href="status_rs.php"><i class="icon-minus"></i>Статусы (-Расходы)</a></li>
           <li><a href="dostavka.php"><i class="icon-plane"></i>Службы доставки</a></li>
           <li><a href="potavshiki.php"><i class="icon-truck"></i>Поставщики</a></li>
+          <li><a href="money.php"><i class="icon-money"></i>Валюта</a></li>
         </ul>
       </li>
 

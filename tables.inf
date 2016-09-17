@@ -24,3 +24,10 @@ log_priem
 `meneger`
 `status`
 `komment`
+
+money
+
+`id`
+`name`
+`chena`
+`komment`
