@@ -26,9 +26,15 @@ else { include("verh.php"); ?>
 
 <div class="row">
         <div class="col-lg-12">
-
+<?php
+$id_categor = $_GET['id_categor']; 
+$sql_get_name_categor = mysql_query("SELECT * FROM `categor` WHERE `id` = '$id_categor' LIMIT 1 ",$db); 
+while ($data_name_categor = mysql_fetch_assoc($sql_get_name_categor))
+{
+    $name_categor = $data_name_categor['name'];
+} ?>
 <section class="panel">
-<br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#categor"><i class="icon-folder-open-alt"></i> Новая категория</a> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> |</span></b><br><br>
+<br><b><span class="center"><b> |   <a href="products.php">  <-..... <?php echo $name_categor; ?></a></b> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> | </span></b><br><br>
             <div class="table-responsive">
               <table class="table table-striped b-t text-small">
                 <thead>
@@ -44,7 +50,6 @@ else { include("verh.php"); ?>
                 </thead>
 <?php
 // Если роль пользователя 1
-$id_categor = $_GET['id_categor'];
 include('showdata_forpeople.php');
 if ($user_role=='1') {
                         $sql_get_device = mysql_query("SELECT * FROM `tovar` WHERE `categor_id` =  '$id_categor' ",$db);
@@ -82,30 +87,7 @@ if ($user_role=='3') {
               </table>
               </section>
 
-                    <div id="categor" class="modal fade" style="display: none;" aria-hidden="true">
-                    <form class="m-b-none" action="fl_post_add_categor.php" method="POST">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>
-                    <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новая категория</h4>
-                    </div>
-                    <div class="modal-body">
-                    <div class="block">
-                    <label class="control-label">Название:</label>
-                    <input class="form-control parsley-validated" placeholder="" type="text" name="name" autofocus autocomplete="off">
-                    </div>
-                    </div>
-
-
-                    <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Добавить</button>
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Отмена</button>
-                    </div>
-                    </div>
-                    </div>
-                    </form>
-                    </div>
+                   
 
 
 
@@ -120,19 +102,6 @@ if ($user_role=='3') {
                     <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новый товар</h4>
                     </div>
 
-                    <div class="modal-body">
-                    <div class="block">
-                    <label class="control-label">Категория:</label>
-                    <select name="categor_id">
-                    <?php
-                    $sql_get_categor = mysql_query("SELECT * FROM `categor` ",$db);
-                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
-                      echo "<option value=".$data_categor['id'].">".$data_categor['name']."</option>";
-                    }
-                    ?>
-                    </select>
-                    </div>
-                    </div>
 
                     <div class="modal-body">
                     <div class="block">

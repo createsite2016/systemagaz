@@ -31,7 +31,7 @@ $sql_add_tovar = mysql_query("INSERT INTO `tovar` (
 	`status`,
 	`datatime`
 	) VALUES (
-	'$categor_id',
+	'$id_categor',
 	'$name',
 	'$model',
 	'$chena_input',
