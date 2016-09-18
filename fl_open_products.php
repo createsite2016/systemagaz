@@ -120,6 +120,19 @@ if ($user_role=='3') {
                     <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новый товар</h4>
                     </div>
 
+                    <div class="modal-body">
+                    <div class="block">
+                    <label class="control-label">Категория:</label>
+                    <select name="categor_id">
+                    <?php
+                    $sql_get_categor = mysql_query("SELECT * FROM `categor` ",$db);
+                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
+                      echo "<option value=".$data_categor['id'].">".$data_categor['name']."</option>";
+                    }
+                    ?>
+                    </select>
+                    </div>
+                    </div>
 
                     <div class="modal-body">
                     <div class="block">
