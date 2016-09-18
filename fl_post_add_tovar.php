@@ -14,6 +14,8 @@ $komment = $_POST['komment'];
 $status = $_POST['status'];
 $datatime = date("Y-m-d H:i:s");
 
+$id_categor = $_REQUEST['id_categor'];
+
 
 include("bd.php");
 
@@ -42,5 +44,5 @@ $sql_add_tovar = mysql_query("INSERT INTO `tovar` (
 	)",$db);
 echo mysql_error();
 
-exit("<html><head><meta http-equiv='Refresh' content='0; URL=products.php'></head></html>");
+exit("<html><head><meta http-equiv='Refresh' content='0; URL=fl_open_products.php?id_categor=$id_categor'></head></html>");
 ?>

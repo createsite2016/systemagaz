@@ -44,7 +44,7 @@ if ($user_role=='1') {
                         $sql_get_device = mysql_query("SELECT * FROM `categor` ORDER BY `name` DESC ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
-                    <td><a href="fl_open_products.php?id=<?php echo $data_get_device['id']; ?>"><?php echo $data_get_device['name']; ?></a></td>
+                    <td><a href="fl_open_products.php?id_categor=<?php echo $data_get_device['id']; ?>"><?php echo $data_get_device['name']; ?></a></td>
                     <td><a href="fl_del_categor.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_categor.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
@@ -56,7 +56,7 @@ if ($user_role=='3') {
                         $sql_get_device = mysql_query("SELECT * FROM `categor` ORDER BY `name` DESC ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
-                    <td><a href="fl_open_products.php?id=<?php echo $data_get_device['id']; ?>"><?php echo $data_get_device['name']; ?></a></td>
+                    <td><a href="fl_open_products.php?id_categor=<?php echo $data_get_device['id']; ?>"><?php echo $data_get_device['name']; ?></a></td>
                     <td><a href="fl_del_categor.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_categor.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>

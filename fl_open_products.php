@@ -33,32 +33,48 @@ else { include("verh.php"); ?>
               <table class="table table-striped b-t text-small">
                 <thead>
                   <tr>
-                    <th><b>Категория</b></th>
+                    <th><b>Модель</b></th>
+                    <th><b>Наименование</b></th>
+                    <th><b>Кол-во</b></th>
+                    <th><b>Цена(вх.)</b></th>
+                    <th><b>Цена(ис.)</b></th>
+                    <th><b>состояние</b></th>
                     <th><b>Дейстиве</b></th>
                   </tr>
                 </thead>
 <?php
 // Если роль пользователя 1
+$id_categor = $_GET['id_categor'];
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-                        $sql_get_device = mysql_query("SELECT * FROM `categor` ORDER BY `name` DESC ",$db);
+                        $sql_get_device = mysql_query("SELECT * FROM `tovar` WHERE `categor_id` =  '$id_categor' ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
-                    <td><a href="fl_open_products.php?id=<?php echo $data_get_device['id']; ?>"><?php echo $data_get_device['name']; ?></a></td>
-                    <td><a href="fl_del_categor.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_categor.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
+                    <td><?php echo $data_get_device['model']; ?></td>
+                    <td><?php echo $data_get_device['name']; ?></td>
+                    <td></td>
+                    <td><?php echo $data_get_device['chena_input']; ?></td>
+                    <td><?php echo $data_get_device['chena_output']; ?></td>
+                    <td><?php echo $data_get_device['status']; ?></td>
+                    <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
+                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
 <?php }}
 
 
 // Если роль пользователя 3
 if ($user_role=='3') {
-                        $sql_get_device = mysql_query("SELECT * FROM `categor` ORDER BY `name` DESC ",$db);
+                        $sql_get_device = mysql_query("SELECT * FROM `tovar` WHERE `categor_id` =  '$id_categor' ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
-                    <td><a href="fl_open_products.php?id=<?php echo $data_get_device['id']; ?>"><?php echo $data_get_device['name']; ?></a></td>
-                    <td><a href="fl_del_categor.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_categor.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
+                    <td><?php echo $data_get_device['model']; ?></td>
+                    <td><?php echo $data_get_device['name']; ?></td>
+                    <td></td>
+                    <td><?php echo $data_get_device['chena_input']; ?></td>
+                    <td><?php echo $data_get_device['chena_output']; ?></td>
+                    <td><?php echo $data_get_device['status']; ?></td>
+                    <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
+                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
 <?php }} ?>
                     </div>
@@ -104,24 +120,12 @@ if ($user_role=='3') {
                     <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новый товар</h4>
                     </div>
 
-                    <div class="modal-body">
-                    <div class="block">
-                    <label class="control-label">Категория:</label>
-                    <select name="categor_id">
-                    <?php
-                    $sql_get_categor = mysql_query("SELECT * FROM `categor` ",$db);
-                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
-                      echo "<option value=".$data_categor['id'].">".$data_categor['name']."</option>";
-                    }
-                    ?>
-                    </select>
-                    </div>
-                    </div>
 
                     <div class="modal-body">
                     <div class="block">
                     <label class="control-label">Название:</label>
                     <input class="form-control parsley-validated" placeholder="" type="text" name="name" autofocus autocomplete="off">
+                    <input type="hidden" name="id_categor" autofocus autocomplete="off" value="<?php echo $id_categor; ?>">
                     </div>
                     </div>
 
