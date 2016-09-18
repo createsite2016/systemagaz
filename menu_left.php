@@ -9,6 +9,7 @@ $sql_us = mysql_query("SELECT * FROM `users_8897532` WHERE `id`<>'$id_user' ",$d
 $us_ids = mysql_fetch_array($sql_us);
  ?>
       <li><a href="index.php"><i class="icon-credit-card icon-xlarge"></i><span>Заказы</span></a></li>
+      <li><a href="products.php"><i class="icon-sitemap  icon-xlarge"></i>Товары</a></li>
       <li><a href="prihod.php"><i class="icon-smile icon-xlarge"></i><span>Приходы</span></a></li>
       <li><a href="rashod.php"><i class="icon-frown icon-xlarge"></i><span>Расходы</span></a></li>
 
@@ -16,7 +17,7 @@ $us_ids = mysql_fetch_array($sql_us);
       <li class="dropdown-submenu">
         <a href="#"><i class="icon-folder-open icon-xlarge"></i><span>Справочники</span></a>
         <ul class="dropdown-menu">
-          <li><a href="magazins.php"><i class="icon-shopping-cart"></i>Магазины</a></li>
+          <li><a href="magazins.php"><i class="icon-shopping-cart"></i>Магаины</a></li>
           <li><a href="status.php"><i class="icon-credit-card"></i>Статусы (Заказы)</a></li>
           <li><a href="status_pr.php"><i class="icon-plus"></i>Статусы (+Приходы)</a></li>
           <li><a href="status_rs.php"><i class="icon-minus"></i>Статусы (-Расходы)</a></li>

@@ -26,7 +26,50 @@ else { include("verh.php"); ?>
 
 <div class="row">
         <div class="col-lg-12">
+<?php
 
+$sql_rows = mysql_query("SELECT count(*) FROM `priem` ",$db); 
+$data = mysql_fetch_row($sql_rows);
+$total_rows=$data[0];
+
+$total_articles_number = $total_rows;   //общее количество статей
+$articles_per_page=15; // количество статей на странице
+$b = $_GET['page'];
+if (!isset($_GET['page'])) {
+    $b=1;
+}
+$a = $b + $articles_per_page;
+//получаем количество страниц
+$total_pages = ceil($total_articles_number/$articles_per_page);
+
+?>
+<footer class="panel-footer">
+              <div class="row">
+                <div class="col-12 text-right text-center-sm">                
+                  <ul class="pagination pagination-small m-t-none m-b-none">
+<?php
+// запускаем цикл - количество итераций равно количеству страниц
+for ($i=0; $i<$total_pages; $i++)
+{
+// получаем значение $from (как $page_number) для использования в формировании ссылки
+$page_number=$i*$articles_per_page;
+// если $page_number (фактически это проверка того является ли $from текущим) не соответствует
+// текущей странице,
+// выводим ссылку на страницу со значением $from равным $page_number
+if ($page_number!=$from) {echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1).
+    " </a></li>"; }
+// иначе просто выводим номер страницы - данная строка необязательна,
+// пропустив ее вы просто получите линк на текущую страницу 
+else { 
+  $page_number='1';
+  echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
+  } // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
+}
+?>
+                  </ul>
+                </div>
+              </div>
+            </footer>
 <section class="panel">
 <br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-credit-card"></i> Новый заказ</a> | </span></b><br><br>
             <div class="table">
@@ -86,7 +129,7 @@ if ($user_role=='1') {
 
 // Если роль пользователя 3
 if ($user_role=='3') {
-                        $sql_get_device = mysql_query("SELECT * FROM `priem` ORDER BY `datatime` DESC ",$db);
+                        $sql_get_device = mysql_query("SELECT * FROM `priem` ORDER BY `datatime` DESC LIMIT $b,$articles_per_page ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
                   <td>
@@ -122,6 +165,50 @@ if ($user_role=='3') {
               </tbody>
               </table>
               </section>
+<?php
+
+$sql_rows = mysql_query("SELECT count(*) FROM `priem` ",$db); 
+$data = mysql_fetch_row($sql_rows);
+$total_rows=$data[0];
+
+$total_articles_number = $total_rows;   //общее количество статей
+ // количество статей на странице
+$b = $_GET['page'];
+if (!isset($_GET['page'])) {
+    $b=1;
+}
+$a = $b + $articles_per_page;
+//получаем количество страниц
+$total_pages = ceil($total_articles_number/$articles_per_page);
+
+?>
+<footer class="panel-footer">
+              <div class="row">
+                <div class="col-12 text-right text-center-sm">                
+                  <ul class="pagination pagination-small m-t-none m-b-none">
+<?php
+// запускаем цикл - количество итераций равно количеству страниц
+for ($i=0; $i<$total_pages; $i++)
+{
+// получаем значение $from (как $page_number) для использования в формировании ссылки
+$page_number=$i*$articles_per_page;
+// если $page_number (фактически это проверка того является ли $from текущим) не соответствует
+// текущей странице,
+// выводим ссылку на страницу со значением $from равным $page_number
+if ($page_number!=$from) {echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1).
+    " </a></li>"; }
+// иначе просто выводим номер страницы - данная строка необязательна,
+// пропустив ее вы просто получите линк на текущую страницу 
+else { 
+  $page_number='1';
+  echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
+  } // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
+}
+?>
+                  </ul>
+                </div>
+              </div>
+            </footer>
 
                     <div id="modal" class="modal fade" style="display: none;" aria-hidden="true">
                     <form class="m-b-none" action="fl_post_add_zakaz.php" method="POST">
