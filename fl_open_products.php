@@ -34,7 +34,7 @@ while ($data_name_categor = mysql_fetch_assoc($sql_get_name_categor))
     $name_categor = $data_name_categor['name'];
 } ?>
 <section class="panel">
-<br><b><span class="center"><b> |   <a href="products.php">  <-..... <?php echo $name_categor; ?></a></b> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> | </span></b><br><br>
+<br><b><span class="center"><b> |   <a href="products.php">  <- <?php echo $name_categor; ?></a></b> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> | </span></b><br><br>
             <div class="table-responsive">
               <table class="table table-striped b-t text-small">
                 <thead>
@@ -62,7 +62,7 @@ if ($user_role=='1') {
                     <td><?php echo $data_get_device['chena_output']; ?></td>
                     <td><?php echo $data_get_device['status']; ?></td>
                     <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
+                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
 <?php }}
 
@@ -79,7 +79,7 @@ if ($user_role=='3') {
                     <td><?php echo $data_get_device['chena_output']; ?></td>
                     <td><?php echo $data_get_device['status']; ?></td>
                     <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
+                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
 <?php }} ?>
                     </div>

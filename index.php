@@ -33,10 +33,10 @@ $data = mysql_fetch_row($sql_rows);
 $total_rows=$data[0];
 
 $total_articles_number = $total_rows;   //общее количество статей
-$articles_per_page=15; // количество статей на странице
+$articles_per_page=4; // количество статей на странице
 $b = $_GET['page'];
 if (!isset($_GET['page'])) {
-    $b=1;
+    $b=0;
 }
 $a = $b + $articles_per_page;
 //получаем количество страниц
@@ -93,7 +93,8 @@ else {
 // Если роль пользователя 1
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-                        $sql_get_device = mysql_query("SELECT * FROM `priem` ORDER BY `datatime` DESC ",$db);
+      if ( $_REQUEST['page'] == '1' ) { $b = '0'; }
+                        $sql_get_device = mysql_query("SELECT * FROM `priem` ORDER BY `datatime` DESC LIMIT $b,$articles_per_page ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
                     <td>
@@ -129,6 +130,7 @@ if ($user_role=='1') {
 
 // Если роль пользователя 3
 if ($user_role=='3') {
+    if ( $_REQUEST['page'] == '1' ) { $b = '0'; }
                         $sql_get_device = mysql_query("SELECT * FROM `priem` ORDER BY `datatime` DESC LIMIT $b,$articles_per_page ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
@@ -175,7 +177,7 @@ $total_articles_number = $total_rows;   //общее количество ста
  // количество статей на странице
 $b = $_GET['page'];
 if (!isset($_GET['page'])) {
-    $b=1;
+    $b=0;
 }
 $a = $b + $articles_per_page;
 //получаем количество страниц

@@ -174,12 +174,9 @@ if ($user_role=='3') {
                     <div class="block">
                     <label class="control-label">Статус:</label><br>
                       <select name="status">
-                    <?php
-                    $sql_get_status = mysql_query("SELECT * FROM `status_rs` ",$db);
-                      while ($data_status = mysql_fetch_assoc($sql_get_status)) {
-                      echo "<option>".$data_status['name']."</option>";
-                    }
-                    ?>
+                            <option selected value="Доступен">Доступен</option>
+                            <option value="Недоступен">Недоступен</option>
+                            <option value="Неизвестен">Неизвестен</option>
                       </select>
                     </div>
 
