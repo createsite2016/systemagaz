@@ -62,7 +62,9 @@ if ($user_role=='1') {
                     <td><?php echo $data_get_device['chena_output']; ?></td>
                     <td><?php echo $data_get_device['status']; ?></td>
                     <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a></td>
+                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a>
+                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
+                    <a href="fl_prodat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a></td>
                   </tr>
 <?php }}
 
@@ -79,7 +81,9 @@ if ($user_role=='3') {
                     <td><?php echo $data_get_device['chena_output']; ?></td>
                     <td><?php echo $data_get_device['status']; ?></td>
                     <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a></td>
+                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a><br>
+                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
+                    <a href="fl_prodat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a></td>
                   </tr>
 <?php }} ?>
                     </div>
