@@ -32,7 +32,7 @@ $params = mysql_fetch_array($get_params);
               <form action="fl_post_izm_tovar.php" class="form-horizontal" method="POST" data-validate="parsley">      
                 <div class="form-group">
                   <div class="col-lg-9 media">
-                    <center><h4><i class="icon-edit"></i>Редактирование продукта</h4></center>
+                    <center><h4><i class="icon-edit"></i>Редактирование товара</h4></center>
                   </div>
                 </div>
 
@@ -126,5 +126,68 @@ $params = mysql_fetch_array($get_params);
 
             </div>
           </section>
+
+
+
+
+
+  <center><h4><i class="icon-time"></i>Итория товара</h4></center>
+  <!-- Панель лога действий с товаром -->
+  <section class="panel">
+    <br><b></b><br><br>
+    <div class="table">
+      <table class="table text-small">
+        <thead>
+        <tr>
+          <th><b>Дата</b></th>
+          <th><b>Кол-во</b></th>
+          <th><b>Цена</b></th>
+          <th><b>Профит</b></th>
+          <th><b>Накладная</b></th>
+          <th><b>Наложка</b></th>
+          <th><b>Комментарий</b></th>
+          <th><b>Магазин</b></th>
+          <th><b>Менеджер</b></th>
+          <th><b>Продавец</b></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        include('showdata_forpeople.php');
+        if ($user_role=='1') {
+          $sql_get_history = mysql_query("SELECT * FROM `log_rashod` WHERE `id_tovara` = '$id' ORDER BY `datatime` DESC ",$db);
+          while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+            <tr>
+              <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['kolvo'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['chena'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['prifut'];?></font></b></td>
+                <td><b><font color="black"><?php echo $data_history['nakladnaya'];?></font></b></td>
+                <td><b><font color="black"><?php echo $data_history['nalogka'];?></font></b></td>
+                <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
+                <td><b><font color="black"><?php echo $data_history['magazin'];?></font></b></td>
+                <td><b><font color="black"><?php echo $data_history['menedger'];?></font></b></td>
+                <td><b><font color="black"><?php echo $data_history['prodavec'];?></font></b></td>
+            </tr>
+          <?php }}
+        if ($user_role=='3') {
+            $sql_get_history = mysql_query("SELECT * FROM `log_rashod` WHERE `id_tovara` = '$id' ORDER BY `datatime` DESC ",$db);
+            while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+                <tr>
+                    <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['kolvo'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['chena'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['prifut'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['nakladnaya'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['nalogka'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['magazin'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['menedger'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['prodavec'];?></font></b></td>
+                </tr>
+          <?php }} ?>
+        </tbody>
+      </table>
+    </div></section>
 
 <?php include("niz.php"); }?>

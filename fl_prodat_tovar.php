@@ -29,10 +29,10 @@ $params = mysql_fetch_array($get_params);
 ?>
 <section class="panel">
             <div class="panel-body">
-              <form action="fl_post_prodat_tovar.php" class="form-horizontal" method="POST" data-validate="parsley">      
+              <form action="fl_post_prodat_tovar.php" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                   <div class="col-lg-9 media">
-                    <center><h4><i class="icon-edit"></i>Продажа продукта</h4></center>
+                    <center><h4><i class="icon-edit"></i>Продажа товар</h4></center>
                   </div>
                 </div>
 
@@ -58,7 +58,7 @@ $params = mysql_fetch_array($get_params);
                     $id_categor = $_GET['categor'];
                     $sql_get_categor = mysql_query(" SELECT * FROM `magazins` ",$db);
                       while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
-                      echo "<option value=".$data_categor['id'].">".$data_categor['name']."</option>";
+                      echo "<option value='".$data_categor[name]."'>".$data_categor['name']."</option>";
                     }
                     ?>
                     </select>
@@ -66,6 +66,7 @@ $params = mysql_fetch_array($get_params);
                     <input type="hidden" name="chena_output" value="<?php echo $params['chena_output']; ?>" >
                     <input type="hidden" name="chena_input" value="<?php echo $params['chena_input']; ?>" >
                     <input type="hidden" name="id_categor" value="<?php echo $id_categor; ?>" >
+                    <input type="hidden" name="user_name" value="<?php echo $name ?>" >
                   </div>
                 </div>
 
@@ -80,12 +81,8 @@ $params = mysql_fetch_array($get_params);
                   <label class="col-lg-3 control-label">Наложка:</label>
                   <div class="col-lg-8">
                     <select name="nalogka">
-                    <?php
-                    // $status = $params['status'];
-                    // echo "<option selected value=".$status.">".$status."</option>";
-                    // ?>
-                    <option value="Доступен">Да</option>
-                    <option value="Недоступен">Нет</option>
+                    <option value="Да">Да</option>
+                    <option value="Нет">Нет</option>
                     </select>
                   </div>
                 </div>
@@ -100,7 +97,7 @@ $params = mysql_fetch_array($get_params);
                  
                 <div class="form-group">
                   <div class="col-lg-9 col-lg-offset-3">                      
-                    <button type="submit" class="btn btn-primary">Изменить</button>
+                    <button type="submit" class="btn btn-primary">Продать</button>
                     <span class="center"><a href="fl_open_products.php?id_categor=<?php echo $id_categor; ?>" class="btn btn-default btn-xs">Отмена</a></span>
                   </div>
                 </div>
@@ -109,5 +106,70 @@ $params = mysql_fetch_array($get_params);
 
             </div>
           </section>
+
+
+
+  <center><h4><i class="icon-time"></i>Итория товара</h4></center>
+  <!-- Панель лога действий с товаром -->
+  <section class="panel">
+    <br><b></b><br><br>
+    <div class="table">
+      <table class="table text-small">
+        <thead>
+        <tr>
+          <th><b>Дата</b></th>
+          <th><b>Кол-во</b></th>
+          <th><b>Цена</b></th>
+          <th><b>Профит</b></th>
+          <th><b>Накладная</b></th>
+          <th><b>Наложка</b></th>
+          <th><b>Комментарий</b></th>
+          <th><b>Магазин</b></th>
+          <th><b>Менеджер</b></th>
+          <th><b>Продавец</b></th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php
+        include('showdata_forpeople.php');
+        if ($user_role=='1') {
+          $sql_get_history = mysql_query("SELECT * FROM `log_rashod` WHERE `id_tovara` = '$id' ORDER BY `datatime` DESC ",$db);
+          while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+            <tr>
+              <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['kolvo'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['chena'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['prifut'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['nakladnaya'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['nalogka'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['magazin'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['menedger'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['prodavec'];?></font></b></td>
+            </tr>
+          <?php }}
+        if ($user_role=='3') {
+          $sql_get_history = mysql_query("SELECT * FROM `log_rashod` WHERE `id_tovara` = '$id' ORDER BY `datatime` DESC ",$db);
+          while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+            <tr>
+              <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['kolvo'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['chena'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['prifut'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['nakladnaya'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['nalogka'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['magazin'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['menedger'];?></font></b></td>
+              <td><b><font color="black"><?php echo $data_history['prodavec'];?></font></b></td>
+            </tr>
+          <?php }} ?>
+        </tbody>
+      </table>
+    </div></section>
+
+
+
+
 
 <?php include("niz.php"); }?>
