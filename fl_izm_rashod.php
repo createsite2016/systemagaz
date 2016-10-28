@@ -63,63 +63,63 @@ $params = mysql_fetch_array($get_params);
                 <div class="form-group">
                   <label class="col-lg-3 control-label">UAH:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="uah" placeholder="" class="form-control parsley-validated" value="<?php echo $params['uah']; ?>">
+                    <input type="tel" pattern="[0-9]{0,100}" autocomplete="off" name="uah" placeholder="" class="form-control parsley-validated" value="<?php echo $params['uah']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">USD:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="usd" placeholder="" class="form-control parsley-validated" value="<?php echo $params['usd']; ?>">
+                    <input type="tel" pattern="[0-9]{0,100}" autocomplete="off" name="usd" placeholder="" class="form-control parsley-validated" value="<?php echo $params['usd']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">EUR:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="eur" placeholder="" class="form-control parsley-validated" value="<?php echo $params['usd']; ?>">
+                    <input type="tel" pattern="[0-9]{0,100}" autocomplete="off" name="eur" placeholder="" class="form-control parsley-validated" value="<?php echo $params['usd']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Счет1:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="cash1" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash1']; ?>">
+                    <input type="tel" pattern="[0-9]{0,100}" autocomplete="off" name="cash1" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash1']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Счет2:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="cash2" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash2']; ?>">
+                    <input type="tel" pattern="[0-9]{0,100}" autocomplete="off" name="cash2" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash2']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Счет3:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="cash3" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash3']; ?>">
+                    <input type="tel" pattern="[0-9]{0,100}" autocomplete="off" name="cash3" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash3']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Счет4:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="cash4" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash4']; ?>">
+                    <input type="tel" pattern="[0-9]{0,100}" autocomplete="off" name="cash4" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash4']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Счет5:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="cash5" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash5']; ?>">
+                    <input type="tel" pattern="[0-9]{0,100}" autocomplete="off" name="cash5" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash5']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Счет6:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="cash6" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash6']; ?>">
+                    <input type="tel" pattern="[0-9]{0,100}" autocomplete="off" name="cash6" placeholder="" class="form-control parsley-validated" value="<?php echo $params['cash6']; ?>">
                     <input type="hidden" name="user_name" value="<?php echo $name ?>" >
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
                   </div>

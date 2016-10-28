@@ -40,21 +40,21 @@ $params = mysql_fetch_array($get_params);
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Фамилия:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="fio" placeholder="" data-required="true" class="form-control parsley-validated" value="<?php echo $params['fio']; ?>">
+                    <input type="text" autocomplete="off" name="fio" class="form-control parsley-validated" value="<?php echo $params['fio']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Телефон:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="phone" placeholder="" data-required="true" class="form-control parsley-validated" value="<?php echo $params['phone']; ?>">
+                    <input type="text" autocomplete="off" name="phone" class="form-control parsley-validated" value="<?php echo $params['phone']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Адрес:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="adress" placeholder="" data-required="true" class="form-control parsley-validated" value="<?php echo $params['adress']; ?>">
+                    <input type="text" autocomplete="off" name="adress" class="form-control parsley-validated" value="<?php echo $params['adress']; ?>">
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
                     <input type="hidden" name="usid" value="<?php echo $usid ?>" >
                     <input type="hidden" name="user_name" value="<?php echo $name ?>" >
@@ -70,6 +70,24 @@ $params = mysql_fetch_array($get_params);
                     $sql_get_magaz = mysql_query("SELECT * FROM `dostavka` ",$db);
                       while ($data = mysql_fetch_assoc($sql_get_magaz)) {
                       if ($data['name']!==$params['dostavka']) {
+                         echo "<option>".$data['name']."</option>";
+                      }
+                    }
+                    ?>
+                      </select>
+                  </div>
+                </div>
+
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Поставщик:</label>
+                  <div class="col-lg-8">
+                      <select name="postavshik">
+                      <option selected value="<?php echo $params['postavshik']; ?>"><?php echo $params['postavshik']; ?></option>
+                    <?php
+                    $sql_get_magaz = mysql_query("SELECT * FROM `postavshiki` ",$db);
+                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
+                      if ($data['name']!==$params['postavshik']) {
                          echo "<option>".$data['name']."</option>";
                       }
                     }
@@ -111,12 +129,22 @@ $params = mysql_fetch_array($get_params);
                   <label class="col-lg-3 control-label">Статус:</label>
                   <div class="col-lg-8">
                       <select name="status">
-                      <option selected value="<?php echo $params['color']; ?>"><?php echo $params['status']; ?></option>
+
+                      <?php
+                      $color_id = $params['color'];
+                      $sql_get_color = mysql_query("SELECT * FROM `status` where `id`='$color_id' ",$db);
+                      while ($data_get_color = mysql_fetch_assoc($sql_get_color)) { 
+                        $color_code = $data_get_color['color']; // код цвета
+                        $color_name_status = $data_get_color['name']; // наименование статуса
+                      }?>
+
+
+                      <option selected value="<?php echo $color_id; ?>"><?php echo $color_name_status; ?></option>
                     <?php
                     $sql_get_status = mysql_query("SELECT * FROM `status` ",$db);
                       while ($data_status = mysql_fetch_assoc($sql_get_status)) {
-                      if ($data_status['name']!==$params['status']) {
-                        echo "<option value=".$data_status['color'].">".$data_status['name']."</option>";
+                      if ($data_status['name']!==$color_name_status) {
+                        echo "<option value=".$data_status['id'].">".$data_status['name']."</option>";
                       }
                     }
                     ?>
@@ -149,6 +177,12 @@ $params = mysql_fetch_array($get_params);
                     <th><b>Дата</b></th>
                     <th><b>Менеджер</b></th>
                     <th><b>Статус</b></th>
+                    <th><b></b>ФИО</th>
+                    <th><b>Телефон</b></th>
+                    <th><b>Адрес</b></th>
+                    <th><b>Служба доставки</b></th>
+                    <th><b>Поставщик</b></th>
+                    <th><b>Магазин</b></th>
                     <th><b>Комментарий</b></th>
                   </tr>
                 </thead>
@@ -159,9 +193,15 @@ if ($user_role=='1') {
   $sql_get_history = mysql_query("SELECT * FROM `log_priem` WHERE `id_zakaz` = '$id' ORDER BY `datatime` DESC ",$db);
 while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
                   <tr>
-                    <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
+                    <td><b><font color="black"><?php $date = new DateTime($data_history['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['meneger'];?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['status'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['fio'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['phone'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['adress'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['dostavka'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['postavshik'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['store'];?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
                   </tr>
 <?php }}
@@ -169,9 +209,15 @@ if ($user_role=='3') {
   $sql_get_history = mysql_query("SELECT * FROM `log_priem` WHERE `id_zakaz` = '$id' ORDER BY `datatime` DESC ",$db);
 while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
                   <tr>
-                    <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
+                    <td><b><font color="black"><?php $date = new DateTime($data_history['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['meneger'];?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['status'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['fio'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['phone'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['adress'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['dostavka'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['postavshik'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['store'];?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
                   </tr>
 <?php }} ?>              

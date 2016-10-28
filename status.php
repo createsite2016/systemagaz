@@ -3,7 +3,7 @@ session_start();
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
-}  
+}
 // Иначе открываем для него контент
 else { include("verh.php"); ?>
 
@@ -33,6 +33,7 @@ else { include("verh.php"); ?>
               <table class="table text-small">
                 <thead>
                   <tr>
+                    <th><b>Порядок</b></th>
                     <th><b>Статус</b></th>
                     <th><b>Цвет</b></th>
                     <th><b>Примечание</b></th>
@@ -43,9 +44,10 @@ else { include("verh.php"); ?>
 // Если роль пользователя 1
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-                        $sql_get_device = mysql_query("SELECT * FROM `status` ORDER BY `name` DESC ",$db);
+                        $sql_get_device = mysql_query("SELECT * FROM `status` ORDER BY `sotr` ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
+                    <td><?php echo $data_get_device['sort']; ?></td>
                     <td><?php echo $data_get_device['name']; ?></td>
                     <td bgcolor="<?php echo $data_get_device['color']; ?>"></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
@@ -57,9 +59,10 @@ if ($user_role=='1') {
 
 // Если роль пользователя 3
 if ($user_role=='3') {
-                        $sql_get_device = mysql_query("SELECT * FROM `status` ORDER BY `name` DESC ",$db);
+                        $sql_get_device = mysql_query("SELECT * FROM `status` ORDER BY `sort` ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
+                    <td><?php echo $data_get_device['sort']; ?></td>
                     <td><?php echo $data_get_device['name']; ?></td>
                     <td bgcolor="<?php echo $data_get_device['color']; ?>"><font color="black"><?php echo $data_get_device['name_color']; ?></font></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
@@ -97,6 +100,13 @@ if ($user_role=='3') {
 
                     <div class="modal-body">
                     <div class="block">
+                    <label class="control-label">Порядок вывода:</label>
+                    <input class="form-control parsley-validated" placeholder="" type="text" name="sort" autofocus autocomplete="off" value="0">
+                    </div>
+                    </div>
+
+                    <div class="modal-body">
+                    <div class="block">
                     <label class="control-label">Цвет:</label>
                       <select name="color">
                         <option value="#FFFFFF">Без цвета</option>
@@ -105,9 +115,12 @@ if ($user_role=='3') {
                         <option value="#E7D627">Желтый</option>
                         <option value="#CC3E43">Красный</option>
                         <option value="#CCC9CF">Серый</option>
+                        <option value="#FF7400">Оранжевый</option>
+                        <option value="#FF0096">Розовый</option>
+                        <option value="#CDEB8B">Салатовый</option>
                       </select>
                     </div>
-                    
+
                     </div>
                     <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Внести в справочник</button>
@@ -119,4 +132,3 @@ if ($user_role=='3') {
                     </div>
 <!-- / Конец тела страницы -->
 <?php include("niz.php"); }?>
-

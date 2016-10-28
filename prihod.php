@@ -56,7 +56,7 @@ if ($user_role=='1') {
                         $sql_get_device = mysql_query("SELECT * FROM `prihod` ORDER BY `datatime` DESC ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
-                    <td><?php $vremya = date_smart($data_get_device['datatime']); echo $vremya ?></td>
+                    <td><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></td>
                     <td><?php echo $data_get_device['uah']; ?></td>
                     <td><?php echo $data_get_device['usd']; ?></td>
                     <td><?php echo $data_get_device['eur']; ?></td>
@@ -89,7 +89,7 @@ if ($user_role=='3') {
                         $sql_get_device = mysql_query("SELECT * FROM `prihod` ORDER BY `datatime` DESC ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
-                    <td><?php $vremya = date_smart($data_get_device['datatime']); echo $vremya ?></td>
+                    <td><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></td>
                     <td><?php echo $data_get_device['uah']; ?></td>
                     <td><?php echo $data_get_device['usd']; ?></td>
                     <td><?php echo $data_get_device['eur']; ?></td>
@@ -151,49 +151,49 @@ if ($user_role=='3') {
 
                     <div class="block">
                     <label class="control-label">UAH:</label>
-                    <input class="form-control" placeholder="UAH" type="text" name="uah" autofocus autocomplete="off">
+                    <input class="form-control" placeholder="UAH" type="tel" pattern="[0-9]{0,100}" name="uah" autofocus autocomplete="off">
                     </div>
 
                     <div class="block">
                     <label class="control-label">USD:</label>
-                    <input class="form-control" placeholder="USD" type="text" name="usd" autofocus autocomplete="off">
+                    <input class="form-control" placeholder="USD" type="tel" pattern="[0-9]{0,100}" name="usd" autofocus autocomplete="off">
                     </div>
 
                     <div class="block">
                     <label class="control-label">EUR:</label>
-                    <input class="form-control" placeholder="EUR" type="text" name="eur" autofocus autocomplete="off">
+                    <input class="form-control" placeholder="EUR" type="tel" pattern="[0-9]{0,100}" name="eur" autofocus autocomplete="off">
                     </div>
 
                     <b><font color="green"><i class="icon-credit-card"></i>БЕЗНАЛ</font></b>
 
                     <div class="block">
                     <label class="control-label">Счет1:</label>
-                    <input class="form-control" placeholder="Счет1" type="text" name="cash1" autofocus autocomplete="off">
+                    <input class="form-control" placeholder="Счет1" type="tel" pattern="[0-9]{0,100}" name="cash1" autofocus autocomplete="off">
                     </div>
 
                     <div class="block">
                     <label class="control-label">Счет2:</label>
-                    <input class="form-control" placeholder="Счет2" type="text" name="cash2" autofocus autocomplete="off">
+                    <input class="form-control" placeholder="Счет2" type="tel" pattern="[0-9]{0,100}" name="cash2" autofocus autocomplete="off">
                     </div>
 
                     <div class="block">
                     <label class="control-label">Счет3:</label>
-                    <input class="form-control" placeholder="Счет3" type="text" name="cash3" autofocus autocomplete="off">
+                    <input class="form-control" placeholder="Счет3" type="tel" pattern="[0-9]{0,100}" name="cash3" autofocus autocomplete="off">
                     </div>
                     
                     <div class="block">
                     <label class="control-label">Счет4:</label>
-                    <input class="form-control" placeholder="Счет4" type="text" name="cash4" autofocus autocomplete="off">
+                    <input class="form-control" placeholder="Счет4" type="tel" pattern="[0-9]{0,100}" name="cash4" autofocus autocomplete="off">
                     </div>
 
                     <div class="block">
                     <label class="control-label">Счет5:</label>
-                    <input class="form-control" placeholder="Счет5" type="text" name="cash5" autofocus autocomplete="off">
+                    <input class="form-control" placeholder="Счет5" type="tel" pattern="[0-9]{0,100}" name="cash5" autofocus autocomplete="off">
                     </div>
 
                     <div class="block">
                     <label class="control-label">Счет6:</label>
-                    <input class="form-control" placeholder="Счет6" type="text" name="cash6" autofocus autocomplete="off">
+                    <input class="form-control" placeholder="Счет6" type="tel" pattern="[0-9]{0,100}" name="cash6" autofocus autocomplete="off">
                     <input type="hidden" name="user_name" value="<?php echo $name ?>" >
                     </div>
 

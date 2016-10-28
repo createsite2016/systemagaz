@@ -57,14 +57,18 @@ if ($user_role=='1') {
                   <tr>
                     <td><?php echo $data_get_device['model']; ?></td>
                     <td><?php echo $data_get_device['name']; ?></td>
-                    <td></td>
-                    <td><?php echo $data_get_device['chena_input']; ?></td>
-                    <td><?php echo $data_get_device['chena_output']; ?></td>
+                    <td><?php echo $data_get_device['kolvo']; ?></td>
+                    <td><?php echo $data_get_device['chena_input']; echo " "; echo $data_get_device['money_input']; ?></td>
+                    <td><?php echo $data_get_device['chena_output']; echo " "; echo $data_get_device['money_output']; ?></td>
                     <td><?php echo $data_get_device['status']; ?></td>
                     <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a>
-                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
-                    <a href="fl_prodat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a></td>
+                    <a href="fl_prinyat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
+                    <?php
+                    if ($data_get_device['kolvo']>0){ ?>
+                        <a href="fl_prodat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a>
+                    <?php } ?>
+                    </td>
                   </tr>
 <?php }}
 
@@ -76,14 +80,18 @@ if ($user_role=='3') {
                   <tr>
                     <td><?php echo $data_get_device['model']; ?></td>
                     <td><?php echo $data_get_device['name']; ?></td>
-                    <td></td>
-                    <td><?php echo $data_get_device['chena_input']; ?></td>
-                    <td><?php echo $data_get_device['chena_output']; ?></td>
+                    <td><?php echo $data_get_device['kolvo']; ?></td>
+                      <td><?php echo $data_get_device['chena_input']; echo " "; echo $data_get_device['money_input']; ?></td>
+                      <td><?php echo $data_get_device['chena_output']; echo " "; echo $data_get_device['money_output']; ?></td>
                     <td><?php echo $data_get_device['status']; ?></td>
                     <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a><br>
-                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
-                    <a href="fl_prodat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a></td>
+                    <a href="fl_prinyat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
+                        <?php
+                        if ($data_get_device['kolvo']>0){ ?>
+                            <a href="fl_prodat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a>
+                        <?php } ?>
+                    </td>
                   </tr>
 <?php }} ?>
                     </div>

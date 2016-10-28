@@ -1,6 +1,7 @@
 <?php
 session_start();
-$login = $_SESSION['login']; 
+$login = $_SESSION['login'];
+$categor_id = $_POST['categor_id'];
 $name = $_POST['name'];
 $model = $_POST['model'];
 $chena_input = $_POST['chena_input'];
@@ -18,6 +19,7 @@ $sql_izm_status = mysql_query("UPDATE `tovar` SET
 	`chena_input` = '$chena_input',
 	`chena_output` = '$chena_output',
 	`komment` = '$komment',
+	`categor_id` = '$categor_id',
 	`status` = '$status' 
 	WHERE `id` = '$id' ",$db);
 

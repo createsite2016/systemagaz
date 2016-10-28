@@ -52,6 +52,13 @@ $params = mysql_fetch_array($get_params);
                 </div>
 
                 <div class="form-group">
+                  <label class="col-lg-3 control-label">Порядок:</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="sort" placeholder="" class="form-control parsley-validated" value="<?php echo $params['sort']; ?>">
+                  </div>
+                </div>
+
+                <div class="form-group">
                   <label class="col-lg-3 control-label">Цвет:</label>
                   <div class="col-lg-8">
                     <select name="color">
@@ -62,6 +69,9 @@ $params = mysql_fetch_array($get_params);
                         <option value="#E7D627">Желтый</option>
                         <option value="#CC3E43">Красный</option>
                         <option value="#CCC9CF">Серый</option>
+                        <option value="#FF7400">Оранжевый</option>
+                        <option value="#FF0096">Розовый</option>
+                        <option value="#CDEB8B">Салатовый</option>
                       </select>
                   </div>
                 </div>

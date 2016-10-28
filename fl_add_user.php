@@ -31,6 +31,7 @@ else { include("verh.php"); ?>
                   <div class="col-lg-8">
                   <select class="select2-offscreen" name="profes" tabindex="-1" id="select2-option" style="width:300px">
                           <option value="Менеджер">Менеджер</option>
+                          <option value="Администратор">Администратор</option>
                           <option value="Директор">Директор</option>
                   </select>
                   </div>
@@ -39,7 +40,7 @@ else { include("verh.php"); ?>
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Имя:</label>
                   <div class="col-lg-8">
-                    <input type="text" name="name" placeholder="Иван" class="bg-focus form-control parsley-validated" data-required="true" data-type="email" autocomplete="off">
+                    <input type="text" name="name" placeholder="Иван" class="bg-focus form-control parsley-validated" data-required="true" autocomplete="off">
                   </div>
                 </div>
 

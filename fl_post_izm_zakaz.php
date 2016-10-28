@@ -12,12 +12,13 @@ $datatime = date("Y-m-d H:i:s");
 $id = $_POST['id']; 
 $dostavka = $_POST['dostavka'];
 $user_name = $_POST['user_name'];
+$postavshik = $_POST['postavshik'];
 
 
 include("bd.php");
 
 
-$sql_get_device2 = mysql_query("SELECT * FROM `status` WHERE `color` = '$status' LIMIT 1 ",$db); 
+$sql_get_device2 = mysql_query("SELECT * FROM `status` WHERE `id` = '$status' LIMIT 1 ",$db); 
 while ($data_get_device2 = mysql_fetch_assoc($sql_get_device2))
 {
 	$name_status = $data_get_device2['name'];
@@ -25,20 +26,32 @@ while ($data_get_device2 = mysql_fetch_assoc($sql_get_device2))
 
 
 
-$sql_izm_zakaz = mysql_query("UPDATE `priem` SET `phone`='$phone',`fio`='$fio',`adress`='$adress',`datatime`='$datatime',`status`='$name_status',`color`='$status',`tovar`='$tovar',`sklad`='$sklad',`dostavka`='$dostavka',`user_name`='$user_name' WHERE `id`='$id' ",$db);
+$sql_izm_zakaz = mysql_query("UPDATE `priem` SET `phone`='$phone',`fio`='$fio',`adress`='$adress',`status`='$name_status',`color`='$status',`tovar`='$tovar',`sklad`='$sklad',`dostavka`='$dostavka',`postavshik`='$postavshik',`user_name`='$user_name' WHERE `id`='$id' ",$db);
 
 $sql_add_history = mysql_query("INSERT INTO `log_priem` (
 	`id_zakaz`,
 	`datatime`,
 	`meneger`,
 	`status`,
-	`komment`
+	`komment`,
+	`fio`,
+	`phone`,
+	`adress`,
+	`dostavka`,
+	`postavshik`,
+	`store`
 	) VALUES (
 	'$id',
 	'$datatime',
 	'$user_name',
 	'$name_status',
-	'$tovar'
+	'$tovar',
+	'$fio',
+	'$phone',
+	'$adress',
+	'$dostavka',
+	'$postavshik',
+	'$sklad'
 	)",$db);
 
 exit("<html><head><meta charset='utf8'><meta http-equiv='Refresh' content='0; URL=index.php'></head></html>");

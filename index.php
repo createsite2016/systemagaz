@@ -82,6 +82,7 @@ else {
                     <th><b>Телефон</b></th>
                     <th><b>Адрес</b></th>
                     <th><b>Служба доставки<b></th>
+                    <th><b>Поставщик<b></th>
                     <th><b>Товары</b></th>
                     <th><b>Статус</b></th>
                     <th><b>Менеджер</b></th>
@@ -105,11 +106,12 @@ if ($user_role=='1') {
                     </label>
                   </div>
                     </td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php $vremya = date_smart($data_get_device['datatime']); echo $vremya ?></font></b></td>
+                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black">"><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['fio']; ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['phone']; ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['adress']; ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['dostavka']; ?></font></b></td>
+                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['postavshik']; ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['tovar']; ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['status']; ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['user_name']; ?></font></b></td>
@@ -130,8 +132,8 @@ if ($user_role=='1') {
 
 // Если роль пользователя 3
 if ($user_role=='3') {
-    if ( $_REQUEST['page'] == '1' ) { $b = '0'; }
-                        $sql_get_device = mysql_query("SELECT * FROM `priem` ORDER BY `datatime` DESC LIMIT $b,$articles_per_page ",$db);
+    if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
+                        $sql_get_device = mysql_query("SELECT priem.id,datatime,fio,phone,adress,dostavka,tovar,status,user_name,postavshik,sklad,status.color FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
                   <td>
@@ -142,11 +144,15 @@ if ($user_role=='3') {
                     </label>
                   </div>
                     </td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php $vremya = date_smart($data_get_device['datatime']); echo $vremya ?></font></b></td>
+
+
+
+                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['fio']; // фамилия ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['phone'];?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['adress']; // адрес ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['dostavka']; ?></font></b></td>
+                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['postavshik']; ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['tovar']; // содержание ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['status']; ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['user_name']; ?></font></b></td>
@@ -246,6 +252,18 @@ else {
                       </select>
                     </div>
 
+                    <div class="block">
+                    <label class="control-label">Поставщик:</label><br>
+                      <select name="postavshik">
+                    <?php
+                    $sql_get_magaz = mysql_query("SELECT * FROM `postavshiki` ",$db);
+                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
+                      echo "<option>".$data['name']."</option>";
+                    }
+                    ?>
+                      </select>
+                    </div>
+
 
                     <div class="block">
                     <label class="control-label">Содержание:</label>
@@ -272,7 +290,7 @@ else {
                     <?php
                     $sql_get_status = mysql_query("SELECT * FROM `status` ",$db);
                       while ($data_status = mysql_fetch_assoc($sql_get_status)) {
-                      echo "<option value=".$data_status['color'].">".$data_status['name']."</option>";
+                      echo "<option value=".$data_status['id'].">".$data_status['name']."</option>";
                     }
                     ?>
                       </select>
