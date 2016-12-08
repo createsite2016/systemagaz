@@ -44,6 +44,36 @@ $params = mysql_fetch_array($get_params);
                 </div>
 
                 <div class="form-group">
+                  <label class="col-lg-3 control-label">Цена исх.:</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="chena" class="form-control parsley-validated" value="<?php echo $params['chena_output']; ?>">
+                  </div>
+                </div>
+
+
+
+
+
+
+                <br>
+                <br>
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Менеджер:</label>
+                  <div class="col-lg-8">
+                    <select name="manager">
+                      <?php
+                      $sql_get_categor = mysql_query(" SELECT * FROM `users_8897532` WHERE `role` <> '3' ",$db);
+                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
+                        echo "<option value='".$data_categor[name]."'>".$data_categor['name']."</option>";
+                      }
+                      ?>
+                    </select>
+                  </div>
+                </div>
+
+
+
+                <div class="form-group">
                   <label class="col-lg-3 control-label">Продавец:</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="prodavec" class="form-control parsley-validated" value="<?php //echo $params['fio']; ?>">
@@ -63,9 +93,8 @@ $params = mysql_fetch_array($get_params);
                     ?>
                     </select>
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
-                    <input type="hidden" name="chena_output" value="<?php echo $params['chena_output']; ?>" >
                     <input type="hidden" name="chena_input" value="<?php echo $params['chena_input']; ?>" >
-                    <input type="hidden" name="valuta" value="<?php echo $params['money_output']; ?>" >
+                    <input type="hidden" name="valuta" value="<?php echo $params['money_input']; ?>" >
                     <input type="hidden" name="id_categor" value="<?php echo $id_categor; ?>" >
                     <input type="hidden" name="user_name" value="<?php echo $name ?>" >
                   </div>
@@ -78,6 +107,9 @@ $params = mysql_fetch_array($get_params);
                   </div>
                 </div>
 
+
+                <br>
+                <br>
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Наложка:</label>
                   <div class="col-lg-8">
@@ -142,7 +174,7 @@ $params = mysql_fetch_array($get_params);
             <tr>
               <td><b><font color="<?php echo $color_font; ?>"><?php $date = new DateTime($data_history['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
               <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['kolvo'];?></font></b></td>
-              <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['chena']; echo " "; echo $data_history['valuta'];?></font></b></td>
+              <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['chena'];?></font></b></td>
               <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['prifut'];?></font></b></td>
               <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['nakladnaya'];?></font></b></td>
               <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['nalogka'];?></font></b></td>
@@ -161,7 +193,7 @@ $params = mysql_fetch_array($get_params);
             <tr>
               <td><b><font color="<?php echo $color_font; ?>"><?php $date = new DateTime($data_history['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
               <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['kolvo'];?></font></b></td>
-              <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['chena']; echo " "; echo $data_history['valuta'];?></font></b></td>
+              <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['chena'];?></font></b></td>
               <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['prifut'];?></font></b></td>
               <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['nakladnaya'];?></font></b></td>
               <td><b><font color="<?php echo $color_font; ?>"><?php echo $data_history['nalogka'];?></font></b></td>

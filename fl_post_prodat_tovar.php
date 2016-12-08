@@ -2,6 +2,7 @@
 session_start();
 $login = $_SESSION['login'];
 
+
 $kolvo = $_POST['kolvo'];
 $prodavec = $_POST['prodavec'];
 $magazin = $_POST['magazin'];
@@ -10,19 +11,52 @@ $nakladnaya = $_POST['nakladnaya'];
 $nalogka = $_POST['nalogka'];
 $id = $_POST['id'];
 $id_categor = $_POST['id_categor'];
-$chena_input = $_POST['chena_input'];
-$chena_output = $_POST['chena_output'];
-$prifut = $chena_output - $chena_input;
+$chena_input = $_POST['chena_input']; // 3 доллара
+$chena_output = $_POST['chena']; // 188 рублей
+
 $datatime = date("Y-m-d H:i:s");
 $valuta = $_POST['valuta'];
 $id_tovara = $_POST['id'];
 $user_name = $_POST['user_name'];
 
+$manager = $_POST['manager'];
+
+//echo "Цена в нашей валюте: ".$chena_output;
+//echo "<br>";
+//echo "Валюта в которой было куплен товар на склад: ".$valuta;
+//echo "<br>";
+//echo "Кол-во валют за 1 шт товара: ".$chena_input;
+//echo "<br>";
+//echo "Кол-во проданных шт товара: ".$kolvo;
+$prodaja = $kolvo*$chena_output; // продажа в нашей валюте
+
+//echo "<br>";
+//echo "@@ продажа в нашей валюте: ".$prodaja;
+
+
+
+// получение курс валюты
 include("bd.php");
+$sql_get_kurs = mysql_query(" SELECT * FROM `money` WHERE `name`='$valuta'",$db);
+while ($data_kurs = mysql_fetch_assoc($sql_get_kurs)) {
+    $kurs = $data_kurs['chena'];
+}
+
+//echo "<br>";
+//echo "Курс валюты: ".$kurs;
+$prodaja_v_valute = $kolvo*$chena_input*$kurs;
+//echo "<br>";
+//echo "Продажа в валюте: ".$prodaja_v_valute;
+
+$itogo = $prodaja-$prodaja_v_valute;
+//echo "<br>";
+//echo "Итого навар (профит): ".$itogo;
+
+$prifut = $itogo;
+
+
+//include("bd.php");
 echo("<meta charset='utf8'>");
-
-
-
 
 $sql_get_kolvo = mysql_query(" SELECT * FROM `tovar` WHERE `id`='$id_tovara'",$db);
 while ($data_kolvo = mysql_fetch_assoc($sql_get_kolvo)) {
@@ -77,7 +111,7 @@ $prodavec;
 
 if ($nalogka == "Да"){
   $sql_add_tovar_in_way = mysql_query("INSERT INTO `in_way` (
-	`datatime`, 
+	`datatime`,
 	`tovar`,
 	`kolvo`,
 	`chena`,
@@ -98,7 +132,7 @@ if ($nalogka == "Да"){
 	'$magazin',
 	'$menedger',
 	'$prodavec'
-	)",$db);	
+	)",$db);
 }
 
 

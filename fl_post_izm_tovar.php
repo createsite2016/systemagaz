@@ -11,6 +11,10 @@ $status = $_POST['status'];
 $id = $_POST['id'];
 $id_categor = $_POST['id_categor'];
 
+$money_input = $_POST['money_input'];
+$money_output = $_POST['money_output'];
+
+
 include("bd.php");
 
 $sql_izm_status = mysql_query("UPDATE `tovar` SET 
@@ -18,6 +22,8 @@ $sql_izm_status = mysql_query("UPDATE `tovar` SET
 	`model` = '$model',
 	`chena_input` = '$chena_input',
 	`chena_output` = '$chena_output',
+	`money_input` = '$money_input',
+	`money_output` = '$money_output',
 	`komment` = '$komment',
 	`categor_id` = '$categor_id',
 	`status` = '$status' 

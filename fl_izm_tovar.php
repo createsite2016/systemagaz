@@ -78,20 +78,71 @@ $params = mysql_fetch_array($get_params);
                   </div>
                 </div>
 
+                <br>
+                <br>
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Цена(вх.):</label>
+                  <label class="col-lg-3 control-label">Входящая цена:</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="chena_input" class="form-control parsley-validated" value="<?php echo $params['chena_input']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Цена(исх.):</label>
+                  <label class="col-lg-3 control-label">Входящая валюта:</label>
+                  <div class="col-lg-8">
+                    <select name="money_input">
+                      <?php
+                      $name_input_money=$params['money_input'];
+                      $sql_get_select_valuta = mysql_query("SELECT * FROM `money` WHERE `name` = '$name_input_money' ",$db);
+                      while ($select_valuta = mysql_fetch_assoc($sql_get_select_valuta)) {
+                        echo "<option selected value=".$select_valuta['name'].">".$select_valuta['name']."</option>";
+                      }
+                      $sql_get_categor = mysql_query("SELECT * FROM `money` WHERE `name` <> '$name_input_money' ",$db);
+                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
+                        echo "<option value=".$data_categor['name'].">".$data_categor['name']."</option>";
+                      }
+                      ?>
+                    </select>
+                    <input type="hidden" name="id" value="<?php echo $id ?>" >
+                    <input type="hidden" name="id_categor" value="<?php echo $id_categor; ?>" >
+                  </div>
+                </div>
+
+
+                <br>
+                <br>
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Исходящая цена:</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="chena_output" class="form-control parsley-validated" value="<?php echo $params['chena_output']; ?>">
                   </div>
                 </div>
 
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Исходящая валюта:</label>
+                  <div class="col-lg-8">
+                    <select name="money_output">
+                      <?php
+                      $name_output_money=$params['money_output'];
+                      $sql_get_select_valuta = mysql_query("SELECT * FROM `money` WHERE `name` = '$name_output_money' ",$db);
+                      while ($select_valuta = mysql_fetch_assoc($sql_get_select_valuta)) {
+                        echo "<option selected value=".$select_valuta['name'].">".$select_valuta['name']."</option>";
+                      }
+                      $sql_get_categor = mysql_query("SELECT * FROM `money` WHERE `name` <> '$name_output_money' ",$db);
+                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
+                        echo "<option value=".$data_categor['name'].">".$data_categor['name']."</option>";
+                      }
+                      ?>
+                    </select>
+                    <input type="hidden" name="id" value="<?php echo $id ?>" >
+                    <input type="hidden" name="id_categor" value="<?php echo $id_categor; ?>" >
+                  </div>
+                </div>
+
+
+                <br>
+                <br>
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Комментарий:</label>
                   <div class="col-lg-8">

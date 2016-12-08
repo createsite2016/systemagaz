@@ -59,7 +59,7 @@ if ($user_role=='1') {
                     <td><?php echo $data_get_device['name']; ?></td>
                     <td><?php echo $data_get_device['kolvo']; ?></td>
                     <td><?php echo $data_get_device['chena_input']; echo " "; echo $data_get_device['money_input']; ?></td>
-                    <td><?php echo $data_get_device['chena_output']; echo " "; echo $data_get_device['money_output']; ?></td>
+                    <td><?php echo $data_get_device['chena_output'];?></td>
                     <td><?php echo $data_get_device['status']; ?></td>
                     <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a>
@@ -82,7 +82,7 @@ if ($user_role=='3') {
                     <td><?php echo $data_get_device['name']; ?></td>
                     <td><?php echo $data_get_device['kolvo']; ?></td>
                       <td><?php echo $data_get_device['chena_input']; echo " "; echo $data_get_device['money_input']; ?></td>
-                      <td><?php echo $data_get_device['chena_output']; echo " "; echo $data_get_device['money_output']; ?></td>
+                      <td><?php echo $data_get_device['chena_output'];?></td>
                     <td><?php echo $data_get_device['status']; ?></td>
                     <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a><br>
@@ -149,14 +149,6 @@ if ($user_role=='3') {
                     <div class="block">
                     <label class="control-label">Цена(вых.):</label>
                     <input class="form-control parsley-validated" placeholder="" type="text" name="chena_output" autofocus autocomplete="off">
-                    <select name="money_output">
-                    <?php
-                    $sql_get_money = mysql_query("SELECT * FROM `money` ",$db);
-                      while ($data_money = mysql_fetch_assoc($sql_get_money)) {
-                      echo "<option>".$data_money['name']."</option>";
-                    }
-                    ?>
-                      </select>
                     </div>
                     </div>
 
