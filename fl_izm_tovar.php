@@ -74,7 +74,7 @@ $params = mysql_fetch_array($get_params);
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Количество:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name=" " class="form-control parsley-validated" value="<?php //echo $params['fio']; ?>">
+                    <input type="text" autocomplete="off" name=" " class="form-control parsley-validated" disabled value="<?php echo $params['kolvo']; ?>">
                   </div>
                 </div>
 

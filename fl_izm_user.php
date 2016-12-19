@@ -50,12 +50,19 @@ $params = mysql_fetch_array($get_params);
                   <select class="select2-offscreen" name="profes" tabindex="-1" id="select2-option" style="width:300px">
                           
                           <?php if ($params['profes']=="Менеджер") { 
-                          echo "<option value='Менеджер' selected>Менеджер</option>";
-                          echo "<option value='Директор'>Директор</option>";
+                            echo "<option value='Менеджер' selected>Менеджер</option>";
+                            echo "<option value='Директор'>Директор</option>";
+                            echo "<option value='Администратор'>Администратор</option>";
                           } ?>
                           <?php if ($params['profes']=="Директор") {
                             echo "<option value='Директор' selected>Директор</option>";
-                          echo "<option value='Менеджер'>Менеджер</option>";
+                            echo "<option value='Менеджер'>Менеджер</option>";
+                            echo "<option value='Администратор'>Администратор</option>";
+                          } ?>
+                          <?php if ($params['profes']=="Администратор") {
+                            echo "<option value='Администратор' selected>Администратор</option>";
+                            echo "<option value='Менеджер'>Менеджер</option>";
+                            echo "<option value='Директор'>Директор</option>";
                           } ?>
                   
                   </select>

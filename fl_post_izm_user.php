@@ -11,6 +11,9 @@ $id = $_POST['id'];
 if ($profes == "Директор"){
 	$role = '3';
 }
+if ($profes == "Администратор"){
+	$role = '3';
+}
 if ($profes == "Менеджер"){
 	$role = '1';
 }

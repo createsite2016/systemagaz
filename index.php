@@ -70,8 +70,11 @@ else {
                 </div>
               </div>
             </footer>
+            <form action="check_list.php" target="_blank" method="POST" id="form">
 <section class="panel">
-<br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-credit-card"></i> Новый заказ</a> | </span></b><br><br>
+<br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-credit-card"></i> Новый заказ</a> |
+            <button class="btn btn-sm btn-info" id="checkbtn" type="submit" form="form"><i class="icon-document"></i> Сформировать чеклист</button>
+        </span></b><br><br>
             <div class="table">
               <table class="table text-small">
                 <thead>
@@ -94,40 +97,41 @@ else {
 // Если роль пользователя 1
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-      if ( $_REQUEST['page'] == '1' ) { $b = '0'; }
-                        $sql_get_device = mysql_query("SELECT * FROM `priem` ORDER BY `datatime` DESC LIMIT $b,$articles_per_page ",$db);
-                        while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
-                  <tr>
-                    <td>
-                    <div class="checkbox">
+    if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
+    $sql_get_device = mysql_query("SELECT priem.id,datatime,fio,phone,adress,dostavka,tovar,status,user_name,postavshik,sklad,status.color FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ",$db);
+    while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
+        <tr>
+            <td>
+                <div class="checkbox">
                     <label class="checkbox-custom">
-                      <input name="checkboxA" type="checkbox">
-                      <i class="icon-unchecked"></i>
+                        <input form="form" name="products[]" type="checkbox" value="<?php echo $data_get_device['id']; // id записи ?>">
+                        <i class="icon-unchecked"></i>
                     </label>
-                  </div>
-                    </td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black">"><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['fio']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['phone']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['adress']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['dostavka']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['postavshik']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['tovar']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['status']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['user_name']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['sklad']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>">
-                      <div class="btn-group">
-                        <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil"></i></a>
-                          <ul class="dropdown-menu pull-right">
-                            <li><a href="fl_izm_zakaz.php?id=<?php echo $data_get_device['id']; ?>&usid=<?php echo $id_user; ?>">Изменить</a></li>
-                            <li class="divider"></li>
-                            <li><a href="fl_del_zakaz.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a></li>
-                          </ul>
-                       </div>
-                    </td>
-                  </tr>
-<?php }} 
+                </div>
+            </td>
+
+
+
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['fio']; // фамилия ?></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['phone'];?></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['adress']; // адрес ?></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['dostavka']; ?></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['postavshik']; ?></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['tovar']; // содержание ?></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['status']; ?></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['user_name']; ?></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['sklad']; ?></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>">
+                <div class="btn-group">
+                    <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil"></i></a>
+                    <ul class="dropdown-menu pull-right">
+                        <li><a href="fl_izm_zakaz.php?id=<?php echo $data_get_device['id']; ?>&usid=<?php echo $id_user; ?>">Изменить</a></li>
+                    </ul>
+                </div>
+            </td>
+        </tr>
+    <?php }}
 
 
 // Если роль пользователя 3
@@ -136,17 +140,14 @@ if ($user_role=='3') {
                         $sql_get_device = mysql_query("SELECT priem.id,datatime,fio,phone,adress,dostavka,tovar,status,user_name,postavshik,sklad,status.color FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ",$db);
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
-                  <td>
-                    <div class="checkbox">
-                    <label class="checkbox-custom">
-                      <input name="checkboxA" type="checkbox">
-                      <i class="icon-unchecked"></i>
-                    </label>
-                  </div>
+                    <td>
+                        <div class="checkbox">
+                            <label class="checkbox-custom">
+                                <input name="products[]" type="checkbox" form="form" value="<?php echo $data_get_device['id']; // id записи ?>">
+                                <i class="icon-unchecked" ></i>
+                            </label>
+                        </div>
                     </td>
-
-
-
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['fio']; // фамилия ?></font></b></td>
                     <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['phone'];?></font></b></td>
@@ -172,7 +173,7 @@ if ($user_role=='3') {
                     </div>
               </tbody>
               </table>
-              </section>
+              </section></form>
 <?php
 
 $sql_rows = mysql_query("SELECT count(*) FROM `priem` ",$db); 

@@ -34,8 +34,16 @@ while ($data_name_categor = mysql_fetch_assoc($sql_get_name_categor))
     $name_categor = $data_name_categor['name'];
 } ?>
 <section class="panel">
-<br><b><span class="center"><b> |   <a href="products.php">  <- <?php echo $name_categor; ?></a></b> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> | </span></b><br><br>
-            <div class="table-responsive">
+
+<br><b><span class="center"><b> |   <a href="products.php">  <- <?php echo $name_categor; ?></a></b> |
+
+    <?php
+// ДОСТУП ТОЛЬКО ДЛЯ АДМИНИСТРАТОРОВ
+    if ($user_role=='3') { ?>
+            <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> | </span></b><br><br>
+<?php } ?>
+
+    <div class="table-responsive">
               <table class="table table-striped b-t text-small">
                 <thead>
                   <tr>
@@ -43,9 +51,10 @@ while ($data_name_categor = mysql_fetch_assoc($sql_get_name_categor))
                     <th><b>Наименование</b></th>
                     <th><b>Кол-во</b></th>
                     <th><b>Цена(вх.)</b></th>
+                    <th><b>Цена(вх. местная валюта)</b></th>
                     <th><b>Цена(ис.)</b></th>
                     <th><b>состояние</b></th>
-                    <th><b>Дейстиве</b></th>
+                    <th><b>Действие</b></th>
                   </tr>
                 </thead>
 <?php
@@ -59,16 +68,10 @@ if ($user_role=='1') {
                     <td><?php echo $data_get_device['name']; ?></td>
                     <td><?php echo $data_get_device['kolvo']; ?></td>
                     <td><?php echo $data_get_device['chena_input']; echo " "; echo $data_get_device['money_input']; ?></td>
-                    <td><?php echo $data_get_device['chena_output'];?></td>
+                      <td> </td>
+                      <td><?php echo $data_get_device['chena_output'];?></td>
                     <td><?php echo $data_get_device['status']; ?></td>
-                    <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a>
-                    <a href="fl_prinyat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
-                    <?php
-                    if ($data_get_device['kolvo']>0){ ?>
-                        <a href="fl_prodat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a>
-                    <?php } ?>
-                    </td>
+                    <td>Нет прав</td>
                   </tr>
 <?php }}
 
@@ -81,7 +84,15 @@ if ($user_role=='3') {
                     <td><?php echo $data_get_device['model']; ?></td>
                     <td><?php echo $data_get_device['name']; ?></td>
                     <td><?php echo $data_get_device['kolvo']; ?></td>
-                      <td><?php echo $data_get_device['chena_input']; echo " "; echo $data_get_device['money_input']; ?></td>
+                      <td><?php echo $data_get_device['chena_input']; echo " "; echo $data_get_device['money_input']; $valuta_name = $data_get_device['money_input'];?></td>
+                      <td><?php
+
+                          $sql_v = mysql_query("SELECT `chena` FROM `money` WHERE `name` = '$valuta_name' ",$db);
+                          $data_v = mysql_fetch_array( $sql_v );
+                          echo $data_v[0]*$data_get_device['chena_input']; // местная валюта
+
+
+                          ?></td>
                       <td><?php echo $data_get_device['chena_output'];?></td>
                     <td><?php echo $data_get_device['status']; ?></td>
                     <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>

@@ -10,7 +10,10 @@
           $name = $data['name'];
           $user_sc = $data['sklad'];
           $id_user = $data['id'];
-          $user_role = $data['role']; 
+          $user_role = $data['role'];
+function go_link($link_way,$link_name){
+    echo "<a href='".$link_way."'>".$link_name."</a>";
+}
 ?>
 <!DOCTYPE html>
 <html lang="ru">

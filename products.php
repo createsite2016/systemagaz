@@ -28,8 +28,13 @@ else { include("verh.php"); ?>
         <div class="col-lg-12">
 
 <section class="panel">
-<br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#categor"><i class="icon-folder-open-alt"></i> Новая категория</a> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> |</span></b><br><br>
-            <div class="table-responsive">
+
+    <?php
+// Доступ только для администраторов
+    if ($user_role=='3') { ?>
+    <br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#categor"><i class="icon-folder-open-alt"></i> Новая категория</a> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> |</span></b><br><br>
+    <?php } ?>
+    <div class="table-responsive">
               <table class="table table-striped b-t text-small">
                 <thead>
                   <tr>
@@ -45,8 +50,7 @@ if ($user_role=='1') {
                         while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
                   <tr>
                     <td><a href="fl_open_products.php?id_categor=<?php echo $data_get_device['id']; ?>"><?php echo $data_get_device['name']; ?></a></td>
-                    <td><a href="fl_del_categor.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_categor.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
+                    <td>Нет прав</td>
                   </tr>
 <?php }}
 

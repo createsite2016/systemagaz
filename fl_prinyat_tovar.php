@@ -47,7 +47,7 @@ else { include("verh.php"); ?>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Количество шт.:</label>
                     <div class="col-lg-8">
-                        <input type="text" autocomplete="off" name="kolvo" class="form-control parsley-validated" value="<?php //echo $params['kolvo']; ?>">
+                        <input type="text" autocomplete="off" name="kolvo" class="form-control parsley-validated" value="1">
                     </div>
                 </div>
 

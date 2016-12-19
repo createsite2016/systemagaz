@@ -10,7 +10,17 @@ $us_ids = mysql_fetch_array($sql_us);
  ?>
       <li><a href="index.php"><i class="icon-credit-card icon-xlarge"></i><span>Заказы</span></a></li>
       <li class="dropdown-submenu"><a href="products.php"><i class="icon-sitemap  icon-xlarge"></i>Товары</a>
-      <ul class="dropdown-menu">
+
+<?php
+// ДОСТУП ДЛЯ МЕНЕДЖЕРОВ
+if ($user_role=='1') { ?>
+      </li>
+         <?php } ?>
+
+<?php
+// ДОСТУП ТОЛЬКО ДЛЯ АДМИНИСТРАТОРОВ
+if ($user_role=='3') { ?>
+    <ul class="dropdown-menu">
           <li><a href="way.php"><i class="icon-truck"></i>В пути</a></li>
       </ul>
       </li>   
@@ -32,7 +42,5 @@ $us_ids = mysql_fetch_array($sql_us);
       </li>
 
       <li><a href="score.php"><i class="icon-dollar icon-xlarge"></i><span>Итого</span></a></li>
+<?php } ?>
 
-      <!--<li><a href="buy.php"><i class=" icon-money icon-xlarge"></i><span>Продажа</span></a></li>
-      <li><a href="mail.php?id=<?php echo $us_ids['id']?>"><i class="icon-envelope-alt icon-xlarge"></i><span>Сообщения</span></a></li>
-      <li><a href="chat.php"><i class="icon-group icon-xlarge"></i><span>Чат</span></a></li> -->

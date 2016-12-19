@@ -58,9 +58,9 @@ $params = mysql_fetch_array($get_params);
                 <br>
                 <br>
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Менеджер:</label>
+                  <label class="col-lg-3 control-label">Продавец:</label>
                   <div class="col-lg-8">
-                    <select name="manager">
+                    <select name="prodavec">
                       <?php
                       $sql_get_categor = mysql_query(" SELECT * FROM `users_8897532` WHERE `role` <> '3' ",$db);
                       while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
@@ -74,9 +74,12 @@ $params = mysql_fetch_array($get_params);
 
 
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Продавец:</label>
+                  <label class="col-lg-3 control-label">Менеджер:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="prodavec" class="form-control parsley-validated" value="<?php //echo $params['fio']; ?>">
+
+
+
+                    <input type="text" autocomplete="off" name="manager" class="form-control parsley-validated" disabled value="<?php echo $name; ?>">
                   </div>
                 </div>
 
