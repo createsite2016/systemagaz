@@ -1,5 +1,7 @@
 <?php
 session_start();
+include_once "classes/App.php";
+$pdo = new Database();
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -24,13 +26,19 @@ else { include("verh.php"); ?>
       <div class="row">
 <?php
 $id = $_GET['id'];
-$get_params = mysql_query("SELECT * FROM `priem` WHERE `id`='$id' ",$db); //извлекаем из базы все данные о пользователе с введенным логином
-$params = mysql_fetch_array($get_params);
+
+  $get_params = $pdo->getRows("SELECT * FROM `priem` WHERE `id`='$id' ");
+  foreach ($get_params as $params):
+  endforeach;
+
+
+//$get_params = mysql_query("SELECT * FROM `priem` WHERE `id`='$id' ",$db); //извлекаем из базы все данные о пользователе с введенным логином
+//$params = mysql_fetch_array($get_params);
 ?>
 <!-- Панель редактирования заказа -->
 <section class="panel">
             <div class="panel-body">
-              <form action="fl_post_izm_zakaz.php" class="form-horizontal" method="POST" data-validate="parsley">      
+              <form action="classes/App.php" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                   <div class="col-lg-9 media">
                     <center><h4><i class="icon-edit"></i>Редактирование заказа</h4></center>
@@ -58,6 +66,7 @@ $params = mysql_fetch_array($get_params);
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
                     <input type="hidden" name="usid" value="<?php echo $usid ?>" >
                     <input type="hidden" name="user_name" value="<?php echo $name ?>" >
+                    <input type="hidden" name="action" value="izm_zakaz" >
                   </div>
                 </div>
 
@@ -67,12 +76,12 @@ $params = mysql_fetch_array($get_params);
                       <select name="dostavka">
                       <option selected value="<?php echo $params['dostavka']; ?>"><?php echo $params['dostavka']; ?></option>
                     <?php
-                    $sql_get_magaz = mysql_query("SELECT * FROM `dostavka` ",$db);
-                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
-                      if ($data['name']!==$params['dostavka']) {
-                         echo "<option>".$data['name']."</option>";
+                    $sql_get_d = $pdo->getRows("SELECT * FROM `dostavka` ");
+                    foreach ($sql_get_d as $data):
+                      if ($data['name'] !== $params['dostavka']) {
+                        echo "<option>".$data['name']."</option>";
                       }
-                    }
+                    endforeach;
                     ?>
                       </select>
                   </div>
@@ -85,12 +94,12 @@ $params = mysql_fetch_array($get_params);
                       <select name="postavshik">
                       <option selected value="<?php echo $params['postavshik']; ?>"><?php echo $params['postavshik']; ?></option>
                     <?php
-                    $sql_get_magaz = mysql_query("SELECT * FROM `postavshiki` ",$db);
-                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
-                      if ($data['name']!==$params['postavshik']) {
-                         echo "<option>".$data['name']."</option>";
+                    $sql_get_d = $pdo->getRows("SELECT * FROM `postavshiki` ");
+                    foreach ($sql_get_d as $data):
+                      if ($data['name'] !== $params['postavshiki']) {
+                        echo "<option>".$data['name']."</option>";
                       }
-                    }
+                    endforeach;
                     ?>
                       </select>
                   </div>
@@ -113,13 +122,12 @@ $params = mysql_fetch_array($get_params);
                       <select name="sklad">
                       <option selected value="<?php echo $params['sklad']; ?>"><?php echo $params['sklad']; ?></option>
                     <?php
-                    $sql_get_magaz = mysql_query("SELECT * FROM `magazins` ",$db);
-                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
-                      if ($data['name']!==$params['sklad']) {
-                         echo "<option>".$data['name']."</option>";
+                    $sql_get_magazins = $pdo->getRows("SELECT * FROM `magazins` ");
+                    foreach ($sql_get_magazins as $data):
+                      if ($data['name'] !== $params['magazins']) {
+                        echo "<option>".$data['name']."</option>";
                       }
-
-                    }
+                    endforeach;
                     ?>
                       </select>
                   </div>
@@ -132,21 +140,23 @@ $params = mysql_fetch_array($get_params);
 
                       <?php
                       $color_id = $params['color'];
-                      $sql_get_color = mysql_query("SELECT * FROM `status` where `id`='$color_id' ",$db);
-                      while ($data_get_color = mysql_fetch_assoc($sql_get_color)) { 
+                      //echo "!!! color_id = ". $color_id; // 38
+                      $color = $pdo->getRows("SELECT * FROM `status` where `id`='$color_id' ");
+                      foreach ($color as $data_get_color):
                         $color_code = $data_get_color['color']; // код цвета
                         $color_name_status = $data_get_color['name']; // наименование статуса
-                      }?>
+                      endforeach;
+                      ?>
 
 
                       <option selected value="<?php echo $color_id; ?>"><?php echo $color_name_status; ?></option>
                     <?php
-                    $sql_get_status = mysql_query("SELECT * FROM `status` ",$db);
-                      while ($data_status = mysql_fetch_assoc($sql_get_status)) {
-                      if ($data_status['name']!==$color_name_status) {
+                    $sql_status = $pdo->getRows("SELECT * FROM `status` ");
+                    foreach ($sql_status as $data_status):
+                    if ($data_status['name']!==$color_name_status) {
                         echo "<option value=".$data_status['id'].">".$data_status['name']."</option>";
                       }
-                    }
+                    endforeach;
                     ?>
                       </select>
                   </div>
@@ -190,8 +200,8 @@ $params = mysql_fetch_array($get_params);
 <?php 
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-  $sql_get_history = mysql_query("SELECT * FROM `log_priem` WHERE `id_zakaz` = '$id' ORDER BY `datatime` DESC ",$db);
-while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+  $sql = $pdo->getRows("SELECT * FROM `log_priem` WHERE `id_zakaz` = '$id' ORDER BY `datatime` DESC ");
+  foreach ($sql as $data_history): ?>
                   <tr>
                     <td><b><font color="black"><?php $date = new DateTime($data_history['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['meneger'];?></font></b></td>
@@ -204,10 +214,10 @@ while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
                     <td><b><font color="black"><?php echo $data_history['store'];?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
                   </tr>
-<?php }}
+<?php endforeach; }
 if ($user_role=='3') {
-  $sql_get_history = mysql_query("SELECT * FROM `log_priem` WHERE `id_zakaz` = '$id' ORDER BY `datatime` DESC ",$db);
-while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+  $sql = $pdo->getRows("SELECT * FROM `log_priem` WHERE `id_zakaz` = '$id' ORDER BY `datatime` DESC ");
+  foreach ($sql as $data_history): ?>
                   <tr>
                     <td><b><font color="black"><?php $date = new DateTime($data_history['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['meneger'];?></font></b></td>
@@ -220,7 +230,7 @@ while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
                     <td><b><font color="black"><?php echo $data_history['store'];?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
                   </tr>
-<?php }} ?>              
+  <?php endforeach; } ?>
               </tbody>
               </table>
               </div></section>

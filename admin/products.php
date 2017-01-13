@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+//include_once "classes/Database.php"; // подключаем БД
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -18,7 +23,6 @@ else { include("verh.php"); ?>
 </div>
         </div>
       </div>
-
                     <br>
                     <br>
 
@@ -26,51 +30,30 @@ else { include("verh.php"); ?>
 
 <div class="row">
         <div class="col-lg-12">
-<?php
-$id_categor = $_GET['id_categor']; 
-$sql_get_name_categor = mysql_query("SELECT * FROM `categor` WHERE `id` = '$id_categor' LIMIT 1 ",$db); 
-while ($data_name_categor = mysql_fetch_assoc($sql_get_name_categor))
-{
-    $name_categor = $data_name_categor['name'];
-} ?>
+
 <section class="panel">
 
-<br><b><span class="center"><b> |   <a href="products.php">  <- <?php echo $name_categor; ?></a></b> |
-
     <?php
-// ДОСТУП ТОЛЬКО ДЛЯ АДМИНИСТРАТОРОВ
+// Доступ только для администраторов
     if ($user_role=='3') { ?>
-            <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> | </span></b><br><br>
-<?php } ?>
-
+    <br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#categor"><i class="icon-folder-open-alt"></i> Новая категория</a> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> |</span></b><br><br>
+    <?php } ?>
     <div class="table-responsive">
               <table class="table table-striped b-t text-small">
                 <thead>
                   <tr>
-                    <th><b>Модель</b></th>
-                    <th><b>Наименование</b></th>
-                    <th><b>Кол-во</b></th>
-                    <th><b>Цена(вх.)</b></th>
-                    <th><b>Цена(вх. местная валюта)</b></th>
-                    <th><b>Цена(ис.)</b></th>
-                    <th><b>состояние</b></th>
-                    <th><b>Действие</b></th>
+                    <th><b>Категория</b></th>
+                    <th><b>Дейстиве</b></th>
                   </tr>
                 </thead>
 <?php
 // Если роль пользователя 1
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-                        $sql_get_device = mysql_query("SELECT * FROM `tovar` WHERE `categor_id` =  '$id_categor' ",$db);
-                        while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
+    $sql_get_products = $pdo->getRows("SELECT * FROM `categor` ORDER BY `name` DESC ");
+    foreach ( $sql_get_products as $products ) { ?>
                   <tr>
-                    <td><?php echo $data_get_device['model']; ?></td>
-                    <td><?php echo $data_get_device['name']; ?></td>
-                    <td><?php echo $data_get_device['kolvo']; ?></td>
-                    <td><?php echo $data_get_device['chena_input']; echo " "; echo $data_get_device['money_input']; ?></td>
-                      <td> </td>
-                      <td><?php echo $data_get_device['chena_output'];?></td>
-                    <td><?php echo $data_get_device['status']; ?></td>
+                    <td><a href="fl_open_products.php?id_categor=<?php echo $products['id']; ?>"><?php echo $products['name']; ?></a></td>
                     <td>Нет прав</td>
                   </tr>
 <?php }}
@@ -78,31 +61,13 @@ if ($user_role=='1') {
 
 // Если роль пользователя 3
 if ($user_role=='3') {
-                        $sql_get_device = mysql_query("SELECT * FROM `tovar` WHERE `categor_id` =  '$id_categor' ",$db);
-                        while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
+
+    $sql_get_products = $pdo->getRows("SELECT * FROM `categor` ORDER BY `name` DESC ");
+    foreach ( $sql_get_products as $products ) { ?>
                   <tr>
-                    <td><?php echo $data_get_device['model']; ?></td>
-                    <td><?php echo $data_get_device['name']; ?></td>
-                    <td><?php echo $data_get_device['kolvo']; ?></td>
-                      <td><?php echo $data_get_device['chena_input']; echo " "; echo $data_get_device['money_input']; $valuta_name = $data_get_device['money_input'];?></td>
-                      <td><?php
-
-                          $sql_v = mysql_query("SELECT `chena` FROM `money` WHERE `name` = '$valuta_name' ",$db);
-                          $data_v = mysql_fetch_array( $sql_v );
-                          echo $data_v[0]*$data_get_device['chena_input']; // местная валюта
-
-
-                          ?></td>
-                      <td><?php echo $data_get_device['chena_output'];?></td>
-                    <td><?php echo $data_get_device['status']; ?></td>
-                    <td><a href="fl_del_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a><br>
-                    <a href="fl_prinyat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
-                        <?php
-                        if ($data_get_device['kolvo']>0){ ?>
-                            <a href="fl_prodat_tovar.php?id=<?php echo $data_get_device['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a>
-                        <?php } ?>
-                    </td>
+                    <td><a href="fl_open_products.php?id_categor=<?php echo $products['id']; ?>"><?php echo $products['name']; ?></a></td>
+                    <td><a href="fl_del_categor.php?id=<?php echo $products['id']; ?>"><font color="red">Удалить</font></a>
+                    <a href="fl_izm_categor.php?id=<?php echo $products['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
 <?php }} ?>
                     </div>
@@ -110,14 +75,38 @@ if ($user_role=='3') {
               </table>
               </section>
 
-                   
+                    <div id="categor" class="modal fade" style="display: none;" aria-hidden="true">
+                    <form class="m-b-none" action="classes/App.php" method="POST">
+                    <div class="modal-dialog">
+                    <div class="modal-content">
+                    <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>
+                    <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новая категория</h4>
+                    </div>
+                    <div class="modal-body">
+                    <div class="block">
+                    <label class="control-label">Название:</label>
+                    <input class="form-control parsley-validated" placeholder="" type="text" name="name" autofocus autocomplete="off">
+                        <input type="hidden" name="action" value="add_categor">
+                    </div>
+                    </div>
+
+
+                    <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">Добавить</button>
+                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Отмена</button>
+                    </div>
+                    </div>
+                    </div>
+                    </form>
+                    </div>
 
 
 
 
 
                     <div id="tovar" class="modal fade" style="display: none;" aria-hidden="true">
-                    <form class="m-b-none" action="fl_post_add_tovar.php" method="POST">
+                    <form class="m-b-none" action="classes/App.php" method="POST">
                     <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -125,12 +114,27 @@ if ($user_role=='3') {
                     <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новый товар</h4>
                     </div>
 
+                    <div class="modal-body">
+                    <div class="block">
+                    <label class="control-label">Категория:</label>
+                    <select name="categor_id">
+                    <?php
+                    $sql_get_categor = $pdo->getRows("SELECT * FROM `categor` ");
+                    foreach ( $sql_get_categor as $data_categor ) {
+
+                      echo "<option value=".$data_categor['id'].">".$data_categor['name']."</option>";
+
+                    }
+                    ?>
+                    </select>
+                    </div>
+                    </div>
 
                     <div class="modal-body">
                     <div class="block">
                     <label class="control-label">Название:</label>
                     <input class="form-control parsley-validated" placeholder="" type="text" name="name" autofocus autocomplete="off">
-                    <input type="hidden" name="id_categor" autofocus autocomplete="off" value="<?php echo $id_categor; ?>">
+                        <input type="hidden" name="action" value="add_tovar">
                     </div>
                     </div>
 
@@ -147,8 +151,8 @@ if ($user_role=='3') {
                     <input class="form-control parsley-validated" placeholder="" type="text" name="chena_input" autofocus autocomplete="off">
                     <select name="money_input">
                     <?php
-                    $sql_get_money = mysql_query("SELECT * FROM `money` ",$db);
-                      while ($data_money = mysql_fetch_assoc($sql_get_money)) {
+                    $sql_get_money = $pdo->getRows("SELECT * FROM `money` ");
+                    foreach ( $sql_get_money as $data_money ) {
                       echo "<option>".$data_money['name']."</option>";
                     }
                     ?>
@@ -160,6 +164,14 @@ if ($user_role=='3') {
                     <div class="block">
                     <label class="control-label">Цена(вых.):</label>
                     <input class="form-control parsley-validated" placeholder="" type="text" name="chena_output" autofocus autocomplete="off">
+                    <select name="money_output">
+                    <?php
+                    $sql_get_money = $pdo->getRows("SELECT * FROM `money` ");
+                    foreach ( $sql_get_money as $data_money ) {
+                      echo "<option>".$data_money['name']."</option>";
+                    }
+                    ?>
+                      </select>
                     </div>
                     </div>
 
@@ -175,12 +187,9 @@ if ($user_role=='3') {
                     <div class="block">
                     <label class="control-label">Статус:</label><br>
                       <select name="status">
-                    <?php
-                    $sql_get_status = mysql_query("SELECT * FROM `status_rs` ",$db);
-                      while ($data_status = mysql_fetch_assoc($sql_get_status)) {
-                      echo "<option>".$data_status['name']."</option>";
-                    }
-                    ?>
+                            <option selected value="Доступен">Доступен</option>
+                            <option value="Недоступен">Недоступен</option>
+                            <option value="Неизвестен">Неизвестен</option>
                       </select>
                     </div>
 

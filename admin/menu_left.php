@@ -1,12 +1,20 @@
 <?php
+include_once "classes/Database.php";
+$pdo = new Database();
+
 $login = $_SESSION['login'];
-$sql222 = mysql_query("SELECT * FROM `users_8897532` WHERE `login`='$login'",$db); //извлекаем из базы все данные о пользователе с введенным логином
-$data222 = mysql_fetch_array($sql222);
-$id_user = $data222['id'];
 
+$sql_get_user = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `login`='$login'");
+foreach ($sql_get_user as $get_user_data):
+$id_user = $get_user_data['id']; // получаем id пользователя
+endforeach;
 
-$sql_us = mysql_query("SELECT * FROM `users_8897532` WHERE `id`<>'$id_user' ",$db); //извлекаем из базы все данные о пользователе с введенным логином
-$us_ids = mysql_fetch_array($sql_us);
+$sql_get_user = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `id`<>'$id_user' ");
+foreach ($sql_get_user as $value):
+$us_ids = $value['id'];
+endforeach;
+//$sql_us = mysql_query("SELECT * FROM `users_8897532` WHERE `id`<>'$id_user' ",$db); //извлекаем из базы все данные о пользователе с введенным логином
+//$us_ids = mysql_fetch_array($sql_us);
  ?>
       <li><a href="index.php"><i class="icon-credit-card icon-xlarge"></i><span>Заказы</span></a></li>
       <li class="dropdown-submenu"><a href="products.php"><i class="icon-sitemap  icon-xlarge"></i>Товары</a>

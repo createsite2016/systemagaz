@@ -1,16 +1,18 @@
 <?php
-          include("bd.php");
+include_once "classes/App.php"; // подключаем БД
+$pdo = new Database();
           $login = $_SESSION['login'];
           $login = stripslashes($login);
           $login = htmlspecialchars($login);
+$udata = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `login`='$login' ");
+foreach ($udata as $value) {
+    $login = $value['login'];
+    $name = $value['name'];
+    $user_sc = $value['sklad'];
+    $id_user = $value['id'];
+    $user_role = $value['role'];
+}
 
-          $sql = mysql_query("SELECT * FROM `users_8897532` WHERE `login`='$login'",$db); 
-          $data = mysql_fetch_array($sql);
-          $login = $data['login'];
-          $name = $data['name'];
-          $user_sc = $data['sklad'];
-          $id_user = $data['id'];
-          $user_role = $data['role'];
 function go_link($link_way,$link_name){
     echo "<a href='".$link_way."'>".$link_name."</a>";
 }

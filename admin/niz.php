@@ -3,7 +3,7 @@
       <p>
 <?php
 $datatime = date("Y");
-echo "<small>&copy; Система управления заказами ". $datatime ."</small><br><br>";
+echo "<small>&copy; Система управления миром ". $datatime ."</small><br><br>";
 ?>
 <img src="images/logo.png" width="200" height="30">
 </p>

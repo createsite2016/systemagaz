@@ -1,0 +1,990 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="bd0bf11a-d40b-45b3-8865-5d65f3db322c" name="Default" comment="">
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/bd.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/classes/App.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/classes/Database.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/config.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/views/login/errorlogin.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/admin/views/login/login.php" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/bd.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fl_del_zakaz.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fl_post_add_categor.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fl_post_add_tovar.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fl_post_add_zakaz.php" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/fl_post_izm_zakaz.php" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/admin/.gitignore" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/check_list.php" afterPath="$PROJECT_DIR$/admin/check_list.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/chrome-app/background.js" afterPath="$PROJECT_DIR$/admin/chrome-app/background.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/chrome-app/icon-128.png" afterPath="$PROJECT_DIR$/admin/chrome-app/icon-128.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/chrome-app/icon-16.png" afterPath="$PROJECT_DIR$/admin/chrome-app/icon-16.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/chrome-app/manifest.json" afterPath="$PROJECT_DIR$/admin/chrome-app/manifest.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/chrome-app/window-extras.js" afterPath="$PROJECT_DIR$/admin/chrome-app/window-extras.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/chrome-app/window.html" afterPath="$PROJECT_DIR$/admin/chrome-app/window.html" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/css/bootstrap.css" afterPath="$PROJECT_DIR$/admin/css/bootstrap.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/css/font-awesome.min.css" afterPath="$PROJECT_DIR$/admin/css/font-awesome.min.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/css/font.css" afterPath="$PROJECT_DIR$/admin/css/font.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/css/landing.css" afterPath="$PROJECT_DIR$/admin/css/landing.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/css/plugin.css" afterPath="$PROJECT_DIR$/admin/css/plugin.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/css/style.css" afterPath="$PROJECT_DIR$/admin/css/style.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/dostavka.php" afterPath="$PROJECT_DIR$/admin/dostavka.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/exit.php" afterPath="$PROJECT_DIR$/admin/exit.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_add_user.php" afterPath="$PROJECT_DIR$/admin/fl_add_user.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_categor.php" afterPath="$PROJECT_DIR$/admin/fl_del_categor.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_dostavka.php" afterPath="$PROJECT_DIR$/admin/fl_del_dostavka.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_magaz.php" afterPath="$PROJECT_DIR$/admin/fl_del_magaz.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_money.php" afterPath="$PROJECT_DIR$/admin/fl_del_money.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_postavshik.php" afterPath="$PROJECT_DIR$/admin/fl_del_postavshik.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_prihod.php" afterPath="$PROJECT_DIR$/admin/fl_del_prihod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_rashod.php" afterPath="$PROJECT_DIR$/admin/fl_del_rashod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_status.php" afterPath="$PROJECT_DIR$/admin/fl_del_status.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_status_pr.php" afterPath="$PROJECT_DIR$/admin/fl_del_status_pr.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_status_rs.php" afterPath="$PROJECT_DIR$/admin/fl_del_status_rs.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_tovar.php" afterPath="$PROJECT_DIR$/admin/fl_del_tovar.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_user.php" afterPath="$PROJECT_DIR$/admin/fl_del_user.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_del_way.php" afterPath="$PROJECT_DIR$/admin/fl_del_way.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_categor.php" afterPath="$PROJECT_DIR$/admin/fl_izm_categor.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_dostavka.php" afterPath="$PROJECT_DIR$/admin/fl_izm_dostavka.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_magaz.php" afterPath="$PROJECT_DIR$/admin/fl_izm_magaz.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_money.php" afterPath="$PROJECT_DIR$/admin/fl_izm_money.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_postavshiki.php" afterPath="$PROJECT_DIR$/admin/fl_izm_postavshiki.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_prihod.php" afterPath="$PROJECT_DIR$/admin/fl_izm_prihod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_rashod.php" afterPath="$PROJECT_DIR$/admin/fl_izm_rashod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_status.php" afterPath="$PROJECT_DIR$/admin/fl_izm_status.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_status_pr.php" afterPath="$PROJECT_DIR$/admin/fl_izm_status_pr.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_status_rs.php" afterPath="$PROJECT_DIR$/admin/fl_izm_status_rs.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_tovar.php" afterPath="$PROJECT_DIR$/admin/fl_izm_tovar.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_user.php" afterPath="$PROJECT_DIR$/admin/fl_izm_user.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_way.php" afterPath="$PROJECT_DIR$/admin/fl_izm_way.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_izm_zakaz.php" afterPath="$PROJECT_DIR$/admin/fl_izm_zakaz.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_open_products.php" afterPath="$PROJECT_DIR$/admin/fl_open_products.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_dostavka.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_dostavka.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_magaz.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_magaz.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_money.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_money.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_postavshik.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_postavshik.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_prihod.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_prihod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_rashod.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_rashod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_status.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_status.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_status_pr.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_status_pr.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_status_rs.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_status_rs.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_user.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_user.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_add_way.php" afterPath="$PROJECT_DIR$/admin/fl_post_add_way.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_categor.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_categor.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_dostavka.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_dostavka.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_magaz.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_magaz.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_money.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_money.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_postavshiki.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_postavshiki.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_prihod.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_prihod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_rashod.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_rashod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_status.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_status.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_status_pr.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_status_pr.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_status_rs.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_status_rs.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_tovar.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_tovar.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_user.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_user.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_izm_way.php" afterPath="$PROJECT_DIR$/admin/fl_post_izm_way.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_prinyat_tovar.php" afterPath="$PROJECT_DIR$/admin/fl_post_prinyat_tovar.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_post_prodat_tovar.php" afterPath="$PROJECT_DIR$/admin/fl_post_prodat_tovar.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_prinyat_tovar.php" afterPath="$PROJECT_DIR$/admin/fl_prinyat_tovar.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/fl_prodat_tovar.php" afterPath="$PROJECT_DIR$/admin/fl_prodat_tovar.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/font/FontAwesome.otf" afterPath="$PROJECT_DIR$/admin/font/FontAwesome.otf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/font/fontawesome-webfont.eot" afterPath="$PROJECT_DIR$/admin/font/fontawesome-webfont.eot" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/font/fontawesome-webfont.svg" afterPath="$PROJECT_DIR$/admin/font/fontawesome-webfont.svg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/font/fontawesome-webfont.ttf" afterPath="$PROJECT_DIR$/admin/font/fontawesome-webfont.ttf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/font/fontawesome-webfont.woff" afterPath="$PROJECT_DIR$/admin/font/fontawesome-webfont.woff" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/font/ubuntu.ttf" afterPath="$PROJECT_DIR$/admin/font/ubuntu.ttf" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/avatar.jpg" afterPath="$PROJECT_DIR$/admin/images/avatar.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/first_icon.png" afterPath="$PROJECT_DIR$/admin/images/first_icon.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/logo.png" afterPath="$PROJECT_DIR$/admin/images/logo.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/pechat.png" afterPath="$PROJECT_DIR$/admin/images/pechat.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/render-1-thumb.jpg" afterPath="$PROJECT_DIR$/admin/images/render-1-thumb.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/render-1.jpg" afterPath="$PROJECT_DIR$/admin/images/render-1.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/render-2-thumb.jpg" afterPath="$PROJECT_DIR$/admin/images/render-2-thumb.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/render-2.jpg" afterPath="$PROJECT_DIR$/admin/images/render-2.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/render-3-thumb.jpg" afterPath="$PROJECT_DIR$/admin/images/render-3-thumb.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/render-3.jpg" afterPath="$PROJECT_DIR$/admin/images/render-3.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/render-4-thumb.jpg" afterPath="$PROJECT_DIR$/admin/images/render-4-thumb.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/render-4.jpg" afterPath="$PROJECT_DIR$/admin/images/render-4.jpg" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/responsive.png" afterPath="$PROJECT_DIR$/admin/images/responsive.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/images/sms.png" afterPath="$PROJECT_DIR$/admin/images/sms.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/index.php" afterPath="$PROJECT_DIR$/admin/index.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/app.data.js" afterPath="$PROJECT_DIR$/admin/js/app.data.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/app.js" afterPath="$PROJECT_DIR$/admin/js/app.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/app.plugin.js" afterPath="$PROJECT_DIR$/admin/js/app.plugin.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/bootstrap.js" afterPath="$PROJECT_DIR$/admin/js/bootstrap.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/charts/easypiechart/jquery.easy-pie-chart.js" afterPath="$PROJECT_DIR$/admin/js/charts/easypiechart/jquery.easy-pie-chart.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/charts/flot/demo.js" afterPath="$PROJECT_DIR$/admin/js/charts/flot/demo.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/charts/flot/jquery.flot.min.js" afterPath="$PROJECT_DIR$/admin/js/charts/flot/jquery.flot.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/charts/flot/jquery.flot.orderBars.js" afterPath="$PROJECT_DIR$/admin/js/charts/flot/jquery.flot.orderBars.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/charts/flot/jquery.flot.pie.min.js" afterPath="$PROJECT_DIR$/admin/js/charts/flot/jquery.flot.pie.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/charts/flot/jquery.flot.resize.js" afterPath="$PROJECT_DIR$/admin/js/charts/flot/jquery.flot.resize.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/charts/flot/jquery.flot.tooltip.min.js" afterPath="$PROJECT_DIR$/admin/js/charts/flot/jquery.flot.tooltip.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/charts/sparkline/jquery.sparkline.min.js" afterPath="$PROJECT_DIR$/admin/js/charts/sparkline/jquery.sparkline.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/combodate/combodate.js" afterPath="$PROJECT_DIR$/admin/js/combodate/combodate.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/combodate/moment.min.js" afterPath="$PROJECT_DIR$/admin/js/combodate/moment.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/data/datagrid.json" afterPath="$PROJECT_DIR$/admin/js/data/datagrid.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/data/datatable.json" afterPath="$PROJECT_DIR$/admin/js/data/datatable.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/data/Копия datatable.json" afterPath="$PROJECT_DIR$/admin/js/data/Копия datatable.json" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/datatables/jquery.dataTables.min.js" afterPath="$PROJECT_DIR$/admin/js/datatables/jquery.dataTables.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/datepicker/bootstrap-datepicker.js" afterPath="$PROJECT_DIR$/admin/js/datepicker/bootstrap-datepicker.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/file-input/bootstrap.file-input.js" afterPath="$PROJECT_DIR$/admin/js/file-input/bootstrap.file-input.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/fuelux/fuelux.js" afterPath="$PROJECT_DIR$/admin/js/fuelux/fuelux.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/fullcalendar/fullcalendar.min.js" afterPath="$PROJECT_DIR$/admin/js/fullcalendar/fullcalendar.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/grid/gallery.js" afterPath="$PROJECT_DIR$/admin/js/grid/gallery.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/grid/jquery.grid-a-licious.min.js" afterPath="$PROJECT_DIR$/admin/js/grid/jquery.grid-a-licious.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/grid/masonry.pkgd.min.js" afterPath="$PROJECT_DIR$/admin/js/grid/masonry.pkgd.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/ie/excanvas.js" afterPath="$PROJECT_DIR$/admin/js/ie/excanvas.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/ie/html5.js" afterPath="$PROJECT_DIR$/admin/js/ie/html5.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/ie/respond.min.js" afterPath="$PROJECT_DIR$/admin/js/ie/respond.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/jquery-ui-1.10.3.custom.min.js" afterPath="$PROJECT_DIR$/admin/js/jquery-ui-1.10.3.custom.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/jquery.min.js" afterPath="$PROJECT_DIR$/admin/js/jquery.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/jquery.ui.touch-punch.min.js" afterPath="$PROJECT_DIR$/admin/js/jquery.ui.touch-punch.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/maps/demo.js" afterPath="$PROJECT_DIR$/admin/js/maps/demo.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/maps/gmaps.js" afterPath="$PROJECT_DIR$/admin/js/maps/gmaps.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/parsley/parsley.min.js" afterPath="$PROJECT_DIR$/admin/js/parsley/parsley.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/prettyphoto/default/default_thumb.png" afterPath="$PROJECT_DIR$/admin/js/prettyphoto/default/default_thumb.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/prettyphoto/default/loader.gif" afterPath="$PROJECT_DIR$/admin/js/prettyphoto/default/loader.gif" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/prettyphoto/default/sprite.png" afterPath="$PROJECT_DIR$/admin/js/prettyphoto/default/sprite.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/prettyphoto/default/sprite_next.png" afterPath="$PROJECT_DIR$/admin/js/prettyphoto/default/sprite_next.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/prettyphoto/default/sprite_prev.png" afterPath="$PROJECT_DIR$/admin/js/prettyphoto/default/sprite_prev.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/prettyphoto/default/sprite_x.png" afterPath="$PROJECT_DIR$/admin/js/prettyphoto/default/sprite_x.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/prettyphoto/default/sprite_y.png" afterPath="$PROJECT_DIR$/admin/js/prettyphoto/default/sprite_y.png" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/prettyphoto/jquery.prettyPhoto.js" afterPath="$PROJECT_DIR$/admin/js/prettyphoto/jquery.prettyPhoto.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/prettyphoto/prettyPhoto.css" afterPath="$PROJECT_DIR$/admin/js/prettyphoto/prettyPhoto.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/select2/select2.css" afterPath="$PROJECT_DIR$/admin/js/select2/select2.css" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/select2/select2.min.js" afterPath="$PROJECT_DIR$/admin/js/select2/select2.min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/slider/bootstrap-slider.js" afterPath="$PROJECT_DIR$/admin/js/slider/bootstrap-slider.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/js/underscore-min.js" afterPath="$PROJECT_DIR$/admin/js/underscore-min.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/magazins.php" afterPath="$PROJECT_DIR$/admin/magazins.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/menu_left.php" afterPath="$PROJECT_DIR$/admin/menu_left.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/menu_right.php" afterPath="$PROJECT_DIR$/admin/menu_right.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/money.php" afterPath="$PROJECT_DIR$/admin/money.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/niz.php" afterPath="$PROJECT_DIR$/admin/niz.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/post_add_categor.php" afterPath="$PROJECT_DIR$/admin/post_add_categor.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/post_chat.js" afterPath="$PROJECT_DIR$/admin/post_chat.js" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/potavshiki.php" afterPath="$PROJECT_DIR$/admin/potavshiki.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/prihod.php" afterPath="$PROJECT_DIR$/admin/prihod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/products.php" afterPath="$PROJECT_DIR$/admin/products.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/rashod.php" afterPath="$PROJECT_DIR$/admin/rashod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/registr.php" afterPath="$PROJECT_DIR$/admin/registr.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/save_reg.php" afterPath="$PROJECT_DIR$/admin/save_reg.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/score.php" afterPath="$PROJECT_DIR$/admin/score.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/showdata_forpeople.php" afterPath="$PROJECT_DIR$/admin/showdata_forpeople.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/status.php" afterPath="$PROJECT_DIR$/admin/status.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/status_pr.php" afterPath="$PROJECT_DIR$/admin/status_pr.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/status_rs.php" afterPath="$PROJECT_DIR$/admin/status_rs.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/systemagaz.sql" afterPath="$PROJECT_DIR$/admin/systemagaz.sql" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/systemagaz.zip" afterPath="$PROJECT_DIR$/admin/systemagaz.zip" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/systemagaz_2016-12-19.sql" afterPath="$PROJECT_DIR$/admin/systemagaz_2016-12-19.sql" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/testreg.php" afterPath="$PROJECT_DIR$/admin/testreg.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/users.php" afterPath="$PROJECT_DIR$/admin/users.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/verh.php" afterPath="$PROJECT_DIR$/admin/verh.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/vhod.php" afterPath="$PROJECT_DIR$/admin/vhod.php" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/way.php" afterPath="$PROJECT_DIR$/admin/way.php" />
+    </list>
+    <ignored path="systemagaz.iws" />
+    <ignored path=".idea/workspace.xml" />
+    <ignored path=".idea/dataSources.local.xml" />
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="TRACKING_ENABLED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
+  <component name="FavoritesManager">
+    <favorites_list name="systemagaz" />
+  </component>
+  <component name="FileEditorManager">
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-228">
+              <caret line="268" column="20" selection-start-line="268" selection-start-column="20" selection-end-line="268" selection-end-column="73" />
+              <folding>
+                <marker date="1482424523000" expanded="true" signature="1038:1066" ph="SELECT count... priem" />
+                <marker date="1482424523000" expanded="true" signature="3635:3838" ph="SELECT priem... priem" />
+                <marker date="1482424523000" expanded="true" signature="6516:6719" ph="SELECT priem... priem" />
+                <marker date="1482424523000" expanded="true" signature="6516:6737" ph="SELECT priem... priem" />
+                <marker date="1482424523000" expanded="true" signature="9790:9818" ph="SELECT count... priem" />
+                <marker date="1482424523000" expanded="true" signature="12949:12978" ph="SELECT * FRO... dostavka" />
+                <marker date="1482424523000" expanded="true" signature="13322:13349" ph="SELECT * FRO... postavshiki" />
+                <marker date="1482424523000" expanded="true" signature="14222:14246" ph="SELECT * FRO... magazins" />
+                <marker date="1482424523000" expanded="true" signature="14575:14597" ph="SELECT * FRO... status" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="products.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/products.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="285">
+              <caret line="107" column="97" selection-start-line="107" selection-start-column="97" selection-end-line="107" selection-end-column="97" />
+              <folding>
+                <marker date="1484318703000" expanded="true" signature="1578:1622" ph="SELECT * FRO... categor" />
+                <marker date="1484318703000" expanded="true" signature="2005:2049" ph="SELECT * FRO... categor" />
+                <marker date="1484318703000" expanded="true" signature="4883:4906" ph="SELECT * FRO... categor" />
+                <marker date="1484318703000" expanded="true" signature="6396:6417" ph="SELECT * FRO... money" />
+                <marker date="1484318703000" expanded="true" signature="7113:7134" ph="SELECT * FRO... money" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Database.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/classes/Database.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="126">
+              <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="fl_open_products.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/admin/fl_open_products.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="36">
+              <caret line="125" column="50" selection-start-line="125" selection-start-column="50" selection-end-line="125" selection-end-column="50" />
+              <folding>
+                <marker date="1484319054000" expanded="true" signature="826:862" ph="SELECT * FRO... categor" />
+                <marker date="1484319054000" expanded="true" signature="826:872" ph="SELECT * FRO... categor" />
+                <marker date="1484319054000" expanded="true" signature="2075:2119" ph="SELECT * FRO... tovar" />
+                <marker date="1484319054000" expanded="true" signature="2075:2120" ph="SELECT * FRO... tovar" />
+                <marker date="1484319054000" expanded="true" signature="2875:2920" ph="SELECT * FRO... tovar" />
+                <marker date="1484319054000" expanded="true" signature="3467:3510" ph="SELECT `chen... money" />
+                <marker date="1484319054000" expanded="true" signature="3467:3511" ph="SELECT `chen... money" />
+                <marker date="1484319054000" expanded="true" signature="6618:6639" ph="SELECT * FRO... money" />
+                <marker date="1484319054000" expanded="true" signature="7908:7933" ph="SELECT * FRO... status_rs" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/admin/classes/App.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="288">
+              <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+              <folding>
+                <marker date="1484317199000" expanded="true" signature="2051:2089" ph="DELETE FROM " />
+                <marker date="1484317199000" expanded="true" signature="2122:2170" ph="DELETE FROM " />
+                <marker date="1484317199000" expanded="true" signature="2823:2876" ph="SELECT * FRO... status" />
+                <marker date="1484317199000" expanded="true" signature="3069:3304" ph="UPDATE `prie... " />
+                <marker date="1484317199000" expanded="true" signature="3338:3594" ph="INSERT INTO `log_priem`... " />
+                <marker date="1484317199000" expanded="true" signature="4240:4293" ph="SELECT * FRO... status" />
+                <marker date="1484317199000" expanded="true" signature="4474:4729" ph="INSERT INTO `priem`... " />
+                <marker date="1484317199000" expanded="true" signature="4762:5027" ph="INSERT INTO `log_priem`... " />
+                <marker date="1484317199000" expanded="true" signature="5383:5424" ph="INSERT INTO `categor`... " />
+                <marker date="1484317199000" expanded="true" signature="6228:6924" ph="INSERT INTO `categor`... " />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="IdeDocumentHistory">
+    <option name="CHANGED_PATHS">
+      <list>
+        <option value="$PROJECT_DIR$/fl_del_tovar.php" />
+        <option value="$PROJECT_DIR$/fl_post_prinyat_tovar.php" />
+        <option value="$PROJECT_DIR$/fl_post_izm_tovar.php" />
+        <option value="$PROJECT_DIR$/fl_post_prodat_tovar.php" />
+        <option value="$PROJECT_DIR$/fl_izm_tovar.php" />
+        <option value="$PROJECT_DIR$/fl_prodat_tovar.php" />
+        <option value="$PROJECT_DIR$/fl_izm_way.php" />
+        <option value="$PROJECT_DIR$/fl_prinyat_tovar.php" />
+        <option value="$PROJECT_DIR$/bd.php" />
+        <option value="$PROJECT_DIR$/yandex.php" />
+        <option value="$PROJECT_DIR$/products.php" />
+        <option value="$PROJECT_DIR$/menu_left.php" />
+        <option value="$PROJECT_DIR$/fl_post_add_user.php" />
+        <option value="$PROJECT_DIR$/fl_post_izm_user.php" />
+        <option value="$PROJECT_DIR$/fl_izm_user.php" />
+        <option value="$PROJECT_DIR$/verh.php" />
+        <option value="$PROJECT_DIR$/fl_open_products.php" />
+        <option value="$PROJECT_DIR$/score.php" />
+        <option value="$PROJECT_DIR$/check_list.php" />
+        <option value="$PROJECT_DIR$/classes/User.php" />
+        <option value="$PROJECT_DIR$/index.php" />
+        <option value="$PROJECT_DIR$/admin/app.php" />
+        <option value="$PROJECT_DIR$/admin/views/login/errorlogin.php" />
+        <option value="$PROJECT_DIR$/admin/config.php" />
+        <option value="$PROJECT_DIR$/admin/views/login/login.php" />
+        <option value="$PROJECT_DIR$/admin/views/login/login_accept.php" />
+        <option value="$PROJECT_DIR$/admin/classes/Clear.php" />
+        <option value="$PROJECT_DIR$/admin/testreg.php" />
+        <option value="$PROJECT_DIR$/admin/verh.php" />
+        <option value="$PROJECT_DIR$/admin/menu_left.php" />
+        <option value="$PROJECT_DIR$/admin/fl_del_zakaz.php" />
+        <option value="$PROJECT_DIR$/admin/fl_post_izm_zakaz.php" />
+        <option value="$PROJECT_DIR$/admin/fl_izm_zakaz.php" />
+        <option value="$PROJECT_DIR$/test.php" />
+        <option value="$PROJECT_DIR$/admin/niz.php" />
+        <option value="$PROJECT_DIR$/admin/test.php" />
+        <option value="$PROJECT_DIR$/admin/check_list.php" />
+        <option value="$PROJECT_DIR$/admin/index.php" />
+        <option value="$PROJECT_DIR$/admin/fl_post_add_categor.php" />
+        <option value="/H2 Fragment (App.php:6180).sql" />
+        <option value="$PROJECT_DIR$/admin/classes/App.php" />
+        <option value="$PROJECT_DIR$/admin/products.php" />
+        <option value="$PROJECT_DIR$/admin/classes/Database.php" />
+        <option value="$PROJECT_DIR$/admin/fl_open_products.php" />
+      </list>
+    </option>
+  </component>
+  <component name="JsBuildToolGruntFileManager" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsBuildToolPackageJson" detection-done="true" sorting="DEFINITION_ORDER" />
+  <component name="JsGulpfileManager">
+    <detection-done>true</detection-done>
+    <sorting>DEFINITION_ORDER</sorting>
+  </component>
+  <component name="PhpServers">
+    <servers>
+      <server host="magaz" id="deaa5211-714e-4e25-922f-a07968eb1d3e" name="magaz" />
+      <server host="127.0.0.1" id="829f4c3a-c1df-41e3-8883-d131c4eed28c" name="localhost" />
+    </servers>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
+  <component name="ProjectFrameBounds">
+    <option name="x" value="1" />
+    <option name="y" value="22" />
+    <option name="width" value="1279" />
+    <option name="height" value="737" />
+  </component>
+  <component name="ProjectLevelVcsManager" settingsEditedManually="false">
+    <OptionsSetting value="true" id="Add" />
+    <OptionsSetting value="true" id="Remove" />
+    <OptionsSetting value="true" id="Checkout" />
+    <OptionsSetting value="true" id="Update" />
+    <OptionsSetting value="true" id="Status" />
+    <OptionsSetting value="true" id="Edit" />
+    <ConfirmationsSetting value="0" id="Add" />
+    <ConfirmationsSetting value="0" id="Remove" />
+  </component>
+  <component name="ProjectView">
+    <navigator currentView="ProjectPane" proportions="" version="1">
+      <flattenPackages />
+      <showMembers />
+      <showModules />
+      <showLibraryContents />
+      <hideEmptyPackages />
+      <abbreviatePackageNames />
+      <autoscrollToSource />
+      <autoscrollFromSource />
+      <sortByType />
+      <manualOrder />
+      <foldersAlwaysOnTop value="true" />
+    </navigator>
+    <panes>
+      <pane id="Scope" />
+      <pane id="Scratches" />
+      <pane id="ProjectPane">
+        <subPane>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="systemagaz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="systemagaz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="systemagaz" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="systemagaz" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="systemagaz" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="admin" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="classes" />
+              <option name="myItemType" value="com.jetbrains.php.projectView.PhpTreeStructureProvider$1" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+    </panes>
+  </component>
+  <component name="PropertiesComponent">
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="settings.editor.splitter.proportion" value="0.2" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js-jscs-nodeInterpreter" value="/usr/local/bin/node" />
+    <property name="SearchEverywhereHistoryKey" value="fl_open_products&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/admin/fl_open_products.php&#10;products&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/admin/products.php&#10;check_list&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/admin/check_list.php&#10;fl_post_add_zakaz&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/admin/fl_post_add_zakaz.php&#10;fl_izm_zakaz&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/admin/fl_izm_zakaz.php&#10;fl_del_zakaz&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/admin/fl_del_zakaz.php&#10;te&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/admin/testreg.php&#10;inde&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/admin/index.php&#10;index&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/index.php&#10;fl_izm_user&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/fl_post_izm_user.php&#10;fl_add_user&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/fl_add_user.php&#10;fl_open_products.php&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/fl_open_products.php&#10;fl_prinyat_tovar&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/fl_prinyat_tovar.php&#10;fl_post_izm_way&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/fl_post_izm_way.php&#10;fl_izm_way&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/fl_izm_way.php&#10;score&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/score.php&#10;fl_prodat_tovar&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/fl_prodat_tovar.php&#10;fl_izm_tovar&#9;FILE&#9;file:///Users/developer/Desktop/FL/systemagaz/systemagaz/fl_izm_tovar.php" />
+    <property name="com.intellij.ide.scratch.LRUPopupBuilder$2/SQL Dialects" value="MySQL" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/admin" />
+      <recent name="$PROJECT_DIR$/classes" />
+    </key>
+  </component>
+  <component name="RunManager" selected="PHP Web Application.Systemagaz">
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug">
+      <method />
+    </configuration>
+    <configuration default="true" type="NodeJSConfigurationType" factoryName="Node.js" path-to-node="project" working-dir="">
+      <method />
+    </configuration>
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpBehatConfigurationType" factoryName="Behat">
+      <BehatRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="53e2f627-b1a7-4dfa-bfa7-5b83cc034776" server_name="localhost" start_url="/magaz/">
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.gulp" factoryName="Gulp.js">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="js.build_tools.npm" factoryName="npm">
+      <command value="run-script" />
+      <scripts />
+      <node-interpreter value="project" />
+      <envs />
+      <method />
+    </configuration>
+    <configuration default="true" type="mocha-javascript-test-runner" factoryName="Mocha">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <working-directory />
+      <pass-parent-env>true</pass-parent-env>
+      <envs />
+      <ui />
+      <extra-mocha-options />
+      <test-kind>DIRECTORY</test-kind>
+      <test-directory />
+      <recursive>false</recursive>
+      <method />
+    </configuration>
+    <configuration default="false" name="Systemagaz" type="PhpWebAppRunConfigurationType" factoryName="PHP Web Application" browser="53e2f627-b1a7-4dfa-bfa7-5b83cc034776" server_name="localhost" start_url="http://magaz/admin/">
+      <method />
+    </configuration>
+    <list size="1">
+      <item index="0" class="java.lang.String" itemvalue="PHP Web Application.Systemagaz" />
+    </list>
+  </component>
+  <component name="ShelveChangesManager" show_recycled="false">
+    <option name="remove_strategy" value="false" />
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="bd0bf11a-d40b-45b3-8865-5d65f3db322c" name="Default" comment="" />
+      <created>1475091124216</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1475091124216</updated>
+      <workItem from="1475091126916" duration="7948000" />
+      <workItem from="1475154368304" duration="7011000" />
+      <workItem from="1480946345566" duration="10015000" />
+      <workItem from="1481201898393" duration="10149000" />
+      <workItem from="1481724572140" duration="7269000" />
+      <workItem from="1481808377608" duration="26784000" />
+      <workItem from="1482273313072" duration="31913000" />
+      <workItem from="1482387288935" duration="57000" />
+      <workItem from="1482421908704" duration="7464000" />
+      <workItem from="1483336735083" duration="1639000" />
+      <workItem from="1484311817094" duration="6729000" />
+    </task>
+    <servers />
+  </component>
+  <component name="TimeTrackingManager">
+    <option name="totallyTimeSpent" value="116978000" />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+  </component>
+  <component name="ToolWindowManager">
+    <frame x="1" y="22" width="1279" height="737" extended-state="6" />
+    <editor active="true" />
+    <layout>
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.16976556" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32847896" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.44426495" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32899022" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
+      <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.50405186" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+    </layout>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="RECENTLY_FILTERED_USER_GROUPS">
+                <collection />
+              </option>
+              <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+                <collection />
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
+  </component>
+  <component name="VcsContentAnnotationSettings">
+    <option name="myLimit" value="2678400000" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints-dialog>
+        <breakpoints-dialog />
+      </breakpoints-dialog>
+      <option name="time" value="18" />
+    </breakpoint-manager>
+    <watches-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_prinyat_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_prodat_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="12" column="37" selection-start-line="12" selection-start-column="37" selection-end-line="12" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_del_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_del_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="247">
+          <caret line="19" column="50" selection-start-line="19" selection-start-column="50" selection-end-line="19" selection-end-column="50" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_izm_prihod.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_izm_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="275">
+          <caret line="25" column="37" selection-start-line="25" selection-start-column="37" selection-end-line="25" selection-end-column="37" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_prodat_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="344">
+          <caret line="57" column="20" selection-start-line="57" selection-start-column="20" selection-end-line="57" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_del_status.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1473865977000" expanded="true" signature="537:576" ph="DELETE FROM " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/dostavka.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1473951888000" expanded="true" signature="1261:1306" ph="SELECT * FRO... dostavka" />
+            <marker date="1473951888000" expanded="true" signature="1979:2024" ph="SELECT * FRO... dostavka" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_izm_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="232">
+          <caret line="76" column="65" selection-start-line="76" selection-start-column="65" selection-end-line="76" selection-end-column="65" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_prodat_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="234">
+          <caret line="163" column="25" selection-start-line="163" selection-start-column="25" selection-end-line="163" selection-end-column="25" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_izm_way.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="22" selection-start-line="4" selection-start-column="17" selection-end-line="4" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_izm_way.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="324">
+          <caret line="51" column="90" selection-start-line="51" selection-start-column="90" selection-end-line="51" selection-end-column="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_prinyat_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="328">
+          <caret line="49" column="122" selection-start-line="49" selection-start-column="122" selection-end-line="49" selection-end-column="122" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/yandex.php" />
+    <entry file="file://$PROJECT_DIR$/admin/bd.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="10" column="32" selection-start-line="10" selection-start-column="32" selection-end-line="10" selection-end-column="32" />
+          <folding>
+            <element signature="e#7#30#0#PHP" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_izm_user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="16" selection-start-line="11" selection-start-column="16" selection-end-line="11" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_izm_user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="972">
+          <caret line="54" column="88" selection-start-line="54" selection-start-column="88" selection-end-line="54" selection-end-column="88" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_add_user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="216">
+          <caret line="12" column="31" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_add_user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="360">
+          <caret line="26" column="40" selection-start-line="26" selection-start-column="40" selection-end-line="26" selection-end-column="40" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/users.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1564">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/score.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1818">
+          <caret line="101" column="29" selection-start-line="101" selection-start-column="29" selection-end-line="101" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/classes/User.php" />
+    <entry file="file://$PROJECT_DIR$/admin/config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/views/login/login_accept.php" />
+    <entry file="file://$PROJECT_DIR$/admin/views/login/login.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="54">
+          <caret line="3" column="16" selection-start-line="3" selection-start-column="16" selection-end-line="3" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/views/login/errorlogin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18">
+          <caret line="1" column="0" selection-start-line="1" selection-start-column="0" selection-end-line="1" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="144">
+          <caret line="8" column="0" selection-start-line="8" selection-start-column="0" selection-end-line="8" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/app.php" />
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_prinyat_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-383">
+          <caret line="21" column="0" selection-start-line="21" selection-start-column="0" selection-end-line="21" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/menu_right.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/verh.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="792">
+          <caret line="44" column="21" selection-start-line="44" selection-start-column="21" selection-end-line="44" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/menu_left.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="29" selection-start-line="16" selection-start-column="12" selection-end-line="16" selection-end-column="29" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/testreg.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="72">
+          <caret line="4" column="2" selection-start-line="4" selection-start-column="2" selection-end-line="4" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_del_zakaz.php" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/com/jetbrains/php/lang/psi/stubs/data/_superglobals.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="908">
+          <caret line="82" column="0" selection-start-line="82" selection-start-column="0" selection-end-line="82" selection-end-column="0" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_izm_zakaz.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="80">
+          <caret line="138" column="42" selection-start-line="138" selection-start-column="36" selection-end-line="138" selection-end-column="42" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_izm_zakaz.php" />
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_add_zakaz.php" />
+    <entry file="file://$PROJECT_DIR$/admin/test.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="2" column="2" selection-start-line="2" selection-start-column="2" selection-end-line="2" selection-end-column="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/vhod.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-7">
+          <caret line="68" column="7" selection-start-line="68" selection-start-column="7" selection-end-line="68" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/niz.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="5" column="44" selection-start-line="5" selection-start-column="44" selection-end-line="5" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/check_list.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="276">
+          <caret line="22" column="50" selection-start-line="22" selection-start-column="50" selection-end-line="22" selection-end-column="50" />
+          <folding>
+            <marker date="1482606878000" expanded="true" signature="265:307" ph="SELECT * FRO... priem" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/magazins.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <marker date="1474077653000" expanded="true" signature="1292:1337" ph="SELECT * FRO... magazins" />
+            <marker date="1474077653000" expanded="true" signature="2023:2068" ph="SELECT * FRO... magazins" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_add_categor.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="11" column="2" selection-start-line="11" selection-start-column="2" selection-end-line="11" selection-end-column="2" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_post_add_tovar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="35" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="35" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-228">
+          <caret line="268" column="20" selection-start-line="268" selection-start-column="20" selection-end-line="268" selection-end-column="73" />
+          <folding>
+            <marker date="1482424523000" expanded="true" signature="1038:1066" ph="SELECT count... priem" />
+            <marker date="1482424523000" expanded="true" signature="3635:3838" ph="SELECT priem... priem" />
+            <marker date="1482424523000" expanded="true" signature="6516:6719" ph="SELECT priem... priem" />
+            <marker date="1482424523000" expanded="true" signature="6516:6737" ph="SELECT priem... priem" />
+            <marker date="1482424523000" expanded="true" signature="9790:9818" ph="SELECT count... priem" />
+            <marker date="1482424523000" expanded="true" signature="12949:12978" ph="SELECT * FRO... dostavka" />
+            <marker date="1482424523000" expanded="true" signature="13322:13349" ph="SELECT * FRO... postavshiki" />
+            <marker date="1482424523000" expanded="true" signature="14222:14246" ph="SELECT * FRO... magazins" />
+            <marker date="1482424523000" expanded="true" signature="14575:14597" ph="SELECT * FRO... status" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/fl_open_products.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="36">
+          <caret line="125" column="50" selection-start-line="125" selection-start-column="50" selection-end-line="125" selection-end-column="50" />
+          <folding>
+            <marker date="1484319054000" expanded="true" signature="826:862" ph="SELECT * FRO... categor" />
+            <marker date="1484319054000" expanded="true" signature="826:872" ph="SELECT * FRO... categor" />
+            <marker date="1484319054000" expanded="true" signature="2075:2119" ph="SELECT * FRO... tovar" />
+            <marker date="1484319054000" expanded="true" signature="2075:2120" ph="SELECT * FRO... tovar" />
+            <marker date="1484319054000" expanded="true" signature="2875:2920" ph="SELECT * FRO... tovar" />
+            <marker date="1484319054000" expanded="true" signature="3467:3510" ph="SELECT `chen... money" />
+            <marker date="1484319054000" expanded="true" signature="3467:3511" ph="SELECT `chen... money" />
+            <marker date="1484319054000" expanded="true" signature="6618:6639" ph="SELECT * FRO... money" />
+            <marker date="1484319054000" expanded="true" signature="7908:7933" ph="SELECT * FRO... status_rs" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/products.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="107" column="97" selection-start-line="107" selection-start-column="97" selection-end-line="107" selection-end-column="97" />
+          <folding>
+            <marker date="1484318703000" expanded="true" signature="1578:1622" ph="SELECT * FRO... categor" />
+            <marker date="1484318703000" expanded="true" signature="2005:2049" ph="SELECT * FRO... categor" />
+            <marker date="1484318703000" expanded="true" signature="4883:4906" ph="SELECT * FRO... categor" />
+            <marker date="1484318703000" expanded="true" signature="6396:6417" ph="SELECT * FRO... money" />
+            <marker date="1484318703000" expanded="true" signature="7113:7134" ph="SELECT * FRO... money" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/classes/Database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="126">
+          <caret line="22" column="30" selection-start-line="22" selection-start-column="30" selection-end-line="22" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/admin/classes/App.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="288">
+          <caret line="16" column="1" selection-start-line="16" selection-start-column="1" selection-end-line="16" selection-end-column="1" />
+          <folding>
+            <marker date="1484317199000" expanded="true" signature="2051:2089" ph="DELETE FROM " />
+            <marker date="1484317199000" expanded="true" signature="2122:2170" ph="DELETE FROM " />
+            <marker date="1484317199000" expanded="true" signature="2823:2876" ph="SELECT * FRO... status" />
+            <marker date="1484317199000" expanded="true" signature="3069:3304" ph="UPDATE `prie... " />
+            <marker date="1484317199000" expanded="true" signature="3338:3594" ph="INSERT INTO `log_priem`... " />
+            <marker date="1484317199000" expanded="true" signature="4240:4293" ph="SELECT * FRO... status" />
+            <marker date="1484317199000" expanded="true" signature="4474:4729" ph="INSERT INTO `priem`... " />
+            <marker date="1484317199000" expanded="true" signature="4762:5027" ph="INSERT INTO `log_priem`... " />
+            <marker date="1484317199000" expanded="true" signature="5383:5424" ph="INSERT INTO `categor`... " />
+            <marker date="1484317199000" expanded="true" signature="6228:6924" ph="INSERT INTO `categor`... " />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+  </component>
+</project>

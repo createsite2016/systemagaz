@@ -1,9 +1,14 @@
 <?php
 session_start();
+
+//include_once "classes/Database.php"; // подключаем БД
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
-    include("vhod.php");
-}  
+    include("views/login/login.php");
+}
 // Иначе открываем для него контент
 else { include("verh.php"); ?>
 
@@ -26,14 +31,15 @@ else { include("verh.php"); ?>
 
 <div class="row">
         <div class="col-lg-12">
+            <footer class="panel-footer">
+                <div class="row">
+                    <div class="col-12 text-right text-center-sm">
+                        <ul class="pagination pagination-small m-t-none m-b-none">
 <?php
-
-$sql_rows = mysql_query("SELECT count(*) FROM `priem` ",$db); 
-$data = mysql_fetch_row($sql_rows);
-$total_rows=$data[0];
-
-$total_articles_number = $total_rows;   //общее количество статей
-$articles_per_page=4; // количество статей на странице
+//  ВЫВОД СТРАНИЦ НАВИГАЦИИ
+$arra = $pdo->getRow("SELECT count(*) FROM `priem` ");
+$total_articles_number = $arra['count(*)']; //общее количество статей
+$articles_per_page = 4; // количество статей на странице
 $b = $_GET['page'];
 if (!isset($_GET['page'])) {
     $b=0;
@@ -42,14 +48,8 @@ $a = $b + $articles_per_page;
 //получаем количество страниц
 $total_pages = ceil($total_articles_number/$articles_per_page);
 
-?>
-<footer class="panel-footer">
-              <div class="row">
-                <div class="col-12 text-right text-center-sm">                
-                  <ul class="pagination pagination-small m-t-none m-b-none">
-<?php
 // запускаем цикл - количество итераций равно количеству страниц
-for ($i=0; $i<$total_pages; $i++)
+for ( $i=0; $i<$total_pages; $i++ )
 {
 // получаем значение $from (как $page_number) для использования в формировании ссылки
 $page_number=$i*$articles_per_page;
@@ -59,8 +59,8 @@ $page_number=$i*$articles_per_page;
 if ($page_number!=$from) {echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1).
     " </a></li>"; }
 // иначе просто выводим номер страницы - данная строка необязательна,
-// пропустив ее вы просто получите линк на текущую страницу 
-else { 
+// пропустив ее вы просто получите линк на текущую страницу
+else {
   $page_number='1';
   echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
   } // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
@@ -98,8 +98,9 @@ else {
 include('showdata_forpeople.php');
 if ($user_role=='1') {
     if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
-    $sql_get_device = mysql_query("SELECT priem.id,datatime,fio,phone,adress,dostavka,tovar,status,user_name,postavshik,sklad,status.color FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ",$db);
-    while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
+
+    $sql_tovar = $pdo->getRows("SELECT priem.id,datatime,fio,phone,adress,dostavka,tovar,status,user_name,postavshik,sklad,status.color FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
+    foreach ($sql_tovar as $tovar) { ?>
         <tr>
             <td>
                 <div class="checkbox">
@@ -137,34 +138,35 @@ if ($user_role=='1') {
 // Если роль пользователя 3
 if ($user_role=='3') {
     if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
-                        $sql_get_device = mysql_query("SELECT priem.id,datatime,fio,phone,adress,dostavka,tovar,status,user_name,postavshik,sklad,status.color FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ",$db);
-                        while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
+
+    $sql_tovar = $pdo->getRows("SELECT priem.id,datatime,fio,phone,adress,dostavka,tovar,status,user_name,postavshik,sklad,status.color FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
+    foreach ($sql_tovar as $tovar) { ?>
                   <tr>
                     <td>
                         <div class="checkbox">
                             <label class="checkbox-custom">
-                                <input name="products[]" type="checkbox" form="form" value="<?php echo $data_get_device['id']; // id записи ?>">
+                                <input name="products[]" type="checkbox" form="form" value="<?php echo $tovar['id']; // id записи ?>">
                                 <i class="icon-unchecked" ></i>
                             </label>
                         </div>
                     </td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['fio']; // фамилия ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['phone'];?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['adress']; // адрес ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['dostavka']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['postavshik']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['tovar']; // содержание ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['status']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['user_name']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['sklad']; ?></font></b></td>
-                    <td bgcolor="<?php echo $data_get_device['color'];?>">
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php $date = new DateTime($tovar['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['fio']; // фамилия ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['phone'];?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['adress']; // адрес ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['dostavka']; ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['postavshik']; ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['tovar']; // содержание ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['status']; ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['user_name']; ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['sklad']; ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>">
                       <div class="btn-group">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil"></i></a>
                           <ul class="dropdown-menu pull-right">
-                            <li><a href="fl_izm_zakaz.php?id=<?php echo $data_get_device['id']; ?>&usid=<?php echo $id_user; ?>">Изменить</a></li>
+                            <li><a href="fl_izm_zakaz.php?id=<?php echo $tovar['id']; ?>&usid=<?php echo $id_user; ?>">Изменить</a></li>
                             <li class="divider"></li>
-                            <li><a href="fl_del_zakaz.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a></li>
+                            <li><a href="classes/App.php?id=<?php echo $tovar['id']; ?>&action=del_zakaz"><font color="red">Удалить</font></a></li>
                           </ul>
                        </div>
                     </td>
@@ -174,53 +176,48 @@ if ($user_role=='3') {
               </tbody>
               </table>
               </section></form>
-<?php
-
-$sql_rows = mysql_query("SELECT count(*) FROM `priem` ",$db); 
-$data = mysql_fetch_row($sql_rows);
-$total_rows=$data[0];
-
-$total_articles_number = $total_rows;   //общее количество статей
- // количество статей на странице
-$b = $_GET['page'];
-if (!isset($_GET['page'])) {
-    $b=0;
-}
-$a = $b + $articles_per_page;
-//получаем количество страниц
-$total_pages = ceil($total_articles_number/$articles_per_page);
-
-?>
 <footer class="panel-footer">
               <div class="row">
-                <div class="col-12 text-right text-center-sm">                
+                <div class="col-12 text-right text-center-sm">
                   <ul class="pagination pagination-small m-t-none m-b-none">
-<?php
-// запускаем цикл - количество итераций равно количеству страниц
-for ($i=0; $i<$total_pages; $i++)
-{
+  <?php
+  //  ВЫВОД СТРАНИЦ НАВИГАЦИИ
+ $arra = $pdo->getRow("SELECT count(*) FROM `priem` ");
+ $total_articles_number = $arra['count(*)']; //общее количество статей
+ $articles_per_page = 4; // количество статей на странице
+ $b = $_GET['page'];
+    if (!isset($_GET['page'])) {
+                $b=0;
+    }
+ $a = $b + $articles_per_page;
+ //получаем количество страниц
+ $total_pages = ceil($total_articles_number/$articles_per_page);
+
+ // запускаем цикл - количество итераций равно количеству страниц
+ for ( $i=0; $i<$total_pages; $i++ )
+ {
 // получаем значение $from (как $page_number) для использования в формировании ссылки
-$page_number=$i*$articles_per_page;
+                          $page_number=$i*$articles_per_page;
 // если $page_number (фактически это проверка того является ли $from текущим) не соответствует
 // текущей странице,
 // выводим ссылку на страницу со значением $from равным $page_number
-if ($page_number!=$from) {echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1).
-    " </a></li>"; }
+                          if ($page_number!=$from) {echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1).
+                              " </a></li>"; }
 // иначе просто выводим номер страницы - данная строка необязательна,
-// пропустив ее вы просто получите линк на текущую страницу 
-else { 
-  $page_number='1';
-  echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
-  } // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
-}
-?>
+// пропустив ее вы просто получите линк на текущую страницу
+                          else {
+                              $page_number='1';
+                              echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
+                          } // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
+                      }
+                      ?>
                   </ul>
                 </div>
               </div>
             </footer>
 
                     <div id="modal" class="modal fade" style="display: none;" aria-hidden="true">
-                    <form class="m-b-none" action="fl_post_add_zakaz.php" method="POST">
+                    <form class="m-b-none" action="classes/App.php" method="POST">
                     <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -244,24 +241,22 @@ else {
                     <div class="block">
                     <label class="control-label">Служба доставки:</label><br>
                       <select name="dostavka">
-                    <?php
-                    $sql_get_magaz = mysql_query("SELECT * FROM `dostavka` ",$db);
-                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
-                      echo "<option>".$data['name']."</option>";
-                    }
-                    ?>
+<?php
+$dostavka = $pdo->getRows("SELECT `name` FROM `dostavka` ");
+foreach ($dostavka as $item){
+    echo "<option>".$item['name']."</option>";
+} ?>
                       </select>
                     </div>
 
                     <div class="block">
                     <label class="control-label">Поставщик:</label><br>
                       <select name="postavshik">
-                    <?php
-                    $sql_get_magaz = mysql_query("SELECT * FROM `postavshiki` ",$db);
-                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
-                      echo "<option>".$data['name']."</option>";
-                    }
-                    ?>
+<?php
+$postavshiki = $pdo->getRows("SELECT * FROM `postavshiki` ");
+foreach ($postavshiki as $item){
+    echo "<option>".$item['name']."</option>";
+} ?>
                       </select>
                     </div>
 
@@ -271,29 +266,29 @@ else {
                     <textarea placeholder="Содержание" rows="3" name="tovar" class="form-control parsley-validated" data-trigger="keyup" ></textarea>
                     <input type="hidden" name="user_name" value="<?php echo $name ?>" >
                     <input type="hidden" name="user_sc" value="<?php echo $user_sc ?>" >
+                    <input type="hidden" name="action" value="add_zakaz">
                     </div>
 
                     <div class="block">
                     <label class="control-label">Магазин:</label><br>
                       <select name="sklad">
-                    <?php
-                    $sql_get_magaz = mysql_query("SELECT * FROM `magazins` ",$db);
-                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
-                      echo "<option>".$data['name']."</option>";
-                    }
-                    ?>
+<?php
+$magaz = $pdo->getRows("SELECT * FROM `magazins` ");
+foreach ($magaz as $item){
+    echo "<option>".$item['name']."</option>";
+}
+?>
                       </select>
                     </div>
 
                     <div class="block">
                     <label class="control-label">Статус:</label><br>
                       <select name="status">
-                    <?php
-                    $sql_get_status = mysql_query("SELECT * FROM `status` ",$db);
-                      while ($data_status = mysql_fetch_assoc($sql_get_status)) {
-                      echo "<option value=".$data_status['id'].">".$data_status['name']."</option>";
-                    }
-                    ?>
+<?php
+$status = $pdo->getRows("SELECT * FROM `status` ");
+foreach ($status as $item){
+    echo "<option value=".$item['id'].">".$item['name']."</option>";
+} ?>
                       </select>
                     </div>
 
