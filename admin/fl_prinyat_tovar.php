@@ -1,13 +1,10 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: developer
- * Date: 29.09.16
- * Time: 2:40
- * Принятие товара на остатки
- */
-
 session_start();
+
+//include_once "classes/Database.php"; // подключаем БД
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -32,12 +29,11 @@ else { include("verh.php"); ?>
     <div class="row">
     <?php
     $id = $_GET['id'];
-    $get_params = mysql_query("SELECT * FROM `tovar` WHERE `id`='$id' ",$db);
-    $params = mysql_fetch_array($get_params);
+    $params = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ? ",[$id]);
     ?>
     <section class="panel">
         <div class="panel-body">
-            <form action="fl_post_prinyat_tovar.php" class="form-horizontal" method="POST" data-validate="parsley">
+            <form action="classes/App.php" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                     <div class="col-lg-9 media">
                         <center><h4><i class="icon-edit"></i>Приход товара</h4></center>
@@ -48,6 +44,7 @@ else { include("verh.php"); ?>
                     <label class="col-lg-3 control-label">Количество шт.:</label>
                     <div class="col-lg-8">
                         <input type="text" autocomplete="off" name="kolvo" class="form-control parsley-validated" value="1">
+                        <input type="hidden" name="action" value="prinyat_tovar">
                     </div>
                 </div>
 
@@ -59,17 +56,13 @@ else { include("verh.php"); ?>
                             <?php
                             $id_categor = $_GET['categor']; // получение категории
 
-
-
-                            $sql_get_money = mysql_query("SELECT * FROM `tovar` WHERE `id` = '$id' ",$db);
-                            while ($select_money = mysql_fetch_assoc($sql_get_money)) {
+                            $sql_get_money = $pdo->getRows("SELECT * FROM `tovar` WHERE `id` = ? ",[$id]);
+                            foreach ( $sql_get_money as $select_money ) {
                                 echo "<option selected value=".$select_money['money_input'].">".$select_money['money_input']."</option>";
                             }
 
-
-
-                            $sql_get_all_money = mysql_query("SELECT * FROM `money` ",$db);
-                            while ($data_all_money = mysql_fetch_assoc($sql_get_all_money)) {
+                            $sql_get_all_money = $pdo->getRows("SELECT * FROM `money` ");
+                            foreach ( $sql_get_all_money as $data_all_money ) {
                                 echo "<option value=".$data_all_money['name'].">".$data_all_money['name']."</option>";
                             }
                             ?>
@@ -84,8 +77,9 @@ else { include("verh.php"); ?>
                         <select name="postavshik">
                             <?php
                             $id_categor = $_GET['categor'];
-                            $sql_get_categor = mysql_query(" SELECT * FROM `postavshiki` ",$db);
-                            while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
+
+                            $sql_get_categor = $pdo->getRows(" SELECT * FROM `postavshiki` ");
+                            foreach ( $sql_get_categor as $data_categor ) {
                                 echo "<option value='".$data_categor[name]."'>".$data_categor['name']."</option>";
                             }
                             ?>
@@ -140,8 +134,8 @@ else { include("verh.php"); ?>
                 <?php
                 include('showdata_forpeople.php');
                 if ($user_role=='1') {
-                    $sql_get_history = mysql_query("SELECT * FROM `log_prihod` WHERE `id_tovara` = '$id' ORDER BY `datatime` DESC ",$db);
-                    while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+                    $sql_get_history = $pdo->getRows("SELECT * FROM `log_prihod` WHERE `id_tovara` = ? ORDER BY `datatime` DESC ",[$id]);
+                    foreach ( $sql_get_history as $data_history ) { ?>
                         <tr>
                             <td><b><font color="black"><?php $date = new DateTime($data_history['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                             <td><b><font color="black"><?php echo $data_history['kolvo'];?></font></b></td>
@@ -152,8 +146,8 @@ else { include("verh.php"); ?>
                         </tr>
                     <?php }}
                 if ($user_role=='3') {
-                    $sql_get_history = mysql_query("SELECT * FROM `log_prihod` WHERE `id_tovara` = '$id' ORDER BY `datatime` DESC ",$db);
-                    while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+                    $sql_get_history = $pdo->getRows("SELECT * FROM `log_prihod` WHERE `id_tovara` = ? ORDER BY `datatime` DESC ",[$id]);
+                    foreach ( $sql_get_history as $data_history ) { ?>
                         <tr>
                             <td><b><font color="black"><?php $date = new DateTime($data_history['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                             <td><b><font color="black"><?php echo $data_history['kolvo'];?></font></b></td>

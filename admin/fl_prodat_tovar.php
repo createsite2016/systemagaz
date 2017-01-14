@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+//include_once "classes/Database.php"; // подключаем БД
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -24,12 +29,11 @@ else { include("verh.php"); ?>
       <div class="row">
 <?php
 $id = $_GET['id'];
-$get_params = mysql_query("SELECT * FROM `tovar` WHERE `id`='$id' ",$db);
-$params = mysql_fetch_array($get_params);
+  $params = $pdo->getRow("SELECT * FROM `tovar` WHERE `id`= ? ",[$id]);
 ?>
 <section class="panel">
             <div class="panel-body">
-              <form action="fl_post_prodat_tovar.php" class="form-horizontal" method="POST" data-validate="parsley">
+              <form action="classes/App.php" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                   <div class="col-lg-9 media">
                     <center><h4><i class="icon-edit"></i>Продажа товара</h4></center>
@@ -40,6 +44,7 @@ $params = mysql_fetch_array($get_params);
                   <label class="col-lg-3 control-label">Количество шт.:</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="kolvo" class="form-control parsley-validated" value="<?php echo $params['kolvo']; ?>">
+                    <input type="hidden" name="action" value="prodat_tovar">
                   </div>
                 </div>
 
@@ -62,8 +67,8 @@ $params = mysql_fetch_array($get_params);
                   <div class="col-lg-8">
                     <select name="prodavec">
                       <?php
-                      $sql_get_categor = mysql_query(" SELECT * FROM `users_8897532` WHERE `role` <> '3' ",$db);
-                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
+                      $sql_get_categor = $pdo->getRows(" SELECT * FROM `users_8897532` WHERE `role` <> '3' ");
+                      foreach ( $sql_get_categor as $data_categor ) {
                         echo "<option value='".$data_categor[name]."'>".$data_categor['name']."</option>";
                       }
                       ?>
@@ -89,8 +94,8 @@ $params = mysql_fetch_array($get_params);
                     <select name="magazin">
                     <?php
                     $id_categor = $_GET['categor'];
-                    $sql_get_categor = mysql_query(" SELECT * FROM `magazins` ",$db);
-                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
+                    $sql_get_categor = $pdo->getRows(" SELECT * FROM `magazins` ");
+                    foreach ( $sql_get_categor as $data_categor ) {
                       echo "<option value='".$data_categor[name]."'>".$data_categor['name']."</option>";
                     }
                     ?>
@@ -117,8 +122,8 @@ $params = mysql_fetch_array($get_params);
                   <label class="col-lg-3 control-label">Наложка:</label>
                   <div class="col-lg-8">
                     <select name="nalogka">
-                    <option value="Да">Да</option>
                     <option value="Нет">Нет</option>
+                    <option value="Да">Да</option>
                     </select>
                   </div>
                 </div>
@@ -169,8 +174,8 @@ $params = mysql_fetch_array($get_params);
         <?php
         include('showdata_forpeople.php');
         if ($user_role=='1') {
-          $sql_get_history = mysql_query("SELECT * FROM `log_rashod` WHERE `id_tovara` = '$id' ORDER BY `datatime` DESC ",$db);
-          while ($data_history = mysql_fetch_assoc($sql_get_history)) { 
+          $sql_get_history = $pdo->getRows("SELECT * FROM `log_rashod` WHERE `id_tovara` = ? ORDER BY `datatime` DESC ",[$id]);
+          foreach ( $sql_get_history as $data_history ) {
             if ($data_history['nalogka']=="Да"){$color_font = "black";}
             if ($data_history['nalogka']=="Нет"){$color_font = "grey";}
             ?>
@@ -188,8 +193,8 @@ $params = mysql_fetch_array($get_params);
             </tr>
           <?php }}
         if ($user_role=='3') {
-          $sql_get_history = mysql_query("SELECT * FROM `log_rashod` WHERE `id_tovara` = '$id' ORDER BY `datatime` DESC ",$db);
-          while ($data_history = mysql_fetch_assoc($sql_get_history)) { 
+          $sql_get_history = $pdo->getRows("SELECT * FROM `log_rashod` WHERE `id_tovara` = ? ORDER BY `datatime` DESC ",[$id]);
+          foreach ( $sql_get_history as $data_history ) {
             if ($data_history['nalogka']=="Да"){$color_font = "black";}
             if ($data_history['nalogka']=="Нет"){$color_font = "grey";}
             ?>

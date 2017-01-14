@@ -100,7 +100,7 @@ if ($user_role=='3') {
                           }
 
                           ?></td>
-                      <td><?php echo $data_products['chena_output'];?></td>
+                      <td><?php echo $data_products['chena_output']; echo " "; echo $data_products['money_output'];?></td>
                     <td><?php echo $data_products['status']; ?></td>
                     <td><a href="classes/App.php?id=<?php echo $data_products['id']; ?>&action=del_tovar&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a><br>

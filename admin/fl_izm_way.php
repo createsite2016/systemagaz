@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+//include_once "classes/Database.php"; // подключаем БД
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -24,12 +29,11 @@ else { include("verh.php"); ?>
       <div class="row">
 <?php
 $id = $_GET['id'];
-$get_params = mysql_query("SELECT * FROM `in_way` WHERE `id`='$id' ",$db); //извлекаем из базы все данные о пользователе с введенным логином
-$params = mysql_fetch_array($get_params);
+  $params = $pdo->getRow("SELECT * FROM `in_way` WHERE `id`= ? ",[$id]);
 ?>
 <section class="panel">
             <div class="panel-body">
-              <form action="fl_post_izm_way.php" class="form-horizontal" method="POST" data-validate="parsley">      
+              <form action="classes/App.php" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                   <div class="col-lg-9 media">
                     <center><h4><i class="icon-edit"></i>Редактирование товара</h4></center>
@@ -42,6 +46,7 @@ $params = mysql_fetch_array($get_params);
                     <input type="text" autocomplete="off" name="tovar" placeholder="" class="form-control parsley-validated" value="<?php echo $params['tovar']; ?>">
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
                     <input type="hidden" name="menedger" value="<?php echo $name ?>" >
+                    <input type="hidden" name="action" value="izm_way">
                   </div>
                 </div>
 
@@ -87,12 +92,11 @@ $params = mysql_fetch_array($get_params);
                     <select name="magazin">
                       <option selected value="<?php echo $params['magazin']; ?>"><?php echo $params['magazin']; ?></option>
                     <?php
-                    $sql_get_magaz = mysql_query("SELECT * FROM `magazins` ",$db);
-                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
+                    $sql_get_magaz = $pdo->getRows("SELECT * FROM `magazins` ");
+                    foreach ( $sql_get_magaz as $data ) {
                       if ($data['name']!==$params['magazin']) {
                          echo "<option>".$data['name']."</option>";
                       }
-
                     }
                     ?>
                       </select>
@@ -105,12 +109,11 @@ $params = mysql_fetch_array($get_params);
                     <select name="prodavec">
                       <option selected value="<?php echo $params['prodavec']; ?>"><?php echo $params['prodavec']; ?></option>
                     <?php
-                    $sql_get_magaz = mysql_query("SELECT * FROM `users_8897532` WHERE `role`<'3' ",$db);
-                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
+                    $sql_get_magaz = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `role`<'3' ");
+                    foreach ( $sql_get_magaz as $data ) {
                       if ($data['name']!==$params['prodavec']) {
                          echo "<option>".$data['name']."</option>";
                       }
-
                     }
                     ?>
                       </select>

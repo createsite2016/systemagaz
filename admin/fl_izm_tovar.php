@@ -133,8 +133,6 @@ $id = $_GET['id'];
                       <?php
                       $name_output_money = $params['money_output'];
 
-
-
                       $sql_get_select_valuta = $pdo->getRows("SELECT * FROM `money` WHERE `name` = ? ",[$name_output_money]);
                       foreach ( $sql_get_select_valuta as $select_valuta ) {
                         echo "<option selected value=".$select_valuta['name'].">".$select_valuta['name']."</option>";
@@ -216,24 +214,24 @@ $id = $_GET['id'];
         <?php
         include('showdata_forpeople.php');
         if ($user_role=='1') {
-          $sql_get_history = mysql_query("SELECT * FROM `log_rashod` WHERE `id_tovara` = '$id' ORDER BY `datatime` DESC ",$db);
-          while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+          $sql_get_history = $pdo->getRows("SELECT * FROM `log_rashod` WHERE `id_tovara` = ? ORDER BY `datatime` DESC ",[$id]);
+          foreach ( $sql_get_history as $data_history ) { ?>
             <tr>
-              <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
-              <td><b><font color="black"><?php echo $data_history['kolvo'];?></font></b></td>
-              <td><b><font color="black"><?php echo $data_history['chena'];?></font></b></td>
-              <td><b><font color="black"><?php echo $data_history['prifut'];?></font></b></td>
-                <td><b><font color="black"><?php echo $data_history['nakladnaya'];?></font></b></td>
-                <td><b><font color="black"><?php echo $data_history['nalogka'];?></font></b></td>
-                <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
-                <td><b><font color="black"><?php echo $data_history['magazin'];?></font></b></td>
-                <td><b><font color="black"><?php echo $data_history['menedger'];?></font></b></td>
-                <td><b><font color="black"><?php echo $data_history['prodavec'];?></font></b></td>
+                    <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['kolvo'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['chena'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['prifut'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['nakladnaya'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['nalogka'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['komment'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['magazin'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['menedger'];?></font></b></td>
+                    <td><b><font color="black"><?php echo $data_history['prodavec'];?></font></b></td>
             </tr>
           <?php }}
         if ($user_role=='3') {
-            $sql_get_history = mysql_query("SELECT * FROM `log_rashod` WHERE `id_tovara` = '$id' ORDER BY `datatime` DESC ",$db);
-            while ($data_history = mysql_fetch_assoc($sql_get_history)) { ?>
+          $sql_get_history = $pdo->getRows("SELECT * FROM `log_rashod` WHERE `id_tovara` = ? ORDER BY `datatime` DESC ",[$id]);
+          foreach ( $sql_get_history as $data_history ) { ?>
                 <tr>
                     <td><b><font color="black"><?php $vremya = date_smart($data_history['datatime']); echo $vremya ?></font></b></td>
                     <td><b><font color="black"><?php echo $data_history['kolvo'];?></font></b></td>

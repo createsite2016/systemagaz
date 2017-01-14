@@ -21,6 +21,13 @@ include_once "Database.php"; // подключаем БД
  * izm_categor - Изменение категории (Страница товары)
  * izm_tovar - Изменение товара (Страница товары)
  * del_tovar - Удаление товара (Страница товары)
+ * prinyat_tovar - Принятие товара и запись в историю (Страница товары)
+ * prodat_tovar - Продажа товара и запись в историю (Страница товары)
+ *
+ * В ПУТИ
+ * izm_way - Изменение товара в пути (Страница В пути)
+ * del_way - Удаление товара в пути (Страница В пути)
+ * add_way - Добавлние товара в пути (Страница В пути)
  *
  */
 class App
@@ -256,11 +263,256 @@ VALUES (
             $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
         }
 
+// Принятие товара и запись в историю (Страница товары)
+        if ( $action == 'prinyat_tovar' ) {
+            $pdo = new Database();
+            $id_tovara = $_POST['id'];
+            $kolvo = $_POST['kolvo'];
+            $chena = $_POST['chena'];
+            $postavshik = $_POST['postavshik'];
+            $komment = $_POST['komment'];
+            $datatime = date("Y-m-d H:i:s");
+            $valuta = $_POST['money_input'];
+            $id_categor = $_POST['id_categor'];
+            $user_name = $_POST['user_name'];
+
+            $sql_get_kolvo = $pdo->getRows(" SELECT * FROM `tovar` WHERE `id` = ?",[$id_tovara]);
+            foreach ( $sql_get_kolvo as $data_kolvo ){
+                $ostatok_tovara += $data_kolvo['kolvo']; // получение остатка товара
+            }
+            $vsego += $ostatok_tovara + $kolvo;
+
+            $pdo->insertRow("INSERT INTO `log_prihod` (
+	`id_tovara`,
+	`kolvo`,
+	`chena`,
+	`postavshik`,
+	`komment`,
+	`datatime`,
+	`meneger`,
+	`valuta`
+	) VALUES (
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?
+	)",[$id_tovara,$kolvo,$chena,$postavshik,$komment,$datatime,$user_name,$valuta]);
+            if ( empty($chena)==true ) {
+                $pdo->updateRow("UPDATE `tovar` SET `kolvo`= ? WHERE `id`= ? ",[$vsego,$id_tovara]);
+            }
+
+            if ( !empty($chena)==true ) {
+                $pdo->updateRow("UPDATE `tovar` SET `kolvo`= ?,`chena_input`= ?,`money_input`= ? WHERE `id`= ? ",[$vsego,$chena,$valuta,$id_tovara]);
+            }
+            $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
+        }
+
+// Продажа товара и запись в историю (Страница товары)
+        if ( $action == 'prodat_tovar' ) {
+
+            $pdo = new Database();
+
+            $kolvo = $_POST['kolvo'];
+            $prodavec = $_POST['prodavec'];
+            $magazin = $_POST['magazin'];
+            $komment = $_POST['komment'];
+            $nakladnaya = $_POST['nakladnaya'];
+            $nalogka = $_POST['nalogka'];
+            $id = $_POST['id'];
+            $id_categor = $_POST['id_categor'];
+            $chena_input = $_POST['chena_input']; // 3 доллара
+            $chena_output = $_POST['chena']; // 188 рублей
+            $datatime = date("Y-m-d H:i:s");
+            $valuta = $_POST['valuta'];
+            $id_tovara = $_POST['id'];
+            $user_name = $_POST['user_name'];
+
+            $manager = $_POST['manager'];
+            $prodaja = $kolvo*$chena_output; // продажа в нашей валюте
+            $sql_get_kurs = $pdo->getRows(" SELECT * FROM `money` WHERE `name`= ?",[$valuta]);
+            foreach ( $sql_get_kurs as $data_kurs ) {
+                $kurs = $data_kurs['chena'];
+            }
+            // Курс валюты
+            $prodaja_v_valute = $kolvo*$chena_input*$kurs;
+            // Продажа в валюте
+            $itogo = $prodaja-$prodaja_v_valute;
+            // Итого навар (профит)
+            $prifut = $itogo;
+
+            $sql_get_kolvo = $pdo->getRows(" SELECT * FROM `tovar` WHERE `id`= ?",[$id_tovara]);
+            foreach ( $sql_get_kolvo as $data_kolvo ) {
+                $ostatok_tovara += $data_kolvo['kolvo']; // получение остатка товара
+                $tovar_name = $data_kolvo['name']; // получение название товара
+                $tovar_model = $data_kolvo['model']; // получение модели товара
+            }
+
+            $vsego += $ostatok_tovara - $kolvo;
+
+            $pdo->insertRow("INSERT INTO `log_rashod` (
+	`kolvo`,
+	`prodavec`,
+	`magazin`,
+	`komment`,
+	`nakladnaya`,
+	`nalogka`,
+	`chena`,
+	`prifut`,
+	`datatime`,
+	`id_tovara`,
+	`menedger`,
+	`valuta`
+	) VALUES (
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?
+	)",[$kolvo,$prodavec,$magazin,$komment,$nakladnaya,$nalogka,$chena_output,$prifut,$datatime,$id_tovara,$user_name,$valuta]);
+
+            $datatime; // время и дата
+            $tovar = "модель: {$tovar_model} товар: {$tovar_name}"; // товар
+            $primechanie = $komment; // товар
+            $kolvo; // количество
+            $chena = $chena_output;
+            $profit = $prifut;
+            $ttn = $nakladnaya;
+            $komment;
+            $magazin;
+            $menedger = $user_name;
+            $prodavec;
 
 
+            if ($nalogka == "Да"){
+
+                $pdo->insertRow("INSERT INTO `in_way` (
+	`datatime`,
+	`tovar`,
+	`kolvo`,
+	`chena`,
+	`profit`,
+	`ttn`,
+	`komment`,
+	`magazin`,
+	`menedger`,
+	`prodavec`
+	) VALUES (
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?
+	)",[$datatime,$tovar,$kolvo,$chena,$profit,$ttn,$primechanie,$magazin,$menedger,$prodavec]);
+            }
+
+            $pdo->updateRow("UPDATE `tovar` SET `kolvo`= ? WHERE `id`= ? ",[$vsego,$id_tovara]);
 
 
+            $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
 
+        }
+
+/**
+* Страницы В ПУТИ
+*/
+
+
+// Изменение товара в пути (Страница В пути)
+        if ( $action == 'izm_way' ) {
+
+            $pdo = new Database();
+
+            $id = $_POST['id'];
+            $tovar = $_POST['tovar'];
+            $kolvo = $_POST['kolvo'];
+            $chena = $_POST['chena'];
+            $profit = $_POST['profit'];
+            $ttn = $_POST['ttn'];
+            $komment = $_POST['komment'];
+            $magazin = $_POST['magazin'];
+            $menedger = $_POST['menedger'];
+            $prodavec = $_POST['prodavec'];
+            $datatime = date("Y-m-d H:i:s");
+
+            $pdo->updateRow("UPDATE `in_way` SET 
+	`tovar` = ?,
+	`kolvo` = ?,
+	`chena` = ?,
+	`profit` = ?,
+	`ttn` = ?,
+	`komment` = ?,
+	`magazin` = ?,
+	`menedger` = ?,
+	`prodavec` = ?,
+	`datatime` = ? 
+	WHERE `id` = '$id' ",[$tovar,$kolvo,$chena,$profit,$ttn,$komment,$magazin,$menedger,$prodavec,$datatime]);
+
+            $this->goWayClass('way');
+        }
+
+// Удаление товара в пути (Страница В пути)
+        if ( $action == 'del_way' ) {
+            $pdo = new Database();
+            $id = $_REQUEST['id']; // айдишник талона
+            $pdo->deleteRow("DELETE FROM `in_way` WHERE `id` = ?",[$id]);
+            $this->goWayClass('way');
+        }
+
+// Добавлние товара в пути (Страница В пути)
+        if ( $action == 'add_way' ) {
+            $pdo = new Database();
+            $tovar = $_POST['tovar'];
+            $kolvo = $_POST['kolvo'];
+            $chena = $_POST['chena'];
+            $profit = $_POST['profit'];
+            $ttn = $_POST['ttn'];
+            $komment = $_POST['komment'];
+            $menedger = $_POST['user_name'];
+            $magazin = $_POST['magazin'];
+            $prodavec = $_POST['prodavec'];
+            $datatime = date("Y-m-d H:i:s");
+
+            $pdo->insertRow("INSERT INTO `in_way` (
+	`datatime`,
+	`tovar`,
+	`kolvo`,
+	`chena`,
+	`profit`,
+	`ttn`,
+	`komment`,
+	`magazin`,
+	`menedger`,
+	`prodavec`
+	) VALUES (
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?,
+	?
+	)",[$datatime,$tovar,$kolvo,$chena,$profit,$ttn,$komment,$magazin,$menedger,$prodavec]);
+            $this->goWayClass('way');
+        }
 
 
 
