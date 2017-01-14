@@ -43,7 +43,7 @@ else { include("verh.php"); ?>
                 <thead>
                   <tr>
                     <th><b>Категория</b></th>
-                    <th><b>Дейстиве</b></th>
+                    <th><b>Действие</b></th>
                   </tr>
                 </thead>
 <?php
@@ -66,7 +66,7 @@ if ($user_role=='3') {
     foreach ( $sql_get_products as $products ) { ?>
                   <tr>
                     <td><a href="fl_open_products.php?id_categor=<?php echo $products['id']; ?>"><?php echo $products['name']; ?></a></td>
-                    <td><a href="fl_del_categor.php?id=<?php echo $products['id']; ?>"><font color="red">Удалить</font></a>
+                    <td><a href="classes/App.php?id=<?php echo $products['id']; ?>&action=del_categor"><font color="red">Удалить</font></a>
                     <a href="fl_izm_categor.php?id=<?php echo $products['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
 <?php }} ?>

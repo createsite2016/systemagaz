@@ -102,7 +102,7 @@ if ($user_role=='3') {
                           ?></td>
                       <td><?php echo $data_products['chena_output'];?></td>
                     <td><?php echo $data_products['status']; ?></td>
-                    <td><a href="fl_del_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
+                    <td><a href="classes/App.php?id=<?php echo $data_products['id']; ?>&action=del_tovar&categor=<?php echo $id_categor; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a><br>
                     <a href="fl_prinyat_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
                         <?php
@@ -117,89 +117,94 @@ if ($user_role=='3') {
               </table>
               </section>
 
-                   
 
 
 
 
 
-                    <div id="tovar" class="modal fade" style="display: none;" aria-hidden="true">
-                    <form class="m-b-none" action="fl_post_add_tovar.php" method="POST">
+
+            <div id="tovar" class="modal fade" style="display: none;" aria-hidden="true">
+                <form class="m-b-none" action="classes/App.php" method="POST">
                     <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>
-                    <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новый товар</h4>
-                    </div>
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>
+                                <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новый товар</h4>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Название:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="name" autofocus autocomplete="off">
+                                    <input type="hidden" name="action" value="add_tovar">
+                                    <input type="hidden" name="categor_id" value="<?php echo $id_categor; ?>">
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Модель:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="model" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Цена(вх.):</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="chena_input" autofocus autocomplete="off">
+                                    <select name="money_input">
+                                        <?php
+                                        $sql_get_money = $pdo->getRows("SELECT * FROM `money` ");
+                                        foreach ( $sql_get_money as $data_money ) {
+                                            echo "<option>".$data_money['name']."</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Цена(вых.):</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="chena_output" autofocus autocomplete="off">
+                                    <select name="money_output">
+                                        <?php
+                                        $sql_get_money = $pdo->getRows("SELECT * FROM `money` ");
+                                        foreach ( $sql_get_money as $data_money ) {
+                                            echo "<option>".$data_money['name']."</option>";
+                                        }
+                                        ?>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Комментарий:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="komment" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <div class="modal-body">
+
+                                <div class="block">
+                                    <label class="control-label">Статус:</label><br>
+                                    <select name="status">
+                                        <option selected value="Доступен">Доступен</option>
+                                        <option value="Недоступен">Недоступен</option>
+                                        <option value="Неизвестен">Неизвестен</option>
+                                    </select>
+                                </div>
 
 
-                    <div class="modal-body">
-                    <div class="block">
-                    <label class="control-label">Название:</label>
-                    <input class="form-control parsley-validated" placeholder="" type="text" name="name" autofocus autocomplete="off">
-                    <input type="hidden" name="id_categor" autofocus autocomplete="off" value="<?php echo $id_categor; ?>">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="submit" class="btn btn-primary">Добавить</button>
+                                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Отмена</button>
+                            </div>
+                        </div>
                     </div>
-                    </div>
-
-                    <div class="modal-body">
-                    <div class="block">
-                    <label class="control-label">Модель:</label>
-                    <input class="form-control parsley-validated" placeholder="" type="text" name="model" autofocus autocomplete="off">
-                    </div>
-                    </div>
-
-                    <div class="modal-body">
-                    <div class="block">
-                    <label class="control-label">Цена(вх.):</label>
-                    <input class="form-control parsley-validated" placeholder="" type="text" name="chena_input" autofocus autocomplete="off">
-                    <select name="money_input">
-                    <?php
-                    $sql_get_money = mysql_query("SELECT * FROM `money` ",$db);
-                      while ($data_money = mysql_fetch_assoc($sql_get_money)) {
-                      echo "<option>".$data_money['name']."</option>";
-                    }
-                    ?>
-                      </select>
-                    </div>
-                    </div>
-
-                    <div class="modal-body">
-                    <div class="block">
-                    <label class="control-label">Цена(вых.):</label>
-                    <input class="form-control parsley-validated" placeholder="" type="text" name="chena_output" autofocus autocomplete="off">
-                    </div>
-                    </div>
-
-                    <div class="modal-body">
-                    <div class="block">
-                    <label class="control-label">Комментарий:</label>
-                    <input class="form-control parsley-validated" placeholder="" type="text" name="komment" autofocus autocomplete="off">
-                    </div>
-                    </div>
-
-                    <div class="modal-body">
-
-                    <div class="block">
-                    <label class="control-label">Статус:</label><br>
-                      <select name="status">
-                    <?php
-                    $sql_get_status = mysql_query("SELECT * FROM `status_rs` ",$db);
-                      while ($data_status = mysql_fetch_assoc($sql_get_status)) {
-                      echo "<option>".$data_status['name']."</option>";
-                    }
-                    ?>
-                      </select>
-                    </div>
-
-
-                    </div>
-                    <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Добавить</button>
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Отмена</button>
-                    </div>
-                    </div>
-                    </div>
-                    </form>
+                </form>
                     </div>
 <!-- / Конец тела страницы -->
 <?php include("niz.php"); }?>

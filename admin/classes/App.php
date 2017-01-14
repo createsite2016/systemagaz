@@ -16,6 +16,11 @@ include_once "Database.php"; // подключаем БД
  *
  * ТОВАРЫ
  * add_categor - Добавление категории (Страница товары)
+ * add_tovar - Добавление товара (Страница товары)
+ * del_categor - Удаление категории и товара в этой категории (Страницы товары)
+ * izm_categor - Изменение категории (Страница товары)
+ * izm_tovar - Изменение товара (Страница товары)
+ * del_tovar - Удаление товара (Страница товары)
  *
  */
 class App
@@ -145,7 +150,6 @@ class App
             // создаем подключечние к БД
             $pdo = new Database();
 
-
             $name = $_POST['name'];
             $model = $_POST['model'];
             $chena_input = $_POST['chena_input'];
@@ -158,36 +162,99 @@ class App
             $id_categor = $_POST['categor_id'];
 
             // вносим новый товар в категорию
-            $pdo->insertRow("INSERT INTO  
-                     (`categor_id`,
-	                  `name`,
-	                  `model`,
-	                  `chena_input`,
-	                  `chena_output`,
-	                  `money_input`,
-	                  `money_output`,
-	                  `komment`,
-	                  `status`,
-	                  `datatime`) 
-	                         VALUES 
-                     ('$id_categor',
-	                  '$name',
-	                  '$model',
-	                  '$chena_input',
-	                  '$chena_output',
-	                  '$money_input',
-	                  '$money_output',
-	                  '$komment',
-	                  '$status',
-	                  '$datatime')",[$id_categor,$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$status,$datatime]);
-
+            $pdo->insertRow("
+INSERT INTO `tovar` (
+`categor_id`,
+`name`,
+`model`,
+`chena_input`,
+`chena_output`,
+`money_input`,
+`money_output`,
+`komment`,
+`status`,
+`datatime`) 
+VALUES (
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?)",[$id_categor,$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$status,$datatime]);
 
             // делаем переход на страницу товары
             $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
 
         }
 
+// Удаление категории и товара в этой категории (Страницы товары)
+        if ( $action == 'del_categor' ) {
 
+            $pdo = new Database();
+            $pdo->deleteRow("DELETE FROM `categor` WHERE `id` = ?",[$id]);
+            $pdo->deleteRow("DELETE FROM `tovar` WHERE `categor_id` = ?",[$id]);
+            $this->goWayClass('products');
+
+        }
+
+// Изменение категории (Страница товары)
+        if ( $action == 'izm_categor' ) {
+
+            $pdo = new Database();
+            $name = $_POST['name'];
+            $id = $_POST['id'];
+            $pdo->updateRow("UPDATE `categor` SET `name` = ? WHERE `id` = ? ",[$name,$id]);
+            $this->goWayClass('products');
+
+        }
+
+// Изменение товара (Страница товары)
+        if ( $action == 'izm_tovar' ) {
+            $pdo = new Database();
+
+            $categor_id = $_POST['categor_id'];
+            $name = $_POST['name'];
+            $model = $_POST['model'];
+            $chena_input = $_POST['chena_input'];
+            $chena_output = $_POST['chena_output'];
+            $komment = $_POST['komment'];
+            $status = $_POST['status'];
+            $id = $_POST['id'];
+            $id_categor = $_POST['id_categor'];
+            $money_input = $_POST['money_input'];
+            $money_output = $_POST['money_output'];
+
+            $pdo->updateRow("UPDATE `tovar` SET 
+	`name` = ?,
+	`model` = ?,
+	`chena_input` = ?,
+	`chena_output` = ?,
+	`money_input` = ?,
+	`money_output` = ?,
+	`komment` = ?,
+	`categor_id` = ?,
+	`status` = ? 
+	WHERE `id` = ? ",[$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$categor_id,$status,$id]);
+
+            $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
+
+        }
+
+// Удаление товара (Страница товары)
+        if ( $action == 'del_tovar' ) {
+            $pdo = new Database();
+
+            $id = $_GET['id']; // айдишник талона
+            $id_categor = $_GET['categor'];
+            $pdo->deleteRow("DELETE FROM `tovar` WHERE `id` = ?",[$id]);
+            $pdo->deleteRow("DELETE FROM `log_rashod` WHERE `id_tovara` = ?",[$id]);
+            $pdo->deleteRow("DELETE FROM `log_prihod` WHERE `id_tovara` = ?",[$id]);
+            $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
+        }
 
 
 

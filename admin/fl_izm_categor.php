@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+//include_once "classes/Database.php"; // подключаем БД
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -23,13 +28,12 @@ else { include("verh.php"); ?>
       </div>
       <div class="row">
 <?php
-$id = $_GET['id'];
-$get_params = mysql_query("SELECT * FROM `categor` WHERE `id`='$id' ",$db); //извлекаем из базы все данные о пользователе с введенным логином
-$params = mysql_fetch_array($get_params);
+    $id = $_GET['id'];
+    $params = $pdo->getRow("SELECT * FROM `categor` WHERE `id`= ? ",[$id]);
 ?>
 <section class="panel">
             <div class="panel-body">
-              <form action="fl_post_izm_categor.php" class="form-horizontal" method="POST" data-validate="parsley">      
+              <form action="classes/App.php" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                   <div class="col-lg-9 media">
                     <center><h4><i class="icon-edit"></i>Редактирование категории</h4></center>
@@ -41,6 +45,7 @@ $params = mysql_fetch_array($get_params);
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="name" placeholder="" class="form-control parsley-validated" value="<?php echo $params['name']; ?>">
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
+                      <input type="hidden" name="action" value="izm_categor">
                   </div>
                 </div>
 

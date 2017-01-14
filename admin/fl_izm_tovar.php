@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+//include_once "classes/Database.php"; // подключаем БД
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -24,12 +29,11 @@ else { include("verh.php"); ?>
       <div class="row">
 <?php
 $id = $_GET['id'];
-$get_params = mysql_query("SELECT * FROM `tovar` WHERE `id`='$id' ",$db);
-$params = mysql_fetch_array($get_params);
+  $params = $pdo->getRow("SELECT * FROM `tovar` WHERE `id`= ? ",[$id]);
 ?>
 <section class="panel">
             <div class="panel-body">
-              <form action="fl_post_izm_tovar.php" class="form-horizontal" method="POST" data-validate="parsley">      
+              <form action="classes/App.php" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                   <div class="col-lg-9 media">
                     <center><h4><i class="icon-edit"></i>Редактирование товара</h4></center>
@@ -42,18 +46,20 @@ $params = mysql_fetch_array($get_params);
                     <select name="categor_id">
                     <?php
                     $id_categor = $_GET['categor']; // получение категории
-                    $sql_get_select_tovat = mysql_query("SELECT * FROM `categor` WHERE `id` = '$id_categor' ",$db);
-                      while ($select_tovar = mysql_fetch_assoc($sql_get_select_tovat)) {
+
+                    $sql_get_select_tovat = $pdo->getRows("SELECT * FROM `categor` WHERE `id` = ? ",[$id_categor]);
+                    foreach ( $sql_get_select_tovat as $select_tovar ) {
                       echo "<option selected value=".$select_tovar['id'].">".$select_tovar['name']."</option>";
                     }
-                    $sql_get_categor = mysql_query("SELECT * FROM `categor` WHERE `id`<>'$id_categor' ",$db);
-                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
+                    $sql_get_categor = $pdo->getRows("SELECT * FROM `categor` WHERE `id`<>? ",[$id_categor]);
+                    foreach ( $sql_get_categor as $data_categor ) {
                       echo "<option value=".$data_categor['id'].">".$data_categor['name']."</option>";
                     }
                     ?>
                     </select>
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
                     <input type="hidden" name="id_categor" value="<?php echo $id_categor; ?>" >
+                    <input type="hidden" name="action" value="izm_tovar">
                   </div>
                 </div>
 
@@ -92,13 +98,14 @@ $params = mysql_fetch_array($get_params);
                   <div class="col-lg-8">
                     <select name="money_input">
                       <?php
-                      $name_input_money=$params['money_input'];
-                      $sql_get_select_valuta = mysql_query("SELECT * FROM `money` WHERE `name` = '$name_input_money' ",$db);
-                      while ($select_valuta = mysql_fetch_assoc($sql_get_select_valuta)) {
+                      $name_input_money = $params['money_input'];
+
+                      $sql_get_select_valuta = $pdo->getRows("SELECT * FROM `money` WHERE `name` = ? ",[$name_input_money]);
+                      foreach ( $sql_get_select_valuta as $select_valuta ) {
                         echo "<option selected value=".$select_valuta['name'].">".$select_valuta['name']."</option>";
                       }
-                      $sql_get_categor = mysql_query("SELECT * FROM `money` WHERE `name` <> '$name_input_money' ",$db);
-                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
+                      $sql_get_categor = $pdo->getRows("SELECT * FROM `money` WHERE `name` <> ? ",[$name_input_money]);
+                      foreach ( $sql_get_categor as $data_categor ) {
                         echo "<option value=".$data_categor['name'].">".$data_categor['name']."</option>";
                       }
                       ?>
@@ -124,13 +131,16 @@ $params = mysql_fetch_array($get_params);
                   <div class="col-lg-8">
                     <select name="money_output">
                       <?php
-                      $name_output_money=$params['money_output'];
-                      $sql_get_select_valuta = mysql_query("SELECT * FROM `money` WHERE `name` = '$name_output_money' ",$db);
-                      while ($select_valuta = mysql_fetch_assoc($sql_get_select_valuta)) {
+                      $name_output_money = $params['money_output'];
+
+
+
+                      $sql_get_select_valuta = $pdo->getRows("SELECT * FROM `money` WHERE `name` = ? ",[$name_output_money]);
+                      foreach ( $sql_get_select_valuta as $select_valuta ) {
                         echo "<option selected value=".$select_valuta['name'].">".$select_valuta['name']."</option>";
                       }
-                      $sql_get_categor = mysql_query("SELECT * FROM `money` WHERE `name` <> '$name_output_money' ",$db);
-                      while ($data_categor = mysql_fetch_assoc($sql_get_categor)) {
+                      $sql_get_categor = $pdo->getRows("SELECT * FROM `money` WHERE `name` <> ? ",[$name_output_money]);
+                      foreach ( $sql_get_categor as $data_categor ) {
                         echo "<option value=".$data_categor['name'].">".$data_categor['name']."</option>";
                       }
                       ?>
