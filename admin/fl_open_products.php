@@ -96,7 +96,7 @@ if ($user_role=='3') {
 
                           $sql_v = $pdo->getRow("SELECT `chena` FROM `money` WHERE `name` = ? ",[$valuta_name]);
                           foreach ($sql_v as $data_v) {
-                              echo $data_v[0] * $data_products['chena_input']; // местная валюта
+                              echo $data_v * $data_products['chena_input']; // местная валюта
                           }
 
                           ?></td>
