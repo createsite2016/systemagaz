@@ -43,6 +43,61 @@ foreach ( $sql_get_name_categor as $data_name_categor ) {
     $name_categor = $data_name_categor['name'];
 } ?>
 
+
+
+
+
+<!--Вывод верхнего списка постраничного показа-->
+            <div class="row">
+                <div class="col-lg-12">
+                    <footer class="panel-footer">
+                        <div class="row">
+                            <div class="col-12 text-right text-center-sm">
+                                <ul class="pagination pagination-small m-t-none m-b-none">
+<?php
+//  ВЫВОД СТРАНИЦ НАВИГАЦИИ
+$arra = $pdo->getRow("SELECT count(*) FROM `tovar`  WHERE `categor_id` =  ? ",[$id_categor]);
+$total_articles_number = $arra['count(*)']; //общее количество статей
+$articles_per_page = 10; // количество заказов на странице
+$b = $_GET['page'];
+if (!isset($_GET['page'])) {
+    $b=0;
+}
+$a = $b + $articles_per_page;
+//получаем количество страниц
+$total_pages = ceil($total_articles_number/$articles_per_page);
+
+// запускаем цикл - количество итераций равно количеству страниц
+for ( $i=0; $i<$total_pages; $i++ )
+{
+// получаем значение $from (как $page_number) для использования в формировании ссылки
+                                        $page_number=$i*$articles_per_page;
+// если $page_number (фактически это проверка того является ли $from текущим) не соответствует
+// текущей странице,
+// выводим ссылку на страницу со значением $from равным $page_number
+    if ($page_number!=$from) {echo "<li><a href='".$PHP_SELF."?page=".$page_number."&id_categor=".$id_categor."'> ".($i+1).
+        " </a></li>"; }
+// иначе просто выводим номер страницы - данная строка необязательна,
+// пропустив ее вы просто получите линк на текущую страницу
+    else {
+        $page_number='1';
+        echo "<li><a href='".$PHP_SELF."?page=".$page_number."&id_categor=".$id_categor."'> ".($i+1)." </a></li>";
+    } // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
+                                    }
+                                    ?>
+                                </ul>
+                            </div>
+                        </div>
+                    </footer>
+
+
+
+
+
+
+
+
+
 <section class="panel">
 
 <br><b><span class="center"><b> |   <a href="products.php">  <- <?php echo $name_categor; ?></a></b> |
@@ -71,8 +126,8 @@ foreach ( $sql_get_name_categor as $data_name_categor ) {
 // Если роль пользователя 1
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-
-    $sql_products = $pdo->getRows("SELECT * FROM `tovar` WHERE `categor_id` =  ? ",[$id_categor]);
+    if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
+    $sql_products = $pdo->getRows("SELECT * FROM `tovar` WHERE `categor_id` =  ? DESC LIMIT ?,?",[$id_categor,$b,$articles_per_page]);
     foreach ( $sql_products as $data_products ) { ?>
                   <tr>
                     <td><?php echo $data_products['article']; ?></td>
@@ -90,7 +145,8 @@ if ($user_role=='1') {
 
 // Если роль пользователя 3
 if ($user_role=='3') {
-    $sql_products = $pdo->getRows("SELECT * FROM `tovar` WHERE `categor_id` =  ? ",[$id_categor]);
+    if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
+    $sql_products = $pdo->getRows("SELECT * FROM `tovar` WHERE `categor_id` =  ? ORDER BY `name` DESC LIMIT $b,$articles_per_page",[$id_categor]);
     foreach ( $sql_products as $data_products ) { ?>
                   <tr>
                     <td><?php echo $data_products['article']; ?></td>
@@ -116,8 +172,48 @@ if ($user_role=='3') {
               </section>
 
 
+<!--Вывод нижнего списка постраничного показа-->
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <footer class="panel-footer">
+                                <div class="row">
+                                    <div class="col-12 text-right text-center-sm">
+                                        <ul class="pagination pagination-small m-t-none m-b-none">
+                                            <?php
+                                            //  ВЫВОД СТРАНИЦ НАВИГАЦИИ
+                                            $arra = $pdo->getRow("SELECT count(*) FROM `tovar`  WHERE `categor_id` =  ? ",[$id_categor]);
+                                            $total_articles_number = $arra['count(*)']; //общее количество статей
+                                            $articles_per_page = 10; // количество заказов на странице
+                                            $b = $_GET['page'];
+                                            if (!isset($_GET['page'])) {
+                                                $b=0;
+                                            }
+                                            $a = $b + $articles_per_page;
+                                            //получаем количество страниц
+                                            $total_pages = ceil($total_articles_number/$articles_per_page);
 
-
+                                            // запускаем цикл - количество итераций равно количеству страниц
+                                            for ( $i=0; $i<$total_pages; $i++ )
+                                            {
+// получаем значение $from (как $page_number) для использования в формировании ссылки
+                                                $page_number=$i*$articles_per_page;
+// если $page_number (фактически это проверка того является ли $from текущим) не соответствует
+// текущей странице,
+// выводим ссылку на страницу со значением $from равным $page_number
+                                                if ($page_number!=$from) {echo "<li><a href='".$PHP_SELF."?page=".$page_number."&id_categor=".$id_categor."'> ".($i+1).
+                                                    " </a></li>"; }
+// иначе просто выводим номер страницы - данная строка необязательна,
+// пропустив ее вы просто получите линк на текущую страницу
+                                                else {
+                                                    $page_number='1';
+                                                    echo "<li><a href='".$PHP_SELF."?page=".$page_number."&id_categor=".$id_categor."'> ".($i+1)." </a></li>";
+                                                } // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
+                                            }
+                                            ?>
+                                        </ul>
+                                    </div>
+                                </div>
+                            </footer>
 
 
 
