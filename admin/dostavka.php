@@ -1,5 +1,9 @@
 <?php
 session_start();
+
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -42,12 +46,12 @@ else { include("verh.php"); ?>
 // Если роль пользователя 1
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-                        $sql_get_device = mysql_query("SELECT * FROM `dostavka` ORDER BY `name` DESC ",$db);
-                        while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
+    $sql_get_device = $pdo->getRows("SELECT * FROM `dostavka` ORDER BY `name` DESC ");
+    foreach ( $sql_get_device as $data_get_device ) { ?>
                   <tr>
                     <td><?php echo $data_get_device['name']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
-                    <td><a href="fl_del_dostavka.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
+                    <td><a href="classes/App.php?action=del_dostavka&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_dostavka.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
 <?php }}
@@ -55,12 +59,12 @@ if ($user_role=='1') {
 
 // Если роль пользователя 3
 if ($user_role=='3') {
-                        $sql_get_device = mysql_query("SELECT * FROM `dostavka` ORDER BY `name` DESC ",$db);
-                        while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
+    $sql_get_device = $pdo->getRows("SELECT * FROM `dostavka` ORDER BY `name` DESC ");
+    foreach ( $sql_get_device as $data_get_device ) { ?>
                   <tr>
                     <td><?php echo $data_get_device['name']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
-                    <td><a href="fl_del_dostavka.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
+                    <td><a href="classes/App.php?action=del_dostavka&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_dostavka.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
 <?php }} ?>
@@ -70,7 +74,7 @@ if ($user_role=='3') {
               </section>
 
                     <div id="modal" class="modal fade" style="display: none;" aria-hidden="true">
-                    <form class="m-b-none" action="fl_post_add_dostavka.php" method="POST">
+                    <form class="m-b-none" action="classes/App.php" method="POST">
                     <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -82,6 +86,7 @@ if ($user_role=='3') {
                     <div class="block">
                     <label class="control-label">Название:</label>
                     <input class="form-control parsley-validated" placeholder="" type="text" name="name" autofocus autocomplete="off">
+                    <input type="hidden" name="action" value="add_dostavka">
                     </div>
                     </div>
 

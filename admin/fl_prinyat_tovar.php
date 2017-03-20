@@ -52,21 +52,6 @@ else { include("verh.php"); ?>
                     <label class="col-lg-3 control-label">Цена вх.:</label>
                     <div class="col-lg-8">
                         <input type="text" autocomplete="off" name="chena" class="form-control parsley-validated" value="<?php echo $params['chena_input']; ?>">
-                        <select name="money_input">
-                            <?php
-                            $id_categor = $_GET['categor']; // получение категории
-
-                            $sql_get_money = $pdo->getRows("SELECT * FROM `tovar` WHERE `id` = ? ",[$id]);
-                            foreach ( $sql_get_money as $select_money ) {
-                                echo "<option selected value=".$select_money['money_input'].">".$select_money['money_input']."</option>";
-                            }
-
-                            $sql_get_all_money = $pdo->getRows("SELECT * FROM `money` ");
-                            foreach ( $sql_get_all_money as $data_all_money ) {
-                                echo "<option value=".$data_all_money['name'].">".$data_all_money['name']."</option>";
-                            }
-                            ?>
-                        </select>
                     </div>
 
                 </div>

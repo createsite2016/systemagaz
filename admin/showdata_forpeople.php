@@ -48,14 +48,4 @@ function date_smart($date_input, $time=true) {
 	return $result_date;
 }
 
-
-//for ($i = 0; $i < count($data); $i++)
-//  {
-//         foreach($data as $i => $val) 
-//         { 
-//           $data[$i]['datatime'] = date_smart($data[$i]['datatime']);
-//  	     }
-    
-//  }
-
   ?>

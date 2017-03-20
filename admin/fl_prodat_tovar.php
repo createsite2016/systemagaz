@@ -55,23 +55,12 @@ $id = $_GET['id'];
                   </div>
                 </div>
 
-
-
-
-
-
-                <br>
-                <br>
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Продавец:</label>
+                  <label class="col-lg-3 control-label"><font color="red">!!! Способ оплаты: </font></label>
                   <div class="col-lg-8">
-                    <select name="prodavec">
-                      <?php
-                      $sql_get_categor = $pdo->getRows(" SELECT * FROM `users_8897532` WHERE `role` <> '3' ");
-                      foreach ( $sql_get_categor as $data_categor ) {
-                        echo "<option value='".$data_categor[name]."'>".$data_categor['name']."</option>";
-                      }
-                      ?>
+                    <select name="oplata">
+                      <option value="Наличка">Наличка</option>
+                      <option value="Безнал">Безнал</option>
                     </select>
                   </div>
                 </div>

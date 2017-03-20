@@ -36,7 +36,7 @@ $id = $_GET['id'];
               <form action="classes/App.php" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                   <div class="col-lg-9 media">
-                    <center><h4><i class="icon-edit"></i>Редактирование товара</h4></center>
+                    <center><h4><i class="icon-edit"></i>Редактирование свойств товара</h4></center>
                   </div>
                 </div>
 
@@ -63,15 +63,22 @@ $id = $_GET['id'];
                   </div>
                 </div>
 
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Артикул:</label>
+                      <div class="col-lg-8">
+                          <input type="text" autocomplete="off" name="article" class="form-control parsley-validated" value="<?php echo $params['article']; ?>">
+                      </div>
+                  </div>
+
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Название:</label>
+                  <label class="col-lg-3 control-label">Наименование:</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="name" class="form-control parsley-validated" value="<?php echo $params['name']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Модель:</label>
+                  <label class="col-lg-3 control-label">Страна производитель:</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="model" class="form-control parsley-validated" value="<?php echo $params['model']; ?>">
                   </div>
@@ -94,81 +101,32 @@ $id = $_GET['id'];
                 </div>
 
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Входящая валюта:</label>
-                  <div class="col-lg-8">
-                    <select name="money_input">
-                      <?php
-                      $name_input_money = $params['money_input'];
-
-                      $sql_get_select_valuta = $pdo->getRows("SELECT * FROM `money` WHERE `name` = ? ",[$name_input_money]);
-                      foreach ( $sql_get_select_valuta as $select_valuta ) {
-                        echo "<option selected value=".$select_valuta['name'].">".$select_valuta['name']."</option>";
-                      }
-                      $sql_get_categor = $pdo->getRows("SELECT * FROM `money` WHERE `name` <> ? ",[$name_input_money]);
-                      foreach ( $sql_get_categor as $data_categor ) {
-                        echo "<option value=".$data_categor['name'].">".$data_categor['name']."</option>";
-                      }
-                      ?>
-                    </select>
-                    <input type="hidden" name="id" value="<?php echo $id ?>" >
-                    <input type="hidden" name="id_categor" value="<?php echo $id_categor; ?>" >
-                  </div>
-                </div>
-
-
-                <br>
-                <br>
-                <div class="form-group">
                   <label class="col-lg-3 control-label">Исходящая цена:</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="chena_output" class="form-control parsley-validated" value="<?php echo $params['chena_output']; ?>">
                   </div>
                 </div>
 
-
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Исходящая валюта:</label>
-                  <div class="col-lg-8">
-                    <select name="money_output">
-                      <?php
-                      $name_output_money = $params['money_output'];
-
-                      $sql_get_select_valuta = $pdo->getRows("SELECT * FROM `money` WHERE `name` = ? ",[$name_output_money]);
-                      foreach ( $sql_get_select_valuta as $select_valuta ) {
-                        echo "<option selected value=".$select_valuta['name'].">".$select_valuta['name']."</option>";
-                      }
-                      $sql_get_categor = $pdo->getRows("SELECT * FROM `money` WHERE `name` <> ? ",[$name_output_money]);
-                      foreach ( $sql_get_categor as $data_categor ) {
-                        echo "<option value=".$data_categor['name'].">".$data_categor['name']."</option>";
-                      }
-                      ?>
-                    </select>
-                    <input type="hidden" name="id" value="<?php echo $id ?>" >
-                    <input type="hidden" name="id_categor" value="<?php echo $id_categor; ?>" >
-                  </div>
-                </div>
-
-
-                <br>
-                <br>
-                <div class="form-group">
-                  <label class="col-lg-3 control-label">Комментарий:</label>
+                  <label class="col-lg-3 control-label">Описание:</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="komment" class="form-control parsley-validated" value="<?php echo $params['komment']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Статус:</label>
+                  <label class="col-lg-3 control-label">Показать этот товар на витрине?</label>
                   <div class="col-lg-8">
                     <select name="status">
                     <?php
                     $status = $params['status'];
                     echo "<option selected value=".$status.">".$status."</option>";
-                    ?>
-                    <option value="Доступен">Доступен</option>
-                    <option value="Недоступен">Недоступен</option>
-                    <option value="Неизвестен">Неизвестен</option>
+                    if ($params['status'] == 'Да') { ?>
+                        <option value="Нет">Нет</option>
+                    <?php } else { ?>
+                        <option value="Да">Да</option>
+                    <?php } ?>
+
                     </select>
                   </div>
                 </div>

@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+//include_once "classes/Database.php"; // подключаем БД
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -46,26 +51,27 @@ else { include("verh.php"); ?>
                     <th><b><font color="red">Менеджер</font></b></th>
                     <th><b><font color="red">Статья</font></b></th>
                     <th><b><font color="red">Комментарий</font></b></th>
-                    <th>Редактировать</th>
+                    <th>Ред</th>
                   </tr>
                 </thead>
 <?php
 // Если роль пользователя 1
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-                        $sql_get_device = mysql_query("SELECT * FROM `rashod` ORDER BY `datatime` DESC ",$db);
-                        while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
+
+    $sql_get_device = $pdo->getRows("SELECT * FROM `rashod` ORDER BY `datatime` DESC ");
+    foreach ( $sql_get_device as $data_get_device ) { ?>
                   <tr>
                     <td><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></td>
-                    <td><?php echo $data_get_device['uah']; ?></td>
-                    <td><?php echo $data_get_device['usd']; ?></td>
-                    <td><?php echo $data_get_device['eur']; ?></td>
-                    <td><?php echo $data_get_device['cash1']; ?></td>
-                    <td><?php echo $data_get_device['cash2']; ?></td>
-                    <td><?php echo $data_get_device['cash3']; ?></td>
-                    <td><?php echo $data_get_device['cash4']; ?></td>
-                    <td><?php echo $data_get_device['cash5']; ?></td>
-                    <td><?php echo $data_get_device['cash6']; ?></td>
+                    <td><?php echo number_format($data_get_device['uah'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['usd'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['eur'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash1'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash2'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash3'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash4'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash5'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash6'], 0, ',', ' '); ?></td>
                     <td><?php echo $data_get_device['manager']; ?></td>
                     <td><?php echo $data_get_device['statya']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
@@ -76,7 +82,7 @@ if ($user_role=='1') {
                           <ul class="dropdown-menu pull-right">
                             <li><a href="fl_izm_rashod.php?id=<?php echo $data_get_device['id']; ?>&usid=<?php echo $id_user; ?>">Изменить</a></li>
                             <li class="divider"></li>
-                            <li><a href="fl_del_rashod.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a></li>
+                            <li><a href="classes/App.php?action=del_rashod&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a></li>
                           </ul>
                        </div>
                     </td>
@@ -86,19 +92,19 @@ if ($user_role=='1') {
 
 // Если роль пользователя 3
 if ($user_role=='3') {
-                        $sql_get_device = mysql_query("SELECT * FROM `rashod` ORDER BY `datatime` DESC ",$db);
-                        while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
+    $sql_get_device = $pdo->getRows("SELECT * FROM `rashod` ORDER BY `datatime` DESC ");
+    foreach ( $sql_get_device as $data_get_device ) { ?>
                   <tr>
                     <td><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></td>
-                    <td><?php echo $data_get_device['uah']; ?></td>
-                    <td><?php echo $data_get_device['usd']; ?></td>
-                    <td><?php echo $data_get_device['eur']; ?></td>
-                    <td><?php echo $data_get_device['cash1']; ?></td>
-                    <td><?php echo $data_get_device['cash2']; ?></td>
-                    <td><?php echo $data_get_device['cash3']; ?></td>
-                    <td><?php echo $data_get_device['cash4']; ?></td>
-                    <td><?php echo $data_get_device['cash5']; ?></td>
-                    <td><?php echo $data_get_device['cash6']; ?></td>
+                    <td><?php echo number_format($data_get_device['uah'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['usd'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['eur'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash1'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash2'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash3'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash4'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash5'], 0, ',', ' '); ?></td>
+                    <td><?php echo number_format($data_get_device['cash6'], 0, ',', ' '); ?></td>
                     <td><?php echo $data_get_device['manager']; ?></td>
                     <td><?php echo $data_get_device['statya']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
@@ -109,7 +115,7 @@ if ($user_role=='3') {
                           <ul class="dropdown-menu pull-right">
                             <li><a href="fl_izm_rashod.php?id=<?php echo $data_get_device['id']; ?>&usid=<?php echo $id_user; ?>">Изменить</a></li>
                             <li class="divider"></li>
-                            <li><a href="fl_del_rashod.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a></li>
+                            <li><a href="classes/App.php?action=del_rashod&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a></li>
                           </ul>
                        </div>
                     </td>
@@ -121,7 +127,7 @@ if ($user_role=='3') {
               </section>
 
                     <div id="modal" class="modal fade" style="display: none;" aria-hidden="true">
-                    <form class="m-b-none" action="fl_post_add_rashod.php" method="POST">
+                    <form class="m-b-none" action="classes/App.php" method="POST">
                     <div class="modal-dialog">
                     <div class="modal-content">
                     <div class="modal-header">
@@ -134,9 +140,9 @@ if ($user_role=='3') {
                     <label class="control-label">Статус:</label><br>
                       <select name="status">
                     <?php
-                    $sql_get_magaz = mysql_query("SELECT * FROM `status_rs` ",$db);
-                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
-                      echo "<option>".$data['name']."</option>";
+                    $sql_get_magaz = $pdo->getRows("SELECT * FROM `status_rs` ");
+                    foreach ( $sql_get_magaz as $data ) {
+                        echo "<option>".$data['name']."</option>";
                     }
                     ?>
                       </select>
@@ -145,6 +151,7 @@ if ($user_role=='3') {
                     <div class="block">
                     <label class="control-label">Комментарий:</label>
                     <input class="form-control" placeholder="Комментарий" type="text" name="komment" autofocus autocomplete="off">
+                        <input type="hidden" name="action" value="add_rashod">
                     </div>
 
                     <b><font color="red"><i class="icon-money"></i>НАЛИЧНЫЕ</font></b>

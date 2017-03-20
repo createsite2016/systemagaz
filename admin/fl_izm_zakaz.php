@@ -26,14 +26,11 @@ else { include("verh.php"); ?>
       <div class="row">
 <?php
 $id = $_GET['id'];
-
+  // получение данных о заказах
   $get_params = $pdo->getRows("SELECT * FROM `priem` WHERE `id`='$id' ");
   foreach ($get_params as $params):
   endforeach;
 
-
-//$get_params = mysql_query("SELECT * FROM `priem` WHERE `id`='$id' ",$db); //извлекаем из базы все данные о пользователе с введенным логином
-//$params = mysql_fetch_array($get_params);
 ?>
 <!-- Панель редактирования заказа -->
 <section class="panel">
@@ -66,70 +63,19 @@ $id = $_GET['id'];
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
                     <input type="hidden" name="usid" value="<?php echo $usid ?>" >
                     <input type="hidden" name="user_name" value="<?php echo $name ?>" >
+                    <input type="hidden" name="kolvo" value="<?php echo $_GET['kolvo'] ?>" >
                     <input type="hidden" name="action" value="izm_zakaz" >
                   </div>
                 </div>
 
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Служба доставки:</label>
+                  <label class="col-lg-3 control-label">Товар:</label>
                   <div class="col-lg-8">
-                      <select name="dostavka">
-                      <option selected value="<?php echo $params['dostavka']; ?>"><?php echo $params['dostavka']; ?></option>
-                    <?php
-                    $sql_get_d = $pdo->getRows("SELECT * FROM `dostavka` ");
-                    foreach ($sql_get_d as $data):
-                      if ($data['name'] !== $params['dostavka']) {
-                        echo "<option>".$data['name']."</option>";
-                      }
-                    endforeach;
-                    ?>
-                      </select>
-                  </div>
-                </div>
-
-
-                <div class="form-group">
-                  <label class="col-lg-3 control-label">Поставщик:</label>
-                  <div class="col-lg-8">
-                      <select name="postavshik">
-                      <option selected value="<?php echo $params['postavshik']; ?>"><?php echo $params['postavshik']; ?></option>
-                    <?php
-                    $sql_get_d = $pdo->getRows("SELECT * FROM `postavshiki` ");
-                    foreach ($sql_get_d as $data):
-                      if ($data['name'] !== $params['postavshiki']) {
-                        echo "<option>".$data['name']."</option>";
-                      }
-                    endforeach;
-                    ?>
-                      </select>
-                  </div>
-                </div>
-
-
-
-                <div class="form-group">
-                  <label class="col-lg-3 control-label">Содержание:</label>
-                  <div class="col-lg-8">
-                      <textarea placeholder="" rows="3" name="tovar" class="form-control parsley-validated" data-trigger="keyup"><?php echo $params['tovar']; ?>
+                      <textarea placeholder="" disabled rows="1" name="tovar" class="form-control parsley-validated" data-trigger="keyup">
+                        <?php
+                        $tovar_name = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ? ",[$params['tovar']]);
+                        echo $tovar_name['name']; ?>
                       </textarea>
-                  </div>
-                </div>
-
-
-                <div class="form-group">
-                  <label class="col-lg-3 control-label">Магазин:</label>
-                  <div class="col-lg-8">
-                      <select name="sklad">
-                      <option selected value="<?php echo $params['sklad']; ?>"><?php echo $params['sklad']; ?></option>
-                    <?php
-                    $sql_get_magazins = $pdo->getRows("SELECT * FROM `magazins` ");
-                    foreach ($sql_get_magazins as $data):
-                      if ($data['name'] !== $params['magazins']) {
-                        echo "<option>".$data['name']."</option>";
-                      }
-                    endforeach;
-                    ?>
-                      </select>
                   </div>
                 </div>
 
@@ -140,7 +86,6 @@ $id = $_GET['id'];
 
                       <?php
                       $color_id = $params['color'];
-                      //echo "!!! color_id = ". $color_id; // 38
                       $color = $pdo->getRows("SELECT * FROM `status` where `id`='$color_id' ");
                       foreach ($color as $data_get_color):
                         $color_code = $data_get_color['color']; // код цвета

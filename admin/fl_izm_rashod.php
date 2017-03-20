@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+//include_once "classes/Database.php"; // подключаем БД
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -16,7 +21,7 @@ else { include("verh.php"); ?>
             
           </section>
         </div>
-</div>
+</div></section></section>
           
         </div>
         
@@ -24,12 +29,12 @@ else { include("verh.php"); ?>
       <div class="row">
 <?php
 $id = $_GET['id'];
-$get_params = mysql_query("SELECT * FROM `rashod` WHERE `id`='$id' ",$db); //извлекаем из базы все данные о пользователе с введенным логином
-$params = mysql_fetch_array($get_params);
+$params = $pdo->getRow( "SELECT * FROM `rashod` WHERE `id`=? ", [$id] ); //извлекаем из базы все данные о пользователе с введенным логином
+
 ?>
 <section class="panel">
             <div class="panel-body">
-              <form action="fl_post_izm_rashod.php" class="form-horizontal" method="POST" data-validate="parsley">      
+              <form action="classes/App.php" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                   <div class="col-lg-9 media">
                     <center><h4><i class="icon-edit"></i>Редактирование прихода</h4></center>
@@ -42,12 +47,12 @@ $params = mysql_fetch_array($get_params);
                       <select name="status">
                         <option selected value="<?php echo $params['statya']; ?>"><?php echo $params['statya']; ?></option>
                     <?php
-                    $sql_get_magaz = mysql_query("SELECT * FROM `status_rs` ",$db);
-                      while ($data = mysql_fetch_assoc($sql_get_magaz)) {
-                    if ($data['name']!==$params['statya']) {
-                      echo "<option>".$data['name']."</option>";
+                    $sql_get_magaz = $pdo->getRows("SELECT * FROM `status_rs` ");
+                    foreach ( $sql_get_magaz as $data ) {
+                      if ($data['name']!==$params['statya']) {
+                        echo "<option>".$data['name']."</option>";
+                      }
                     }
-                  }
                    ?>
                       </select>
                   </div>
@@ -57,6 +62,7 @@ $params = mysql_fetch_array($get_params);
                   <label class="col-lg-3 control-label">Комментарий:</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="komment" placeholder="" class="form-control parsley-validated" value="<?php echo $params['komment']; ?>">
+                    <input type="hidden" name="action" value="izm_rashod">
                   </div>
                 </div>
 

@@ -1,7 +1,7 @@
 <?php
 session_start();
 
-//include_once "classes/Database.php"; // подключаем БД
+
 include_once "classes/App.php"; // подключаем функции приложения
 $pdo = new Database();
 
@@ -39,7 +39,7 @@ else { include("verh.php"); ?>
 //  ВЫВОД СТРАНИЦ НАВИГАЦИИ
 $arra = $pdo->getRow("SELECT count(*) FROM `priem` ");
 $total_articles_number = $arra['count(*)']; //общее количество статей
-$articles_per_page = 4; // количество статей на странице
+$articles_per_page = 20; // количество заказов на странице
 $b = $_GET['page'];
 if (!isset($_GET['page'])) {
     $b=0;
@@ -84,9 +84,8 @@ else {
                     <th><b>ФИО</b></th>
                     <th><b>Телефон</b></th>
                     <th><b>Адрес</b></th>
-                    <th><b>Служба доставки<b></th>
-                    <th><b>Поставщик<b></th>
-                    <th><b>Товары</b></th>
+                    <th><b>Название товара<b></th>
+                    <th><b>Количество<b></th>
                     <th><b>Статус</b></th>
                     <th><b>Менеджер</b></th>
                     <th><b>Магазин</b></th>
@@ -117,9 +116,9 @@ if ($user_role=='1') {
             <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['fio']; // фамилия ?></font></b></td>
             <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['phone'];?></font></b></td>
             <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['adress']; // адрес ?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['dostavka']; ?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['postavshik']; ?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['tovar']; // содержание ?></font></b></td>
+            <?php $tovar_name = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ? ",[$tovar['tovar']]) ?>
+            <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><a href="../product.php?id=<?php echo $tovar['tovar']; ?>"><?php echo $tovar_name['name']; // содержание ?></a></font></b></td>
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['kolvo']; // количество ?></font></b></td>
             <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['status']; ?></font></b></td>
             <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['user_name']; ?></font></b></td>
             <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['sklad']; ?></font></b></td>
@@ -127,7 +126,7 @@ if ($user_role=='1') {
                 <div class="btn-group">
                     <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil"></i></a>
                     <ul class="dropdown-menu pull-right">
-                        <li><a href="fl_izm_zakaz.php?id=<?php echo $data_get_device['id']; ?>&usid=<?php echo $id_user; ?>">Изменить</a></li>
+                        <li><a href="fl_izm_zakaz.php?id=<?php echo $data_get_device['id']; ?>&usid=<?php echo $id_user; ?>&k=<?php echo $tovar['kolvo']; ?>">Изменить</a></li>
                     </ul>
                 </div>
             </td>
@@ -139,7 +138,7 @@ if ($user_role=='1') {
 if ($user_role=='3') {
     if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
 
-    $sql_tovar = $pdo->getRows("SELECT priem.id,datatime,fio,phone,adress,dostavka,tovar,status,user_name,postavshik,sklad,status.color FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
+    $sql_tovar = $pdo->getRows("SELECT priem.id,priem.color as id_status,datatime,fio,phone,adress,dostavka,tovar,status,kolvo,user_name,postavshik,sklad,status.color  FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
     foreach ($sql_tovar as $tovar) { ?>
                   <tr>
                     <td>
@@ -154,9 +153,9 @@ if ($user_role=='3') {
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['fio']; // фамилия ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['phone'];?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['adress']; // адрес ?></font></b></td>
-                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['dostavka']; ?></font></b></td>
-                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['postavshik']; ?></font></b></td>
-                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['tovar']; // содержание ?></font></b></td>
+                    <?php $tovar_name = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ? ",[$tovar['tovar']]) ?>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><a href="../product.php?id=<?php echo $tovar['tovar']; ?>" target="_blank"><?php echo $tovar_name['name']; // содержание ?></a></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['kolvo']; // количество ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['status']; ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['user_name']; ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['sklad']; ?></font></b></td>
@@ -164,8 +163,12 @@ if ($user_role=='3') {
                       <div class="btn-group">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil"></i></a>
                           <ul class="dropdown-menu pull-right">
-                            <li><a href="fl_izm_zakaz.php?id=<?php echo $tovar['id']; ?>&usid=<?php echo $id_user; ?>">Изменить</a></li>
-                            <li class="divider"></li>
+                              <?php
+                              // если заказ закрыт, его не показываю
+                              if ( $tovar['id_status'] != '29' ) { ?>
+                                  <li><a href="fl_izm_zakaz.php?id=<?php echo $tovar['id']; ?>&usid=<?php echo $id_user; ?>&kolvo=<?php echo $tovar['kolvo']; ?>">Изменить</a></li>
+                                  <li class="divider"></li>
+                              <?php } ?>
                             <li><a href="classes/App.php?id=<?php echo $tovar['id']; ?>&action=del_zakaz"><font color="red">Удалить</font></a></li>
                           </ul>
                        </div>
@@ -184,7 +187,7 @@ if ($user_role=='3') {
   //  ВЫВОД СТРАНИЦ НАВИГАЦИИ
  $arra = $pdo->getRow("SELECT count(*) FROM `priem` ");
  $total_articles_number = $arra['count(*)']; //общее количество статей
- $articles_per_page = 4; // количество статей на странице
+
  $b = $_GET['page'];
     if (!isset($_GET['page'])) {
                 $b=0;

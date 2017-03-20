@@ -1,5 +1,8 @@
 <?php
 session_start();
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -51,9 +54,8 @@ else { include("verh.php"); ?>
 <?php
 $i = 0;
 include('showdata_forpeople.php');
-$sql_get_device = mysql_query("SELECT * FROM `users_8897532` ",$db); //извлекаем из базы все данные о пользователе с введенным логином
-while ($data_get_device = mysql_fetch_assoc($sql_get_device))
-{
+$sql_get_device = $pdo->getRows("SELECT * FROM `users_8897532` ");
+foreach ( $sql_get_device as $data_get_device ) {
 $i++;
 ?>
                   <tr>
@@ -76,7 +78,7 @@ $i++;
 <li><a href="fl_izm_user.php?id=<?php echo $data_get_device['id']; ?>">Ред-ть данные</a></li>
 <li class="divider"></li>
 <li class="divider"></li>
-<li><a href="fl_del_user.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Уволить сотрудника</font></a></li>
+<li><a href="classes/App.php?action=del_user&id=<?php echo $data_get_device['id']; ?>"><font color="red">Уволить сотрудника</font></a></li>
 </ul>
 </div>
 </td>

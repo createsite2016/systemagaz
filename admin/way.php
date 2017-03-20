@@ -31,7 +31,6 @@ else { include("verh.php"); ?>
 
 <div class="row">
         <div class="col-lg-12">
-
 <section class="panel">
 <br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-plus"></i> Добавить товар вручную</a> | </span></b><br><br>
             <div class="table-responsive">

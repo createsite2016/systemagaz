@@ -1,5 +1,10 @@
 <?php
 session_start();
+
+//include_once "classes/Database.php"; // подключаем БД
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("vhod.php");
@@ -34,23 +39,23 @@ else { include("verh.php"); ?>
                 <thead>
                   <tr>
                     <th><b><font color="black"> </font></b></th>
-                    <th><b><font color="black">Местная валюта(Нал.)</font></b></th>
-                    <th><b><font color="black">USD(Нал.)</font></b></th>
-                    <th><b><font color="black">EUR(Нал.)</font></b></th>
-                    <th><b><font color="black">Счет1(Безнал.)</font></b></th>
-                    <th><b><font color="black">Счет2(Безнал.)</font></b></th>
-                    <th><b><font color="black">Счет3(Безнал.)</font></b></th>
-                    <th><b><font color="black">Счет4(Безнал.)</font></b></th>
-                    <th><b><font color="black">Счет5(Безнал.)</font></b></th>
-                    <th><b><font color="black">Счет6(Безнал.)</font></b></th>
+                    <th><b><font color="black"><?php go_link('money.php','Местная валюта(Нал.)') ?></font></b></th>
+                    <th><b><font color="black"><?php go_link('money.php','USD(Нал.)') ?></font></b></th>
+                    <th><b><font color="black"><?php go_link('money.php','EUR(Нал.)') ?></font></b></th>
+                    <th><b><font color="black"><?php go_link('money.php','Счет1(Безнал.)') ?></font></b></th>
+                    <th><b><font color="black"><?php go_link('money.php','Счет2(Безнал.)') ?></font></b></th>
+                    <th><b><font color="black"><?php go_link('money.php','Счет3(Безнал.)') ?></font></b></th>
+                    <th><b><font color="black"><?php go_link('money.php','Счет4(Безнал.)') ?></font></b></th>
+                    <th><b><font color="black"><?php go_link('money.php','Счет5(Безнал.)') ?></font></b></th>
+                    <th><b><font color="black"><?php go_link('money.php','Счет6(Безнал.)') ?></font></b></th>
                   </tr>
                 </thead>
 <?php
 // Если роль пользователя 1
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-                        $sql_get_device = mysql_query("SELECT * FROM `rashod` ORDER BY `datatime` DESC ",$db);
-                        while ($data_get_device = mysql_fetch_assoc($sql_get_device)) { ?>
+  $sql_get_device = $pdo->getRows("SELECT * FROM `rashod` ORDER BY `datatime` DESC ");
+  foreach ( $sql_get_device as $data_get_device ) { ?>
                   <tr>
                     <td></td>
                     <td><?php echo $data_get_device['uah']; ?></td>
@@ -71,49 +76,33 @@ if ($user_role=='3') {
 
 
 // Метод получения суммы отдельных счетов
-  function get_summ($name_stolb,$table_name){
-    include('bd.php');
-    $sql_get_summ = mysql_query("SELECT SUM(`{$name_stolb}`) FROM `{$table_name}`",$db);
-    $row_summ = mysql_fetch_array($sql_get_summ);
-    $money = number_format($row_summ[0], 0, ',', ' ');
-    echo $money;
-  }
+function get_summ($name_stolb,$table_name){
+  $pdo = new Database();
+  $sql_get_summ = $pdo->getRow("SELECT SUM(`{$name_stolb}`) FROM `{$table_name}`");
+  foreach ($sql_get_summ as $money){}
+  echo $money;
+}
 
 // Метод получения суммы отдельных счетов
 function get_all_summ($name_stolb,$table_name){
-  include('bd.php');
-  $sql_get_summ = mysql_query("SELECT SUM(`{$name_stolb}`) FROM `{$table_name}`",$db);
-  $row_summ = mysql_fetch_array($sql_get_summ);
-  $money = $row_summ[0];
+  $pdo = new Database();
+  $sql_get_summ = $pdo->getRow("SELECT SUM(`{$name_stolb}`) FROM `{$table_name}`");
+  foreach ($sql_get_summ as $money){}
   return $money;
 }
 
 // Метод получения итого на разнице счетов
 function get_result($name_stolb,$table_name, $table_name2){
-  include('bd.php');
-  $sql_get_summ = mysql_query("SELECT SUM(`{$name_stolb}`) FROM `{$table_name}`",$db);
-  $row_summ = mysql_fetch_array($sql_get_summ);
-  $money = $row_summ[0];
+  $pdo = new Database();
+  $sql_get_summ = $pdo->getRow("SELECT SUM(`{$name_stolb}`) FROM `{$table_name}`");
+  foreach ($sql_get_summ as $money){}
 
-  $sql_get_summ2 = mysql_query("SELECT SUM(`{$name_stolb}`) FROM `{$table_name2}`",$db);
-  $row_summ2 = mysql_fetch_array($sql_get_summ2);
-  $money2 = $row_summ2[0];
+
+  $sql_get_summ2 = $pdo->getRow("SELECT SUM(`{$name_stolb}`) FROM `{$table_name2}`");
+  foreach ($sql_get_summ2 as $money2){}
+
 
   $result = $money - $money2;
-
-//  if ($name_stolb == 'usd') {
-//    $sql_get_valuta = mysql_query("SELECT `chena` FROM `money` WHERE `name` = 'Доллар' ",$db);
-//    $row_valuta = mysql_fetch_array($sql_get_valuta);
-//    $valuta = $row_valuta[0];
-//    $result = $result * $valuta;
-//  }
-//
-//  if ($name_stolb == 'eur') {
-//    $sql_get_valuta = mysql_query("SELECT `chena` FROM `money` WHERE `name` = 'Евро' ",$db);
-//    $row_valuta = mysql_fetch_array($sql_get_valuta);
-//    $valuta = $row_valuta[0];
-//    $result = $result * $valuta;
-//  }
 
   $result = number_format($result, 0, ',', ' ');
   // установка цвета
@@ -133,28 +122,28 @@ function get_result($name_stolb,$table_name, $table_name2){
 
 // Метод получения Общего нала
 function get_all_result($name_stolb,$table_name, $table_name2){
-  include('bd.php');
-  $sql_get_summ = mysql_query("SELECT SUM(`{$name_stolb}`) FROM `{$table_name}`",$db);
-  $row_summ = mysql_fetch_array($sql_get_summ);
-  $money = $row_summ[0];
+  $pdo = new Database();
 
-  $sql_get_summ2 = mysql_query("SELECT SUM(`{$name_stolb}`) FROM `{$table_name2}`",$db);
-  $row_summ2 = mysql_fetch_array($sql_get_summ2);
-  $money2 = $row_summ2[0];
+  $sql_get_summ = $pdo->getRow("SELECT SUM(`{$name_stolb}`) FROM `{$table_name}`");
+  foreach ($sql_get_summ as $money){}
+
+  $sql_get_summ2 = $pdo->getRow("SELECT SUM(`{$name_stolb}`) FROM `{$table_name2}`");
+  foreach ($sql_get_summ2 as $money2){}
+
 
   $result = $money - $money2;
 
   if ($name_stolb == 'usd') {
-    $sql_get_valuta = mysql_query("SELECT `chena` FROM `money` WHERE `name` = 'Доллар' ",$db);
-    $row_valuta = mysql_fetch_array($sql_get_valuta);
-    $valuta = $row_valuta[0];
+    $pdo = new Database();
+    $sql_get_valuta = $pdo->getRow("SELECT `chena` FROM `money` WHERE `name` = 'Доллар' ");
+    foreach ($sql_get_valuta as $valuta){}
     $result = $result * $valuta;
   }
 
   if ($name_stolb == 'eur') {
-    $sql_get_valuta = mysql_query("SELECT `chena` FROM `money` WHERE `name` = 'Евро' ",$db);
-    $row_valuta = mysql_fetch_array($sql_get_valuta);
-    $valuta = $row_valuta[0];
+    $pdo = new Database();
+    $sql_get_valuta = $pdo->getRow("SELECT `chena` FROM `money` WHERE `name` = 'Евро' ");
+    foreach ($sql_get_valuta as $valuta){}
     $result = $result * $valuta;
   }
   return $result;
@@ -165,9 +154,10 @@ function get_all_result($name_stolb,$table_name, $table_name2){
 
 // Метод получения складских остатков
   function sklad(){
-    include('bd.php');
-    $get_rows = mysql_query("SELECT tovar.kolvo,tovar.chena_input,money.chena FROM `tovar` INNER JOIN `money` ON tovar.money_input = money.name AND tovar.kolvo > 0",$db);
-          while ($data_get_device = mysql_fetch_assoc($get_rows)) {
+    $summa = null;
+    $pdo = new Database();
+    $get_rows = $pdo->getRows("SELECT tovar.kolvo,tovar.chena_input,money.chena FROM `tovar` INNER JOIN `money` ON tovar.money_input = money.name AND tovar.kolvo > 0");
+    foreach ( $get_rows as $data_get_device) {
                     $summa = $summa + $data_get_device['kolvo'] * $data_get_device['chena_input'] * $data_get_device['chena']; // Итого
           }
     echo $summa;
@@ -175,9 +165,10 @@ function get_all_result($name_stolb,$table_name, $table_name2){
 
 // Метод получения Склада
 function all_sklad(){
-  include('bd.php');
-  $get_rows = mysql_query("SELECT tovar.kolvo,tovar.chena_input,money.chena FROM `tovar` INNER JOIN `money` ON tovar.money_input = money.name AND tovar.kolvo > 0",$db);
-  while ($data_get_device = mysql_fetch_assoc($get_rows)) {
+  $summa = null;
+  $pdo = new Database();
+  $get_rows = $pdo->getRows("SELECT tovar.kolvo,tovar.chena_input,money.chena FROM `tovar` INNER JOIN `money` ON tovar.money_input = money.name AND tovar.kolvo > 0");
+  foreach ( $get_rows as $data_get_device ) {
     $summa = $summa + $data_get_device['kolvo'] * $data_get_device['chena_input'] * $data_get_device['chena']; // Итого
   }
   return $summa;
@@ -313,7 +304,9 @@ function all_sklad(){
                 </thead>
 
                 <tr>
-                  <td><b><?php $res = (int)(get_all_result('uah','prihod','rashod') +
+                  <td><b><?php
+                      $res = (int)(
+                        get_all_result('uah','prihod','rashod') +
                         get_all_result('usd','prihod','rashod') +
                         get_all_result('eur','prihod','rashod') +
                         get_all_result('cash1','prihod','rashod') +
@@ -323,7 +316,8 @@ function all_sklad(){
                         get_all_result('cash5','prihod','rashod') +
                         get_all_result('cash6','prihod','rashod') +
                         get_all_summ('chena','in_way') +
-                        all_sklad() );
+                        all_sklad()
+                      );
                         echo number_format($res, 0, ',', ' '); ?></b></td>
                 </tr>
             </div>

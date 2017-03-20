@@ -29,7 +29,13 @@ if ($user_role=='1') { ?>
 // ДОСТУП ТОЛЬКО ДЛЯ АДМИНИСТРАТОРОВ
 if ($user_role=='3') { ?>
     <ul class="dropdown-menu">
-          <li><a href="way.php"><i class="icon-truck"></i>В пути</a></li>
+          <li><a href="way.php"><i class="icon-truck"></i>
+                  В пути<?php
+                  $count = $pdo->getRow("SELECT COUNT(`kolvo`) FROM `in_way`");
+                  foreach ($count as $valuta){}
+                  echo " (отгрузок: ".$valuta.")";
+                  ?>
+              </a></li>
       </ul>
       </li>   
       <li><a href="prihod.php"><i class="icon-smile icon-xlarge"></i><span>Приходы</span></a></li>

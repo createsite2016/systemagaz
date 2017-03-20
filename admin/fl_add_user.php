@@ -24,7 +24,7 @@ else { include("verh.php"); ?>
       <div class="row">
 <section class="panel">
             <div class="panel-body">
-              <form action="fl_post_add_user.php" class="form-horizontal" enctype = "multipart/form-data" method="POST" data-validate="parsley">
+              <form action="classes/App.php" class="form-horizontal" enctype = "multipart/form-data" method="POST" data-validate="parsley">
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Должность:</label>
@@ -41,6 +41,7 @@ else { include("verh.php"); ?>
                   <label class="col-lg-3 control-label">Имя:</label>
                   <div class="col-lg-8">
                     <input type="text" name="name" placeholder="Иван" class="bg-focus form-control parsley-validated" data-required="true" autocomplete="off">
+                      <input type="hidden" name="action" value="add_user">
                   </div>
                 </div>
 

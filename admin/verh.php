@@ -4,13 +4,13 @@ $pdo = new Database();
           $login = $_SESSION['login'];
           $login = stripslashes($login);
           $login = htmlspecialchars($login);
-$udata = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `login`='$login' ");
+$udata = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `login`= ? ",[$login]);
 foreach ($udata as $value) {
-    $login = $value['login'];
-    $name = $value['name'];
-    $user_sc = $value['sklad'];
-    $id_user = $value['id'];
-    $user_role = $value['role'];
+    $login = $value['login']; // логин пользователя
+    $name = $value['name']; // имя пользователя
+    $user_sc = $value['sklad']; //
+    $id_user = $value['id']; // адишник пользователя
+    $user_role = $value['role']; // права пользователя
 }
 
 function go_link($link_way,$link_name){
@@ -21,7 +21,7 @@ function go_link($link_way,$link_name){
 <html lang="ru">
 <head>
   <meta charset="utf-8">
-  <title>Система управления заказами</title>
+  <title>Система управления интернет торговлей</title>
   <meta name="" content="mobile first, app, web app, responsive, admin dashboard, flat, flat ui">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
   <link rel="stylesheet" href="css/bootstrap.css">
@@ -37,7 +37,7 @@ function go_link($link_way,$link_name){
     <ul class="nav navbar-nav navbar-avatar pull-right">
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">            
-          <span class="hidden-xs-only"><?php echo $user_name; ?></span>
+          <span class="hidden-xs-only"><?php echo $name; ?></span>
           <span class="thumb-small avatar inline"><img src="images/avatar.jpg" alt="Mika Sokeil" class="img-circle"></span>
           <b class="caret hidden-xs-only"></b>
         </a>
@@ -47,6 +47,7 @@ function go_link($link_way,$link_name){
       </li>
     </ul>
     <a class="navbar-brand" href="index.php"></a>
+      <p><a href="../index.php" target="_blank"><b><font color="red">-- Перейти в магазин -- </font></b></a></p>
     <button type="button" class="btn btn-link pull-left nav-toggle visible-xs" data-toggle="class:slide-nav slide-nav-left" data-target="body">
       <i class="icon-reorder icon-xlarge text-default"></i>
     </button>
