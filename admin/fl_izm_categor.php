@@ -49,6 +49,13 @@ else { include("verh.php"); ?>
                   </div>
                 </div>
 
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Порядок показа на витрине:</label>
+                      <div class="col-lg-8">
+                          <input type="text" autocomplete="off" name="sort" placeholder="" class="form-control parsley-validated" value="<?php echo $params['sort']; ?>">
+                      </div>
+                  </div>
+
                  
                 <div class="form-group">
                   <div class="col-lg-9 col-lg-offset-3">                      

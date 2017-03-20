@@ -284,7 +284,8 @@ VALUES (
 
             $name = $_POST['name'];
             $id = $_POST['id'];
-            $pdo->updateRow("UPDATE `categor` SET `name` = ? WHERE `id` = ? ",[$name,$id]);
+            $sort = $_POST['sort']; // цифра порядка сортировка вывода
+            $pdo->updateRow("UPDATE `categor` SET `name` = ?, `sort` = ? WHERE `id` = ? ",[$name,$sort,$id]);
             $this->goWayClass('products');
 
         }

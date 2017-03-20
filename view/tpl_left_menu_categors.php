@@ -4,7 +4,7 @@
     <div class="panel-group category-products" id="accordian"><!--Категории товаров-->
 
         <?php
-        $get_category = $pdo->getRows("SELECT * FROM `categor`");
+        $get_category = $pdo->getRows("SELECT * FROM `categor` ORDER BY `sort`");
         foreach ( $get_category as $category ) { ?>
             <div class="panel panel-default">
                 <div class="panel-heading">

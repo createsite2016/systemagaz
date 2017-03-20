@@ -56,6 +56,7 @@ else { include("verh.php"); ?>
               <table class="table table-striped b-t text-small">
                 <thead>
                   <tr>
+                    <th><b>Порядок</b></th>
                     <th><b>Категория</b></th>
                     <th><b>Действие</b></th>
                   </tr>
@@ -75,10 +76,11 @@ if ($user_role=='1') {
 // Если роль пользователя 3
 if ($user_role=='3') {
 
-    $sql_get_products = $pdo->getRows("SELECT * FROM `categor` ORDER BY `name` DESC ");
+    $sql_get_products = $pdo->getRows("SELECT * FROM `categor` ORDER BY `sort` ");
     foreach ( $sql_get_products as $products ) {
         ?>
                   <tr>
+                    <td><?php echo $products['sort']; ?></td>
                     <td><a href="fl_open_products.php?id_categor=<?php echo $products['id']; ?>"><img src="images/categor.png"><?php echo $products['name'];
                             $sql_get_tovar = $pdo->getRow("SELECT SUM(`kolvo`) FROM `tovar` WHERE `categor_id` = $products[id] ");
                             foreach ($sql_get_tovar as $test){
