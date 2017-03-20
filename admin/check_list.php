@@ -14,14 +14,14 @@ echo "<br>";
 $i = 0;
 function get_data($id) {
     $pdo = new Database();
-    $get_check = $pdo->getRows("SELECT * FROM `priem` WHERE `id` = '{$id}'  ");
+    $get_check = $pdo->getRows("SELECT * FROM `priem` WHERE `id` = ?  ",[$id]);
     foreach ($get_check as $item):
-        echo " (". $item['sklad'] .") " . $item['fio'] . "<br>";
+        $tovar = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ?  ",[$item['tovar']]);
+        echo " Клиент: " . $item['fio'] . "<br>";
         echo " Телефон: " . $item['phone'] . "<br>";
-        echo " Доставка: " . $item['dostavka'] . "<br>";
-        echo " Адрес: " . $item['adress'] . "<br>";
-        echo " Товар: " . $item['tovar'] . "<br>";
-        endforeach;
+        echo " Доставка: " . $item['adress'] . "<br>";
+        echo " Товар: " . $tovar['name'] . " (" . $tovar['article'] . ")<br>";
+    endforeach;
 
 }
 
