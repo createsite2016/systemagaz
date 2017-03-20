@@ -18,7 +18,7 @@
     if ( $shop['reklama'] == 'Да' ) { ?>
         <!--/Банер для рекламы-->
         <div class="shipping text-center">
-            <img src="images/home/shipping.jpg" alt="Загрузка банера не удалась" />
+            <img src="images/home/shipping2.jpg" alt="Загрузка банера не удалась" />
         </div>
     <?php } else {
 
