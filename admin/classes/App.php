@@ -197,8 +197,12 @@ class App
             foreach ($sql as $data_get_device2):
                 $name_status = $data_get_device2['name'];
             endforeach;
-            $id_zakaza = $pdo->lastInsertId("INSERT INTO `priem` (`phone`,`fio`,`adress`,`user_name`,`datatime`,`sklad`,`tovar`,`status`,`color`,`dostavka`,`postavshik`) VALUES ('$phone','$fio','$adress','$user_name','$datatime','$user_sc','$tovar','$name_status','$status','$dostavka','$postavshik')");
-            $pdo->insertRow("INSERT INTO `log_priem` (`id_zakaz`,`datatime`,`meneger`,`status`,`komment`,`fio`,`phone`,`adress`,`dostavka`,`store`,`postavshik`) VALUES ('$id_zakaza','$datatime','$user_name','$name_status','$tovar','$fio','$phone','$adress','$dostavka','$user_sc','$postavshik')");
+            // добавление заказа и получение его ключа
+            $id_zakaza = $pdo->lastInsertId("INSERT INTO `priem` (`phone`,`fio`,`adress`,`user_name`,`datatime`,`sklad`,`tovar`,`status`,`color`,`dostavka`,`postavshik`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",[$phone,$fio,$adress,$user_name,$datatime,$user_sc,$tovar,$name_status,$status,$dostavka,$postavshik]);
+            // добавление в Лог заказа
+            $pdo->insertRow("INSERT INTO `log_priem` (`id_zakaz`,`datatime`,`meneger`,`status`,`komment`,`fio`,`phone`,`adress`,`dostavka`,`store`,`postavshik`) VALUES (?,?,?,?,?,?,?,?,?,?,?)",[$id_zakaza,$datatime,$user_name,$name_status,$tovar,$fio,$phone,$adress,$dostavka,$user_sc,$postavshik]);
+            // добавление в базу клиентов
+            $pdo->insertRow("INSERT INTO `klient` (`name`,`phone`,`adress`) VALUES (?,?,?) ", [$fio,$phone,$adress]);
             $this->goWayClass('index');
         }
 

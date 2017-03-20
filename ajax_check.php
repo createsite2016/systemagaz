@@ -27,6 +27,8 @@ $datatime = date("Y-m-d H:i:s"); // дата и время совершения 
 if ($kolvo > 0) {
     $pdo->insertRow("INSERT INTO `priem` (`tovar`,`kolvo`,`fio`,`phone`,`adress`,`komment`,`datatime`,`sklad`) VALUES (?,?,?,?,?,?,?,?) ",
         [$id,$kolvo,$name,$phone,$adress,$komment,$datatime,$magazin['name']]);
+    // добавление в базу клиентов
+    $pdo->insertRow("INSERT INTO `klient` (`name`,`phone`,`adress`) VALUES (?,?,?) ", [$name,$phone,$adress]);
 }
 
 
