@@ -72,7 +72,7 @@ else {
             </footer>
             <form action="check_list.php" target="_blank" method="POST" id="form">
 <section class="panel">
-<br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-credit-card"></i> Новый заказ</a> |
+<br><b><span class="center"> |
             <button class="btn btn-sm btn-info" id="checkbtn" type="submit" form="form"><i class="icon-document"></i> Сформировать чеклист</button>
         </span></b><br><br>
             <div class="table">
@@ -219,91 +219,6 @@ if ($user_role=='3') {
               </div>
             </footer>
 
-                    <div id="modal" class="modal fade" style="display: none;" aria-hidden="true">
-                    <form class="m-b-none" action="classes/App.php" method="POST">
-                    <div class="modal-dialog">
-                    <div class="modal-content">
-                    <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>
-                    <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новый заказ</h4>
-                    </div>
-                    <div class="modal-body">
-                    <div class="block">
-                    <label class="control-label">Фамилия:</label>
-                    <input class="form-control parsley-validated" placeholder="Иванов" type="text" name="fio" autofocus autocomplete="off">
-                    </div>
-                    <div class="block">
-                    <label class="control-label">Телефон:</label>
-                    <input class="form-control parsley-validated" placeholder="Телефон" type="text" name="phone" autofocus autocomplete="off">
-                    </div>
-                    <div class="block">
-                    <label class="control-label">Адрес:</label>
-                    <input class="form-control" placeholder="Адрес" type="text" name="adress" autofocus autocomplete="off">
-                    </div>
-
-                    <div class="block">
-                    <label class="control-label">Служба доставки:</label><br>
-                      <select name="dostavka">
-<?php
-$dostavka = $pdo->getRows("SELECT `name` FROM `dostavka` ");
-foreach ($dostavka as $item){
-    echo "<option>".$item['name']."</option>";
-} ?>
-                      </select>
-                    </div>
-
-                    <div class="block">
-                    <label class="control-label">Поставщик:</label><br>
-                      <select name="postavshik">
-<?php
-$postavshiki = $pdo->getRows("SELECT * FROM `postavshiki` ");
-foreach ($postavshiki as $item){
-    echo "<option>".$item['name']."</option>";
-} ?>
-                      </select>
-                    </div>
-
-
-                    <div class="block">
-                    <label class="control-label">Содержание:</label>
-                    <textarea placeholder="Содержание" rows="3" name="tovar" class="form-control parsley-validated" data-trigger="keyup" ></textarea>
-                    <input type="hidden" name="user_name" value="<?php echo $name ?>" >
-                    <input type="hidden" name="user_sc" value="<?php echo $user_sc ?>" >
-                    <input type="hidden" name="action" value="add_zakaz">
-                    </div>
-
-                    <div class="block">
-                    <label class="control-label">Магазин:</label><br>
-                      <select name="sklad">
-<?php
-$magaz = $pdo->getRows("SELECT * FROM `magazins` ");
-foreach ($magaz as $item){
-    echo "<option>".$item['name']."</option>";
-}
-?>
-                      </select>
-                    </div>
-
-                    <div class="block">
-                    <label class="control-label">Статус:</label><br>
-                      <select name="status">
-<?php
-$status = $pdo->getRows("SELECT * FROM `status` ");
-foreach ($status as $item){
-    echo "<option value=".$item['id'].">".$item['name']."</option>";
-} ?>
-                      </select>
-                    </div>
-
-                    </div>
-                    <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Принять заказ</button>
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Отмена</button>
-                    </div>
-                    </div>
-                    </div>
-                    </form>
-                    </div>
 <!-- / Конец тела страницы -->
 <?php include("niz.php"); }?>
 
