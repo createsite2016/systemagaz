@@ -5,7 +5,8 @@ class Database{
     protected $datab;
 
     // connect to db
-        public function __construct($username = "root", $password = "root", $host = "localhost", $dbname = "systemagaz", $options = []){
+        //public function __construct($username = "root", $password = "root", $host = "localhost", $dbname = "systemagaz", $options = []){
+        public function __construct($username = "cv93805", $password = "ZwNrkrt9", $host = "localhost", $dbname = "cv93805_systemag", $options = []){
             $this->isConn = TRUE;
         try {
             $this->datab = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8", $username, $password, $options);
@@ -16,6 +17,20 @@ class Database{
         }
 
     }
+
+    // connect to db
+//    public function __construct($username = "shkolaco_support", $password = "16213150z", $host = "10.78.101.141", $dbname = "shkolaco_baza", $options = []){
+//        $this->isConn = TRUE;
+//        try {
+//            $this->datab = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8", $username, $password, $options);
+//            $this->datab->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+//            $this->datab->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+//        } catch (PDOException $e) {
+//            throw new Exception($e->getMessage());
+//        }
+//
+//    }
+
 
     // disconnect from db
     public function Disconnect(){

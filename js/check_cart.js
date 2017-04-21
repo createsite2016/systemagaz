@@ -71,7 +71,7 @@ function addCheck() {
     checkCart();
     showCart();
     showMiniCart();
-    alert('Спасибо Вам ' + checkname + ', Ваш заказ принят, ожидайте звонка нашего менеджера.');
+    alert('Спасибо Вам ' + checkname + ', Ваш заказ принят, ожидайте звонка нашего менеджера и смс на Ваш телефон.');
     document.getElementById("checkname").value = '';
     document.getElementById("checkphone").value= '';
     document.getElementById("checkadress").value= '';

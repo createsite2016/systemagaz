@@ -23,14 +23,21 @@ function go_link($link_way,$link_name){
   <meta charset="utf-8">
   <title>Система управления интернет торговлей</title>
   <meta name="" content="mobile first, app, web app, responsive, admin dashboard, flat, flat ui">
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"> 
-  <link rel="stylesheet" href="css/bootstrap.css">
-  <link rel="stylesheet" href="css/font-awesome.min.css">
-  <link rel="stylesheet" href="css/font.css" cache="false">
-   <link rel="stylesheet" href="js/select2/select2.css" cache="false">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/plugin.css">
-  <link rel="stylesheet" href="css/landing.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+            <link rel="shortcut icon" href="icon.ico" type="image/x-icon">
+            <link rel='stylesheet' href='css/bootstrap.css'>
+            <link rel='stylesheet' href='css/font-awesome.min.css'>
+            <link rel='stylesheet' href='css/font.css'>
+            <link rel='stylesheet' href='js/select2/select2.css'>
+            <link rel='stylesheet' href='css/style.css'>
+            <link rel='stylesheet' href='css/plugin.css'>
+            <link rel='stylesheet' href='css/landing.css'>
+    <script id="chatBroEmbedCode">
+        /* Chatbro Widget Embed Code Start */
+        function ChatbroLoader(chats,async) {async=async!==false;var params={embedChatsParameters:chats instanceof Array?chats:[chats],needLoadCode:typeof Chatbro==='undefined'};var xhr=new XMLHttpRequest();xhr.withCredentials = true;xhr.onload=function(){eval(xhr.responseText)};xhr.onerror=function(){console.error('Chatbro loading error')};xhr.open('POST','//www.chatbro.com/embed_chats/',async);xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');xhr.send('parameters='+encodeURIComponent(JSON.stringify(params)))}
+        /* Chatbro Widget Embed Code End */
+        ChatbroLoader({encodedChatId: '4Cad'});
+    </script>
 </head>
 <body>
   <header id="header" class="navbar">

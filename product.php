@@ -33,12 +33,32 @@ include_once 'view/tpl_head.php';
 								<p>Артикул: <?php echo $product['article']; ?></p>
 								<span>
 									<span><?php echo $product['chena_output']; ?> руб.</span>
-									<button onclick="test(<?php echo $product['id']; ?>)" type="submit" class="btn btn-default add-to-cart" id="btn<?php echo $product['id']; ?>">
+									<?php
+									if ($product['kolvo']>0) { ?>
+										<button onclick="test(<?php echo $product['id']; ?>)" type="submit" class="btn btn-default add-to-cart" id="btn<?php echo $product['id']; ?>">
 												<i class="fa fa-shopping-cart"></i>
 												В корзину
-											</button>
+									</button>
+									<?php } ?>
 								</span>
 								<p><b>Количество:</b> <?php echo $product['kolvo']; ?></p>
+								<div id="ok_shareWidget"></div>
+								<script>
+									!function (d, id, did, st, title, description, image) {
+										var js = d.createElement("script");
+										js.src = "https://connect.ok.ru/connect.js";
+										js.onload = js.onreadystatechange = function () {
+											if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+												if (!this.executed) {
+													this.executed = true;
+													setTimeout(function () {
+														OK.CONNECT.insertShareWidget(id,did,st, title, description, image);
+													}, 0);
+												}
+											}};
+										d.documentElement.appendChild(js);
+									}(document,"ok_shareWidget","https://vitashopik.ru",'{"sz":20,"st":"oval","ck":2}',"","","");
+								</script>
 							</div><!--/product-information-->
 						</div>
 					</div><!--/product-details-->

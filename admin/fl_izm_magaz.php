@@ -71,12 +71,54 @@ $params = $pdo->getRow( "SELECT * FROM `magazins` WHERE `id`= ? ", [$id] ); //и
                 </div>
 
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Показать блок рекламы?</label>
+                  <label class="col-lg-3 control-label">ID группы в ОК:</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="idokgroup" placeholder="" class="form-control parsley-validated" value="<?php echo $params['id_ok_group']; ?>">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Вечный токен</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="token" placeholder="" class="form-control parsley-validated" value="<?php echo $params['token']; ?>">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Секретный ключ</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="private_key" placeholder="" class="form-control parsley-validated" value="<?php echo $params['private_key']; ?>">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Публичный ключ</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="public_key" placeholder="" class="form-control parsley-validated" value="<?php echo $params['public_key']; ?>">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Виджет группы ОК?</label>
                   <div class="col-lg-8">
                     <select name="reklama">
                       <option selected="" value="Да">Да</option>
                       <option value="Нет">Нет</option>
                     </select>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Instagram логин:</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="instagramlogin" placeholder="" class="form-control parsley-validated" value="<?php echo $params['instagram_login']; ?>">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Instagram пароль:</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="instagrampassword" placeholder="" class="form-control parsley-validated" value="<?php echo $params['instagram_password']; ?>">
                   </div>
                 </div>
 

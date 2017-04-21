@@ -58,7 +58,7 @@ foreach ( $sql_get_name_categor as $data_name_categor ) {
 //  ВЫВОД СТРАНИЦ НАВИГАЦИИ
 $arra = $pdo->getRow("SELECT count(*) FROM `tovar`  WHERE `categor_id` =  ? ",[$id_categor]);
 $total_articles_number = $arra['count(*)']; //общее количество статей
-$articles_per_page = 10; // количество заказов на странице
+$articles_per_page = 25; // количество заказов на странице
 $b = $_GET['page'];
 if (!isset($_GET['page'])) {
     $b=0;
@@ -183,7 +183,7 @@ if ($user_role=='3') {
                                             //  ВЫВОД СТРАНИЦ НАВИГАЦИИ
                                             $arra = $pdo->getRow("SELECT count(*) FROM `tovar`  WHERE `categor_id` =  ? ",[$id_categor]);
                                             $total_articles_number = $arra['count(*)']; //общее количество статей
-                                            $articles_per_page = 10; // количество заказов на странице
+                                            $articles_per_page = 25; // количество заказов на странице
                                             $b = $_GET['page'];
                                             if (!isset($_GET['page'])) {
                                                 $b=0;
@@ -226,10 +226,13 @@ if ($user_role=='3') {
                                 <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новый товар</h4>
                             </div>
 
+                            <?php
+                            $number_article = $pdo->getRow("SELECT * FROM `tovar` ORDER BY `datatime` DESC");
+                            ?>
                             <div class="modal-body">
                                 <div class="block">
                                     <label class="control-label">Артикул:</label>
-                                    <input class="form-control parsley-validated" placeholder="" type="text" name="article" autofocus autocomplete="off">
+                                    <input class="form-control parsley-validated" value="<?php echo $number_article['article']; ?>" placeholder="" type="text" name="article" autofocus autocomplete="off">
                                 </div>
                             </div>
 

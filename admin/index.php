@@ -1,17 +1,13 @@
 <?php
 session_start();
-
-
 include_once "classes/App.php"; // подключаем функции приложения
 $pdo = new Database();
-
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("views/login/login.php");
 }
 // Иначе открываем для него контент
 else { include("verh.php"); ?>
-
 <!-- / Тело страницы -->
   <section id="content">
     <section class="main padder">
@@ -23,13 +19,8 @@ else { include("verh.php"); ?>
 </div>
         </div>
       </div>
-
-                    <br>
-                    <br>
-
-
-
-<div class="row">
+<br><br>
+        <div class="row">
         <div class="col-lg-12">
             <footer class="panel-footer">
                 <div class="row">
@@ -80,6 +71,7 @@ else {
                 <thead>
                   <tr>
                     <th></th>
+                    <th><b>№ Заказа</b></th>
                     <th><b>Дата</b></th>
                     <th><b>ФИО</b></th>
                     <th><b>Телефон</b></th>
@@ -109,9 +101,7 @@ if ($user_role=='1') {
                     </label>
                 </div>
             </td>
-
-
-
+            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['id']; // Заказ ?></font></b></td>
             <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
             <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['fio']; // фамилия ?></font></b></td>
             <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['phone'];?></font></b></td>
@@ -132,8 +122,6 @@ if ($user_role=='1') {
             </td>
         </tr>
     <?php }}
-
-
 // Если роль пользователя 3
 if ($user_role=='3') {
     if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
@@ -149,8 +137,9 @@ if ($user_role=='3') {
                             </label>
                         </div>
                     </td>
-                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php $date = new DateTime($tovar['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
-                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['fio']; // фамилия ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['id']; // Заказ ?></font></b></td>
+                      <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php $date = new DateTime($tovar['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
+                      <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['fio']; // фамилия ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['phone'];?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['adress']; // адрес ?></font></b></td>
                     <?php $tovar_name = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ? ",[$tovar['tovar']]) ?>

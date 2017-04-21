@@ -80,15 +80,70 @@ include_once 'view/tpl_head.php';
 				</div>
 				<div class="col-sm-9 padding-right">
 					<div class="features_items"><!--Товары-->
-						<h2 class="title text-center">Товары</h2>
+						<h2 class="title text-center">Недавно добавленные</h2>
+						<ul class="pagination">
 						<?php
-						$get_tovar = $pdo->getRows("SELECT * FROM `tovar` WHERE `kolvo` > 0");
+						//  ВЫВОД СТРАНИЦ НАВИГАЦИИ
+						$arra = $pdo->getRow("SELECT count(*) FROM `tovar` ");
+						$total_articles_number = $arra['count(*)']; //общее количество статей
+						$articles_per_page = 9; // количество заказов на странице
+						$b = $_GET['page'];
+						if (!isset($_GET['page'])) {
+							$b=0;
+						}
+						$a = $b + $articles_per_page;
+						//получаем количество страниц
+						$total_pages = ceil($total_articles_number/$articles_per_page);
+
+						// запускаем цикл - количество итераций равно количеству страниц
+						for ( $i=0; $i<$total_pages; $i++ )
+						{
+// получаем значение $from (как $page_number) для использования в формировании ссылки
+							$page_number=$i*$articles_per_page;
+// если $page_number (фактически это проверка того является ли $from текущим) не соответствует
+// текущей странице,
+// выводим ссылку на страницу со значением $from равным $page_number
+
+							if ($page_number!=$from) {
+								$step = $i+1;
+								if ($_GET['i'] == $step) {
+									echo "<li class='active'><a href='".$PHP_SELF."?page=".$page_number."&i=".$step."'> ".($i+1).
+										" </a></li>";
+								} else {
+									echo "<li><a href='".$PHP_SELF."?page=".$page_number."&i=".$step."'> ".($i+1).
+										" </a></li>";
+								}
+
+
+							}
+// иначе просто выводим номер страницы - данная строка необязательна,
+// пропустив ее вы просто получите линк на текущую страницу
+							else {
+								$page_number='1';
+								$step = $i+1;
+								if ($step == '1' and $_GET['page'] == '1') {
+									echo "<li class='active'><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
+								} else {
+									echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
+								}
+
+							} // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
+						}
+						?>
+						</ul><br>
+
+
+
+
+
+						<?php
+						$get_tovar = $pdo->getRows("SELECT * FROM `tovar` WHERE `kolvo` > 0 ORDER BY `datatime` DESC LIMIT $b,$articles_per_page");
 						foreach ( $get_tovar as $tovar ) { ?>
 							<div class="col-sm-4">
 								<div class="product-image-wrapper">
 									<div class="single-products">
 										<div class="productinfo text-center">
-											<?php echo '<a href="product.php?id='.$tovar[id].'">'; ?><img src="<?php echo $tovar['image']; ?>" alt="<?php echo $tovar['name']; ?>" /></a>
+											<?php echo '<a href="product.php?id='.$tovar[id].'">'; ?><img src="<?php echo $tovar['image']; ?>" alt="<?php echo $tovar['name']; ?>" width="240" height="240"/></a>
 											<h2><?php echo $tovar['chena_output']; ?> руб.</h2>
 											<p><?php echo '<a href="product.php?id='.$tovar[id].'">'; ?> <?php echo $tovar['name']; ?></a></p>
 											<p>Остаток: <?php echo $tovar['kolvo']; ?> шт.</p>
@@ -104,6 +159,57 @@ include_once 'view/tpl_head.php';
 								</div>
 							</div>
 						<?php } ?>
+
+<br><ul class="pagination">
+							<?php
+							//  ВЫВОД СТРАНИЦ НАВИГАЦИИ
+							$arra = $pdo->getRow("SELECT count(*) FROM `tovar` ");
+							$total_articles_number = $arra['count(*)']; //общее количество статей
+							$articles_per_page = 9; // количество заказов на странице
+							$b = $_GET['page'];
+							if (!isset($_GET['page'])) {
+								$b=0;
+							}
+							$a = $b + $articles_per_page;
+							//получаем количество страниц
+							$total_pages = ceil($total_articles_number/$articles_per_page);
+
+							// запускаем цикл - количество итераций равно количеству страниц
+							for ( $i=0; $i<$total_pages; $i++ )
+							{
+// получаем значение $from (как $page_number) для использования в формировании ссылки
+								$page_number=$i*$articles_per_page;
+// если $page_number (фактически это проверка того является ли $from текущим) не соответствует
+// текущей странице,
+// выводим ссылку на страницу со значением $from равным $page_number
+
+								if ($page_number!=$from) {
+									$step = $i+1;
+									if ($_GET['i'] == $step) {
+										echo "<li class='active'><a href='".$PHP_SELF."?page=".$page_number."&i=".$step."'> ".($i+1).
+											" </a></li>";
+									} else {
+										echo "<li><a href='".$PHP_SELF."?page=".$page_number."&i=".$step."'> ".($i+1).
+											" </a></li>";
+									}
+
+
+								}
+// иначе просто выводим номер страницы - данная строка необязательна,
+// пропустив ее вы просто получите линк на текущую страницу
+								else {
+									$page_number='1';
+									$step = $i+1;
+									if ($step == '1' and $_GET['page'] == '1') {
+										echo "<li class='active'><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
+									} else {
+										echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
+									}
+
+								} // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
+							}
+							?>
+						</ul>
 						
 					</div><!--/Товары-->
 

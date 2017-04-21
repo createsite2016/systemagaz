@@ -90,7 +90,7 @@ include_once 'view/tpl_head.php';
                                 <div class="product-image-wrapper">
                                     <div class="single-products">
                                         <div class="productinfo text-center">
-                                            <?php echo '<a href="product.php?id='.$tovar[id].'">'; ?><img src="<?php echo $tovar['image']; ?>" alt="<?php echo $tovar['name']; ?>" /></a>
+                                            <?php echo '<a href="product.php?id='.$tovar[id].'">'; ?><img src="<?php echo $tovar['image']; ?>" alt="<?php echo $tovar['name']; ?>" width="240" height="240"/></a>
                                             <h2><?php echo $tovar['chena_output']; ?> руб.</h2>
                                             <p><?php echo '<a href="product.php?id='.$tovar[id].'">'; ?> <?php echo $tovar['name']; ?></a></p>
                                             <p>Остаток: <?php echo $tovar['kolvo']; ?> шт.</p>

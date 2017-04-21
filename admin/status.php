@@ -34,8 +34,8 @@ else { include("verh.php"); ?>
 
 <section class="panel">
 <br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-info"></i> Новый статус</a> | </span></b><br><br>
-            <div class="table">
-              <table class="table text-small">
+    <div class="table-responsive">
+        <table class="table table-striped b-t text-small">
                 <thead>
                   <tr>
                     <th><b>Порядок</b></th>

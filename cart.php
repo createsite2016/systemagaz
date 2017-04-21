@@ -26,7 +26,7 @@ include_once('view/tpl_head.php');
                                     <p>Оформление заказа:</p>
                                     <form>
                                         <input type="text" placeholder="Как к Вам обращаться?" id="checkname">
-                                        <input type="text" placeholder="Ваш номер телефона" id="checkphone">
+                                        <input type="text" placeholder="Ваш телефон(Без +7 и 8)" id="checkphone">
                                         <input type="text" placeholder="Адрес доставки" id="checkadress">
                                         <input type="text" placeholder="Пожелание или просьба" id="checkkomment">
                                     </form>

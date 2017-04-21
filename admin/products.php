@@ -11,7 +11,6 @@ if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
 }  
 // Иначе открываем для него контент
 else { include("verh.php"); ?>
-
 <!-- / Тело страницы -->
   <section id="content">
     <section class="main padder">
@@ -25,14 +24,9 @@ else { include("verh.php"); ?>
       </div>
                     <br>
                     <br>
-
-
-
 <div class="row">
         <div class="col-lg-12">
-
 <section class="panel">
-
     <?php
 // Доступ только для администраторов
     if ($user_role=='3') { ?>
@@ -128,10 +122,29 @@ if ($user_role=='3') {
                     </div>
 
 
+            <div id="myModal" class="modal fade">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <!-- Заголовок модального окна -->
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+                            <h4 class="modal-title">Заголовок модального окна</h4>
+                        </div>
+                        <!-- Основное содержимое модального окна -->
+                        <div class="modal-body">
+                            Содержимое модального окна...
+                        </div>
+                        <!-- Футер модального окна -->
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">Закрыть</button>
+                            <button type="button" class="btn btn-primary">Сохранить изменения</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
 
-
-                    <div id="tovar" class="modal fade" style="display: none;" aria-hidden="true">
+                    <div id="tovar" class="modal fade">
                     <form class="m-b-none" enctype = "multipart/form-data" action="classes/App.php" method="POST">
                     <div class="modal-dialog">
                     <div class="modal-content">
@@ -156,10 +169,14 @@ if ($user_role=='3') {
                     </div>
                     </div>
 
+                        <?php
+                        // получение крайнего артикула
+                        $number_article = $pdo->getRow("SELECT * FROM `tovar` ORDER BY `datatime` DESC");
+                        ?>
                     <div class="modal-body">
                         <div class="block">
                             <label class="control-label">Артикул:</label>
-                            <input class="form-control parsley-validated" placeholder="" type="text" name="article" autofocus autocomplete="off">
+                            <input class="form-control parsley-validated" value="<?php echo $number_article['article']; ?>" placeholder="" type="text" name="article" autofocus autocomplete="off">
                         </div>
                     </div>
 
@@ -251,6 +268,7 @@ if ($user_role=='3') {
                     </div>
                 </form>
             </div>
+            <div class="modal-overlay"></div>
 
 <?php } ?>
 

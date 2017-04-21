@@ -23,18 +23,13 @@ else { include("verh.php"); ?>
 </div>
         </div>
       </div>
-
-                    <br>
-                    <br>
-
-
-
+        <br><br>
 <div class="row">
         <div class="col-lg-12">
 
 <section class="panel">
 <br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-shopping-cart"></i> Новый магазин</a> | </span></b><br><br>
-            <div class="table-responsive">
+    <div class="table-responsive">
               <table class="table table-striped b-t text-small">
                 <thead>
                   <tr>
@@ -42,7 +37,10 @@ else { include("verh.php"); ?>
                     <th><b>Номер телефона</b></th>
                     <th><b>Email</b></th>
                     <th><b>Примечание</b></th>
-                    <th><b>Показ рекламы</b></th>
+                    <th><b>Показ группы в OK</b></th>
+                    <th><b>ID группы в OK</b></th>
+                    <th><b>Instagram логин</b></th>
+                    <th><b>Instagram пароль</b></th>
                     <th><b>Действие</b></th>
                   </tr>
                 </thead>
@@ -58,6 +56,9 @@ if ($user_role=='1') {
                     <td><?php echo $data_get_device['email']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
                     <td><?php echo $data_get_device['reklama']; ?></td>
+                      <td><?php echo $data_get_device['id_ok_group']; ?></td>
+                      <td><?php echo $data_get_device['instagram_login']; ?></td>
+                      <td><?php echo $data_get_device['instagram_password']; ?></td>
                     <td><a href="classes/App.php?action=del_magaz&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_magaz.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
@@ -74,6 +75,9 @@ if ($user_role=='3') {
                     <td><?php echo $data_get_device['email']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
                     <td><?php echo $data_get_device['reklama']; ?></td>
+                      <td><?php echo $data_get_device['id_ok_group']; ?></td>
+                      <td><?php echo $data_get_device['instagram_login']; ?></td>
+                      <td><?php echo $data_get_device['instagram_password']; ?></td>
                     <td><a href="classes/App.php?action=del_magaz&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_magaz.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>

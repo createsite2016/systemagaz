@@ -11,7 +11,7 @@ echo "<small>&copy; Система управления интернет тор�
   </footer>
   <a href="#" class="hide slide-nav-block" data-toggle="class:slide-nav slide-nav-left" data-target="body"></a>
   <!-- / footer -->
-<script src="js/jquery.min.js"></script>
+  <script src="js/jquery.min.js"></script>
   <!-- Bootstrap -->
   <script src="js/bootstrap.js"></script>
   <!-- app -->

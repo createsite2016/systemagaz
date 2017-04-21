@@ -1,12 +1,13 @@
 <?php ?>
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/html">
+<html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
     <title><?php echo $shop['name']; ?></title>
+    <link rel="shortcut icon" href="../icon.ico" type="image/x-icon">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
@@ -14,6 +15,7 @@
     <link href="css/animate.css" rel="stylesheet">
     <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
+
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
     <script src="js/respond.min.js"></script>
@@ -24,9 +26,24 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <?php include("../metrica.php"); // подключение метрики ?>
+    <script id="chatBroEmbedCode">
+        /* Chatbro Чат Начало скрипта */
+        function ChatbroLoader(chats,async) {async=async!==false;var params={embedChatsParameters:chats instanceof Array?chats:[chats],needLoadCode:typeof Chatbro==='undefined'};var xhr=new XMLHttpRequest();xhr.withCredentials = true;xhr.onload=function(){eval(xhr.responseText)};xhr.onerror=function(){console.error('Chatbro loading error')};xhr.open('POST','//www.chatbro.com/embed_chats/',async);xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');xhr.send('parameters='+encodeURIComponent(JSON.stringify(params)))}
+        /* Chatbro Чат Конец скрипта */
+        ChatbroLoader({encodedChatId: '4Cad'});
+    </script>
 </head><!--/head-->
 
 <body>
+<!-- RedConnect -->
+<script id="rhlpscrtg" type="text/javascript" charset="utf-8" async="async" src="https://web.redhelper.ru/service/main.js?c=xakerfsb"></script>
+<div style="display: none">
+    <a class="rc-copyright" href="http://redconnect.ru">Обратный звонок RedConnect</a>
+</div>
+<!--/RedConnect -->
+
+
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -34,20 +51,14 @@
                 <div class="col-sm-6">
                     <div class="contactinfo">
                         <ul class="nav nav-pills">
-                            <li><a href="#"><i class="fa fa-phone"></i> <?php echo $shop['phone']; ?></a></li>
-                            <li><a href="#"><i class="fa fa-envelope"></i> <?php echo $shop['email']; ?></a></li>
+                            <li><a href="tel:<?php echo $shop['phone']; ?>"><i class="fa fa-phone"></i> <?php echo $shop['phone']; ?></a></li>
+                            <li><a href="mailto:<?php echo $shop['email']; ?>"><i class="fa fa-envelope"></i> <?php echo $shop['email']; ?></a></li>
                         </ul>
                     </div>
                 </div>
                 <div class="col-sm-6">
                     <div class="social-icons pull-right">
-                        <ul class="nav navbar-nav">
-                            <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-                            <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-                            <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-                            <li><a href="#"><i class="fa fa-dribbble"></i></a></li>
-                            <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-                        </ul>
+                        Разработанно <span><a target="_blank" href="/torpix/Theme/">Torpix</a>
                     </div>
                 </div>
             </div>
@@ -90,14 +101,8 @@
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="index.php">Главная</a></li>
-                            <li class="dropdown"><a href="#">Магазин<i class="fa fa-angle-down"></i></a>
-                                <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Категории товаров</a></li>
-                                    <li><a href="cart.html">Корзина</a></li>
-                                </ul>
-                            </li>
-                            <li><a href="contact-us.html">О магазине</a></li>
-                            <li><a href="404.html">Контакты</a></li>
+                            <li><a href="about.php">О нас</a></li>
+                            <li><a href="contact.php">Контакты</a></li>
                         </ul>
                     </div>
                 </div>

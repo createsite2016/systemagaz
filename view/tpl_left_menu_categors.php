@@ -18,7 +18,24 @@
     if ( $shop['reklama'] == 'Да' ) { ?>
         <!--/Банер для рекламы-->
         <div class="shipping text-center">
-            <img src="images/home/shipping2.jpg" alt="Загрузка банера не удалась" />
+            <div id="ok_group_widget"></div>
+            <script>
+                !function (d, id, did, st) {
+                    var js = d.createElement("script");
+                    js.src = "https://connect.ok.ru/connect.js";
+                    js.onload = js.onreadystatechange = function () {
+                        if (!this.readyState || this.readyState == "loaded" || this.readyState == "complete") {
+                            if (!this.executed) {
+                                this.executed = true;
+                                setTimeout(function () {
+                                    OK.CONNECT.insertGroupWidget(id,did,st);
+                                }, 0);
+                            }
+                        }}
+                    d.documentElement.appendChild(js);
+                }(document,"ok_group_widget","58318300250167",'{"width":250,"height":335}');
+            </script>
+<!--            <img src="images/home/shipping2.jpg" alt="Загрузка банера не удалась" />-->
         </div>
     <?php } else {
 
