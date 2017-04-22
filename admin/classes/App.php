@@ -135,8 +135,8 @@ class App
 // Удаление заказа (Страницы заказы)
         if ( $action == 'del_zakaz' ) {
 
-            $pdo->deleteRow("DELETE FROM `priem` WHERE `id` = '$id'");
-            $pdo->deleteRow("DELETE FROM `log_priem` WHERE `id_zakaz` = '$id'");
+            $pdo->deleteRow("DELETE FROM `priem` WHERE `id` = ?",[$id]);
+            $pdo->deleteRow("DELETE FROM `log_priem` WHERE `id_zakaz` = ?",[$id]);
             $this->goWayClass('index');
 
         }
