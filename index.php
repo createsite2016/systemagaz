@@ -1,9 +1,24 @@
 <?php
-//include_once "classes/Database.php"; // подключаем БД
 include_once "admin/classes/App.php"; // подключаем функции приложения
 $pdo = new Database();
 $shop = $pdo->getRow("SELECT * FROM `magazins`"); // получение данных магазина
 include_once 'view/tpl_head.php';
+
+// добавление стастистики посещаемости
+include_once 'admin/classes/App.php';
+$datatime = date("Y-m-d H:i:s");
+$ip = $_SERVER['REMOTE_ADDR'];
+$pdo->insertRow("INSERT INTO `statistic` (
+	`id_statistic`,
+	`datatime`,
+	`caption`,
+	`ip`
+	) VALUES (
+	?,
+	?,
+	?,
+	?
+	)",['index',$datatime,'user',$ip]);
 ?>
 
 <!--	<section id="slider"><!--Слайдер новинок-->
