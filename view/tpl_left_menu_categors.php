@@ -33,7 +33,7 @@
                             }
                         }}
                     d.documentElement.appendChild(js);
-                }(document,"ok_group_widget","58318300250167",'{"width":250,"height":335}');
+                }(document,"ok_group_widget","<?php echo $shop['id_ok_group']; ?>",'{"width":250,"height":335}');
             </script>
 <!--            <img src="images/home/shipping2.jpg" alt="Загрузка банера не удалась" />-->
         </div>
