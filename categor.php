@@ -108,7 +108,22 @@ include_once 'view/tpl_head.php';
                         <?php } ?>
 
                     </div><!--/Товары-->
-
+<?php
+// добавление стастистики просмотренного товара
+$datatime = date("Y-m-d H:i:s");
+$ip = $_SERVER['REMOTE_ADDR'];
+$pdo->insertRow("INSERT INTO `statistic` (
+`id_statistic`,
+`datatime`,
+`caption`,
+`ip`
+) VALUES (
+?,
+?,
+?,
+?
+)",[$categor,$datatime,'categor',$ip]);
+                    ?>
                 </div>
             </div>
         </div>
