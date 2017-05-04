@@ -37,6 +37,7 @@ else { include("verh.php"); ?>
               <table class="table text-small">
                 <thead>
                   <tr>
+                    <th><b>№</b></th>
                     <th><b>Поставщик</b></th>
                     <th><b>Примечание</b></th>
                     <th><b>Действие</b></th>
@@ -46,9 +47,10 @@ else { include("verh.php"); ?>
 // Если роль пользователя 1
 include('showdata_forpeople.php');
 if ($user_role=='1') {
-    $sql_get_device = $pdo->getRows("SELECT * FROM `postavshiki` ORDER BY `name` DESC ");
+    $sql_get_device = $pdo->getRows("SELECT * FROM `postavshiki` ORDER BY `name`");
     foreach ( $sql_get_device as $data_get_device ) { ?>
                   <tr>
+                    <td><?php echo ++$z; ?></td>
                     <td><?php echo $data_get_device['name']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
                     <td><a href="classes/App.php?action=del_potavshiki&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
@@ -59,9 +61,10 @@ if ($user_role=='1') {
 
 // Если роль пользователя 3
 if ($user_role=='3') {
-    $sql_get_device = $pdo->getRows("SELECT * FROM `postavshiki` ORDER BY `name` DESC ");
+    $sql_get_device = $pdo->getRows("SELECT * FROM `postavshiki` ORDER BY `name`");
     foreach ( $sql_get_device as $data_get_device ) { ?>
                   <tr>
+                    <td><?php echo ++$z; ?></td>
                     <td><?php echo $data_get_device['name']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
                     <td><a href="classes/App.php?action=del_potavshiki&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
