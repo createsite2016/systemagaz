@@ -30,6 +30,7 @@ if ($error == show) {
  * izm_categor - Изменение категории (Страница товары)
  * izm_tovar - Изменение товара (Страница товары)
  * del_tovar - Удаление товара (Страница товары)
+ * del_find_tovar - Удаление найденного товара (Страница поиск товары)
  * prinyat_tovar - Принятие товара и запись в историю (Страница товары)
  * prodat_tovar - Продажа товара и запись в историю (Страница товары)
  *
@@ -38,6 +39,9 @@ if ($error == show) {
  * del_way - Удаление товара в пути (Страница В пути)
  * add_way - Добавлние товара в пути (Страница В пути)
  *
+ * ОЧИЩЕНИЕ СТАРЫХ ОСТАТКОВ
+ * del_long_time_tovar - Удаление товара который давно выставлен (Страница В пути)
+ *
  * ПРИХОД
  * add_prihod - Добавлние прихода (Страница Приход)
  * del_prihod - Удаление прихода (Страница Приход)
@@ -45,7 +49,7 @@ if ($error == show) {
  *
  * РАСХОД
  * add_rashod - Добавление расхода (Страница расход)
- * del_prihod - Удаление расхода (Страница расход)
+ * del_rashod - Удаление расхода (Страница расход)
  * izm_rashod - Изменение расхода (Страница расход)
  *
  * МАГАЗИНЫ
@@ -722,6 +726,18 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
         }
 
+// Удаление найденного_товара (Страница поиск товара)
+        if ( $action == 'del_find_tovar' ) {
+
+            $id = $_GET['id']; // айдишник талона
+            $del_photo = $pdo->getRow("SELECT `image` FROM `tovar` WHERE `id` = ?",[$id]);
+            unlink($del_photo);
+            $pdo->deleteRow("DELETE FROM `tovar` WHERE `id` = ?",[$id]);
+            $pdo->deleteRow("DELETE FROM `log_rashod` WHERE `id_tovara` = ?",[$id]);
+            $pdo->deleteRow("DELETE FROM `log_prihod` WHERE `id_tovara` = ?",[$id]);
+            $this->goWayClass('products');
+        }
+
 // Принятие товара и запись в историю (Страница товары)
         if ( $action == 'prinyat_tovar' ) {
 
@@ -986,7 +1002,17 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $this->goWayClass('way');
         }
 
+// Удаление стараго товара (Страница "остатки")
+        if ( $action == 'del_long_time_tovar' ) {
 
+            $id = $_GET['id']; // айдишник товара
+            $del_photo = $pdo->getRow("SELECT `image` FROM `tovar` WHERE `id` = ?",[$id]);
+            unlink($del_photo);
+            $pdo->deleteRow("DELETE FROM `tovar` WHERE `id` = ?",[$id]);
+            $pdo->deleteRow("DELETE FROM `log_rashod` WHERE `id_tovara` = ?",[$id]);
+            $pdo->deleteRow("DELETE FROM `log_prihod` WHERE `id_tovara` = ?",[$id]);
+            $this->goWayClass('long_time_product');
+        }
 
 /**
 * Страницы В ПУТИ
@@ -1201,7 +1227,8 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $token = $_POST['token'];
             $private_key = $_POST['private_key'];
             $public_key = $_POST['public_key'];
-            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$id]);
+            $time_day = $_POST['time_day'];
+            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$time_day,$id]);
             $this->goWayClass('magazins');
         }
 
@@ -1362,7 +1389,7 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $name = $_POST['name'];
             $komment = $_POST['komment'];
 
-            $pdo->insertRow("INSERT INTO `status_rs` (`name`,`komment`) VALUES (?,?)",[$name,$komment]);
+            $pdo->insert("INSERT INTO `status_rs` (`name`,`komment`) VALUES (?,?)",[$name,$komment]);
             $this->goWayClass('status_rs');
         }
 
