@@ -13,8 +13,8 @@
                     ?>
                     Все права защищены.</p>
                 <p class="pull-right">
-                    <a target="_blank" href="https://www.instagram.com/vita_shop2016"><img src="../images/instagram.png" width="48">Мы в Instagram</a>
-                    <a target="_blank" href="https://ok.ru/group/58318300250167"><img src="../images/odnoklassniki.png" width="48">Мы в ОК</a>
+                    <a target="_blank" href="https://www.instagram.com/<?php echo $shop['instagram_login']; ?>"><img src="../images/instagram.png" width="48">Мы в Instagram</a>
+                    <a target="_blank" href="https://ok.ru/group/<?php echo $shop['id_ok_group']; ?>"><img src="../images/odnoklassniki.png" width="48">Мы в ОК</a>
                     </span></p>
             </div>
             <br>
