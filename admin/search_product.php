@@ -96,7 +96,7 @@ else { include("verh.php"); ?>
                                         <td><?php echo $data_products['chena_input'];?></td>
                                         <td><?php echo $data_products['chena_output'];?></td>
                                         <td><?php echo $data_products['komment']; ?></td>
-                                        <td><a data-toggle="modal" href="#delete<?php echo $data_products['id']; ?>"><font color="red">Удалить</font></a>
+                                        <td><a href="classes/App.php?action=del_find_tovar&id=<?php echo $data_products['id']; ?>"><font color="red">Удалить</font></a>
                                             <a href="fl_izm_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a><br>
                                             <a href="fl_prinyat_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
                                             <?php
