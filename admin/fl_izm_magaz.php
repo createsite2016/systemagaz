@@ -122,6 +122,13 @@ $params = $pdo->getRow( "SELECT * FROM `magazins` WHERE `id`= ? ", [$id] ); //и
                   </div>
                 </div>
 
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Лимит дней:</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="time_day" placeholder="" class="form-control parsley-validated" value="<?php echo $params['time_day']; ?>">
+                  </div>
+                </div>
+
                  
                 <div class="form-group">
                   <div class="col-lg-9 col-lg-offset-3">                      
