@@ -49,7 +49,7 @@ else { include("verh.php"); ?>
                 </div>
 
                 <div class="form-group">
-                    <label class="col-lg-3 control-label">Цена вх.:</label>
+                    <label class="col-lg-3 control-label">Цена закупки:</label>
                     <div class="col-lg-8">
                         <input type="text" autocomplete="off" name="chena" class="form-control parsley-validated" value="<?php echo $params['chena_input']; ?>">
                     </div>
@@ -63,7 +63,7 @@ else { include("verh.php"); ?>
                             <?php
                             $id_categor = $_GET['categor'];
 
-                            $sql_get_categor = $pdo->getRows(" SELECT * FROM `postavshiki` ");
+                            $sql_get_categor = $pdo->getRows(" SELECT * FROM `postavshiki` ORDER BY `name`");
                             foreach ( $sql_get_categor as $data_categor ) {
                                 echo "<option value='".$data_categor[name]."'>".$data_categor['name']."</option>";
                             }
