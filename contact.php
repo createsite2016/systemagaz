@@ -19,8 +19,8 @@ include_once('view/tpl_head.php');
                         <p><a href="tel:+79649001435">Viber: +79649001435 <img src="images/viber.png" width="48"></p>
                         <p><a href="tel:+79649001435">WhatsApp: +79649001435 <img src="images/whatsapp.png" width="48"></p>
                     <p><b><a target="_blank" href="https://t.me/xakerfsb">Telegram <img src="images/email.png" width="48"></a></b></p>
-                    <p><b><a target="_blank" href="https://www.instagram.com/vita_shop2016">Instagram <img src="images/instagram.png" width="48"></a></b></p>
-                    <p><b><a target="_blank" href="https://ok.ru/group/58318300250167">Одноклассники <img src="images/odnoklassniki.png" width="48"></a></b></p>
+                    <p><b><a target="_blank" href="https://www.instagram.com/<?php echo $shop['instagram_login']; ?>">Instagram <img src="images/instagram.png" width="48"></a></b></p>
+                    <p><b><a target="_blank" href="https://ok.ru/group/<?php echo $shop['id_ok_group']; ?>">Одноклассники <img src="images/odnoklassniki.png" width="48"></a></b></p>
                 </div>
             </div>
         </div>
