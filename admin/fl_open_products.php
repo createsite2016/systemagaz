@@ -149,6 +149,7 @@ if ($user_role=='3') {
     $sql_products = $pdo->getRows("SELECT * FROM `tovar` WHERE `categor_id` =  ? ORDER BY `name` DESC LIMIT $b,$articles_per_page",[$id_categor]);
     foreach ( $sql_products as $data_products ) { ?>
                   <tr>
+                   <?php if ($data_products['kolvo']>0){ ?>
                     <td><?php echo $data_products['article']; ?></td>
                       <td><a href="../product.php?id=<?php echo $data_products['id']; ?>" target="_blank"><?php echo $data_products['name']; ?></a></td>
                     <td><?php echo $data_products['model']; ?></td>
@@ -163,7 +164,26 @@ if ($user_role=='3') {
                         if ($data_products['kolvo']>0){ ?>
                             <a href="fl_prodat_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a>
                         <?php } ?>
-                    </td>
+                    </td><?php }
+                   else { ?>
+
+                       <td><b><font color="#a52a2a"><?php echo $data_products['article']; ?></font></b></td>
+                       <td><b><font color="#a52a2a"><a href="../product.php?id=<?php echo $data_products['id']; ?>" target="_blank"><?php echo $data_products['name']; ?></a></font></b></td>
+                       <td><b><font color="#a52a2a"><?php echo $data_products['model']; ?></font></b></td>
+                       <td><b><font color="#a52a2a"><?php echo $data_products['kolvo']; ?></font></b></td>
+                       <td><b><font color="#a52a2a"><?php echo $data_products['chena_input'];?></font></b></td>
+                       <td><b><font color="#a52a2a"><?php echo $data_products['chena_output'];?></font></b></td>
+                       <td><b><font color="#a52a2a"><?php echo $data_products['komment']; ?></font></b></td>
+                       <td><b><font color="#a52a2a"><a data-toggle="modal" href="#delete<?php echo $data_products['id']; ?>"><font color="red">Удалить</font></a>
+                           <a href="fl_izm_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a><br>
+                           <a href="fl_prinyat_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
+                           <?php
+                           if ($data_products['kolvo']>0){ ?>
+                               <a href="fl_prodat_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a>
+                           <?php } ?>
+                               </font></b></td>
+
+                  <?php } ?>
                   </tr>
 <?php }} ?>
                     </div>
@@ -232,7 +252,7 @@ if ($user_role=='3') {
                             <div class="modal-body">
                                 <div class="block">
                                     <label class="control-label">Артикул:</label>
-                                    <input class="form-control parsley-validated" value="<?php echo $number_article['article']; ?>" placeholder="" type="text" name="article" autofocus autocomplete="off">
+                                    <input class="form-control parsley-validated" value="<?php echo $number_article['article']; ?>" placeholder="" type="text" name="article" autofocus>
                                 </div>
                             </div>
 
@@ -243,6 +263,7 @@ if ($user_role=='3') {
                                     <input type="hidden" name="action" value="add_tovar">
                                     <input type="hidden" name="user_id" value="<?php echo $id_user; ?>">
                                     <input type="hidden" name="categor_id" value="<?php echo $id_categor; ?>">
+                                    <input type="hidden" name="status" value="да">
                                 </div>
                             </div>
 
@@ -281,18 +302,6 @@ if ($user_role=='3') {
                                 </div>
                             </div>
 
-                            <div class="modal-body">
-
-                                <div class="block">
-                                    <label class="control-label">Показать на витрине?</label><br>
-                                    <select name="status">
-                                        <option selected value="Да">Да</option>
-                                        <option value="Нет">Нет</option>
-                                    </select>
-                                </div>
-
-
-                            </div>
                             <div class="modal-footer">
                                 <button type="submit" class="btn btn-primary">Добавить</button>
                                 <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Отмена</button>
