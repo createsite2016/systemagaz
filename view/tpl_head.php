@@ -3,10 +3,12 @@
 <html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
     <meta charset="utf-8">
+    <meta name="keywords" content="Одежда Гулькевичи, Кропоткин. Интернет магазин одежды" />
+    <meta name="description" content="Гулькевичи, Кропоткин, Одежда.">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="">
     <meta name="author" content="">
-    <title><?php echo $shop['name']; ?></title>
+    <title>Одежда Гулькевичи, Кропоткин. Интернет магазин одежды</title>
     <link rel="shortcut icon" href="../icon.ico" type="image/x-icon">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -103,6 +105,7 @@
                             <li><a href="index.php">Главная</a></li>
                             <li><a href="about.php">О нас</a></li>
                             <li><a href="contact.php">Контакты</a></li>
+                            <li><a href="sizes.php">Размеры</a></li>
                         </ul>
                     </div>
                 </div>
