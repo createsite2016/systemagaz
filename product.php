@@ -73,7 +73,26 @@ include_once 'view/tpl_head.php';
 									<p><?php echo $product['komment']; ?></p>
 								</div>
 							</div>
+<?php
+if ($_GET['statistic']=='false') {
 
+} else {
+	// добавление стастистики просмотренных категорий
+	$datatime = date("Y-m-d H:i:s");
+	$ip = $_SERVER['REMOTE_ADDR'];
+	$pdo->insertRow("INSERT INTO `statistic` (
+	`id_statistic`,
+	`datatime`,
+	`caption`,
+	`ip`
+	) VALUES (
+	?,
+	?,
+	?,
+	?
+	)",[$product['id'],$datatime,'tovar',$ip]);
+}
+?>
 						</div>
 					</div><!--/category-tab-->
 
