@@ -28,6 +28,8 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    <script src="js/jquery-1.8.2.min.js"></script>
+	<script src="js/zoomsl-3.0.min.js"></script>
     <?php include("../metrica.php"); // подключение метрики ?>
     <script id="chatBroEmbedCode">
         /* Chatbro Чат Начало скрипта */
@@ -38,6 +40,22 @@
 </head><!--/head-->
 
 <body>
+<!-- Лупа -->	
+<script>
+jQuery(function(){
+	
+    // если отсутсвует zoomsl-3.0.min.js
+	if(!$.fn.imagezoomsl){
+		$('.msg').show();
+		return;
+	}
+     else $('.msg').hide();
+	// инициализация плагина
+	$('.my-foto').imagezoomsl({ 
+		zoomrange: [3, 3]	
+	});  
+});
+</script>
 <!-- RedConnect -->
 <script id="rhlpscrtg" type="text/javascript" charset="utf-8" async="async" src="https://web.redhelper.ru/service/main.js?c=xakerfsb"></script>
 <div style="display: none">
