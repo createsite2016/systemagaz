@@ -19,7 +19,8 @@ include_once 'view/tpl_head.php';
 					<div class="product-details"><!--product-details-->
 						<div class="col-sm-5">
 							<div class="productinfo text-center">
-								<img src="<?php echo $product['image']; ?>" alt="" />
+								<img class="my-foto" src="<?php echo $product['image']; ?>"  data-large="<?php echo $product['image']; ?>" title="<?php echo $product['name']; ?>">
+								
 <!--								<h3>Новинка</h3>-->
 							</div>
 
