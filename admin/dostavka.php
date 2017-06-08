@@ -73,7 +73,7 @@ if ($user_role=='3') {
               </table>
               </section>
 
-                    <div id="modal" class="modal fade" style="display: none;" aria-hidden="true">
+                    <div id="modal" data-backdrop="false" class="modal fade" style="display: none;" aria-hidden="true">
                     <form class="m-b-none" action="classes/App.php" method="POST">
                     <div class="modal-dialog">
                     <div class="modal-content">
