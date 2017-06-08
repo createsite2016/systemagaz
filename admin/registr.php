@@ -1,3 +1,12 @@
+<?php
+include_once "classes/App.php"; // подключаем функции приложения
+$pdo = new Database();
+$get_user_info = $pdo->getRows("SELECT * FROM `users_8897532`"); // получение данных о пользователях
+foreach ( $get_user_info as $data_user_info ) { }
+if ( $data_user_info['id']>0 ) {
+exit("<html><head><meta http-equiv='Refresh' content='0; URL=index.php'></head></html>");
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -17,7 +26,7 @@
 <body>
   <!-- header -->
   <header id="header" class="navbar bg bg-black">
-    <a href="#"><center><h4><font color="white"><br>Регистрация</font></h4></cente></a>
+    <a href="registr.php"><center><h4><font color="white"><br>Регистрация</font></h4></cente></a>
   </header>
   <!-- / header -->
   <section id="content">
@@ -26,9 +35,9 @@
         <div class="col-lg-4 col-lg-offset-4 m-t-large">
           <section class="panel">
             <header class="panel-heading text-center">
-              Заполните все поля
+              Создайте пользователя, заполните все поля
             </header>
-            <form action="save_reg.php" class="panel-body" method="POST">
+            <form action="classes/App.php" class="panel-body" method="POST">
               <div class="block">
                 <label class="control-label">Ваше имя</label>
                 <input type="text" name="name" placeholder="имя" class="form-control">
@@ -40,14 +49,15 @@
               <div class="block">
                 <label class="control-label">Ваш пароль</label>
                 <input type="text" name="password" id="inputPassword" placeholder="более 6 символов" class="form-control">
+                <input type="hidden" name="action" value="create_user">
               </div>
               <br>
-              <center>
-              <button type="submit" class="btn btn-info">Зарегистрироваться</button>
-              </center>
               <div class="line line-dashed"></div>
-              <p class="text-muted text-center"><small>У Вас уже есть аккаунт?</small></p>
-              <a href="index.php" class="btn btn-white btn-block">Войти</a>
+              <p class="text-muted text-center"><small>Перед тем как нажать, проверьте правильность введенных данных</small></p>
+              <center>
+              <button type="submit" class="btn btn-info">Все правильно, Зарегистрироваться</button>
+              </center>
+
               <div class="line line-dashed"></div>
             </form>
           </section>
