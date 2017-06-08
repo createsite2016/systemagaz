@@ -2,13 +2,21 @@
 <!DOCTYPE html>
 <html lang="ru" xmlns="http://www.w3.org/1999/html">
 <head>
+    <?php
+    if (isset($_GET['cat'])) {
+        $categor = $_GET['cat'];
+        $data_categor = $pdo->getRow("SELECT * FROM `categor` WHERE `id` = ?",[$categor]);
+        $shop['title'] = $data_categor['name'].' Гулькевичи. '.$data_categor['name'].' Кропоткин';
+        $shop['keywords'] = $data_categor['name'].' Гулькевичи. '.$data_categor['name'].' Кропоткин';
+        $shop['description'] = $data_categor['name'].' Гулькевичи. '.$data_categor['name'].' Кропоткин';
+    }
+    ?>
     <meta charset="utf-8">
-    <meta name="keywords" content="Одежда Гулькевичи, Кропоткин. Интернет магазин одежды" />
-    <meta name="description" content="Гулькевичи, Кропоткин, Одежда.">
+    <meta name="keywords" content="<?php echo $shop['keywords']; ?>" />
+    <meta name="description" content="<?php echo $shop['description']; ?>">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="">
-    <meta name="author" content="">
-    <title>Одежда Гулькевичи, Кропоткин. Интернет магазин одежды</title>
+    <meta name="author" content="Torpix company, made in Girey city">
+    <title><?php echo $shop['title']; ?></title>
     <link rel="shortcut icon" href="../icon.ico" type="image/x-icon">
     <link href="css/bootstrap.min.css" rel="stylesheet">
     <link href="css/font-awesome.min.css" rel="stylesheet">
@@ -78,7 +86,7 @@ jQuery(function(){
                 </div>
                 <div class="col-sm-6">
                     <div class="social-icons pull-right">
-                        Разработанно <span><a target="_blank" href="/torpix/Theme/">Torpix</a>
+                        <br>Сайт работает на платформе <span><a target="_blank" href="/torpix/Theme/">Torpix</a>
                     </div>
                 </div>
             </div>
