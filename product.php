@@ -44,6 +44,7 @@ include_once 'view/tpl_head.php';
 								</span>
 								<p><b>Количество:</b> <?php echo $product['kolvo']; ?></p>
 								<div id="ok_shareWidget"></div>
+								<div id="ok_shareWidget"></div>
 								<script>
 									!function (d, id, did, st, title, description, image) {
 										var js = d.createElement("script");
@@ -58,7 +59,7 @@ include_once 'view/tpl_head.php';
 												}
 											}};
 										d.documentElement.appendChild(js);
-									}(document,"ok_shareWidget","https://vitashopik.ru",'{"sz":20,"st":"oval","ck":2}',"","","");
+									}(document,"ok_shareWidget",document.URL,'{"sz":20,"st":"straight","ck":2}',"","","");
 								</script>
 							</div><!--/product-information-->
 						</div>
