@@ -54,7 +54,6 @@ if ($user_role=='3') { ?>
       <li class="dropdown-submenu">
         <a href="#"><i class="icon-folder-open icon-xlarge"></i><span>Справочники</span></a>
         <ul class="dropdown-menu">
-          <li><a href="magazins.php"><i class="icon-shopping-cart"></i>Магазины</a></li>
           <li><a href="status.php"><i class="icon-credit-card"></i>Статусы (Заказы)</a></li>
           <li><a href="status_pr.php"><i class="icon-plus"></i>Статусы (+Приходы)</a></li>
           <li><a href="status_rs.php"><i class="icon-minus"></i>Статусы (-Расходы)</a></li>
