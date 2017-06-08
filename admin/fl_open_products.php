@@ -237,7 +237,7 @@ if ($user_role=='3') {
 
 
 
-            <div id="tovar" class="modal fade" style="display: none;" aria-hidden="true">
+            <div id="tovar" data-backdrop="false" class="modal fade" style="display: none;" aria-hidden="true">
                 <form class="m-b-none" enctype = "multipart/form-data" action="classes/App.php"  method="POST">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -314,7 +314,7 @@ if ($user_role=='3') {
     $sql_products = $pdo->getRows("SELECT * FROM `tovar` WHERE `categor_id` =  ? ",[$id_categor]);
         foreach ( $sql_products as $data_products ) : ?>
 <!--Модальное окно удаления товара-->
-            <div id="delete<?php echo $data_products['id']; ?>" class="modal fade" style="display: none;" aria-hidden="true">
+            <div id="delete<?php echo $data_products['id']; ?>" data-backdrop="false" class="modal fade" style="display: none;" aria-hidden="true">
                 <form class="m-b-none" enctype = "multipart/form-data" action="classes/App.php?id=<?php echo $data_products['id']; ?>&action=del_tovar&categor=<?php echo $id_categor; ?>"  method="POST">
                     <div class="modal-dialog">
                         <div class="modal-content">
