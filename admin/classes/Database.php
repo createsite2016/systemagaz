@@ -4,27 +4,29 @@ class Database{
     public $isConn;
     protected $datab;
 
-    // connect to db
+    // Соединение с БД
         //public function __construct($username = "root", $password = "root", $host = "localhost", $dbname = "systemagaz", $options = []){
-        public function __construct($username = "cv93805", $password = "ZwNrkrt9", $host = "localhost", $dbname = "cv93805_systemag", $options = []){
+        public function __construct($username = "cv93805_systemag", $password = "ZwNrkrt9", $host = "localhost", $dbname = "cv93805_systemag", $options = []){
             $this->isConn = TRUE;
         try {
             $this->datab = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8", $username, $password, $options);
             $this->datab->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
             $this->datab->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            throw new Exception($e->getMessage());
+            //Обработка ошибки
+            echo '<br><br><br><br><center><strong>Не удалось подключиться к БД, проверьте параметры соединения</strong></center>';
+            exit;
         }
 
     }
 
 
-    // disconnect from db
+    // отключение от бд
     public function Disconnect(){
         $this->datab = NULL;
         $this->isConn = FALSE;
     }
-    // get row
+    // получить данные
     public function getRow($query, $params = []){
         try {
             $stmt = $this->datab->prepare($query);
@@ -34,7 +36,7 @@ class Database{
             throw new Exception($e->getMessage());
         }
     }
-    // get rows
+    // получить массив данных
     public function getRows($query, $params = []){
         try {
             $stmt = $this->datab->prepare($query);
@@ -44,7 +46,7 @@ class Database{
             throw new Exception($e->getMessage());
         }
     }
-    // insert row
+    // вставить данные
     public function insertRow($query, $params = []){
         try {
             $stmt = $this->datab->prepare($query);
@@ -54,15 +56,15 @@ class Database{
             throw new Exception($e->getMessage());
         }
     }
-    // update row
+    // обновить данные
     public function updateRow($query, $params = []){
         $this->insertRow($query, $params);
     }
-    // delete row
+    // удалить данные
     public function deleteRow($query, $params = []){
         $this->insertRow($query, $params);
     }
-    // get last Insert Id
+    // получить последний добавленный ID
     public function lastInsertId($query, $params = []){
         try {
             $stmt = $this->datab->prepare($query);
