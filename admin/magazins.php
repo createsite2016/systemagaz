@@ -28,7 +28,15 @@ else { include("verh.php"); ?>
         <div class="col-lg-12">
 
 <section class="panel">
-<br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-shopping-cart"></i> Новый магазин</a> | </span></b><br><br>
+<br><b><span class="center">
+            <?php
+            // если название магазина отсутствует, тогда выводим кнопку создать магазин
+            $sql_get_magazins = $pdo->getRows( "SELECT * FROM `magazins` ORDER BY `name` DESC ");
+            foreach ( $sql_get_magazins as $data_magaz ) { }
+            if ( $data_magaz['komment']=='' ) { ?>
+                |<a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-shopping-cart"></i> Новый магазин</a> |
+            <?php } ?>
+        </span></b><br><br>
     <div class="table-responsive">
               <table class="table table-striped b-t text-small">
                 <thead>
@@ -87,7 +95,7 @@ if ($user_role=='3') {
               </table>
               </section>
 
-                    <div id="modal" class="modal fade" style="display: none;" aria-hidden="true">
+                    <div id="modal" data-backdrop="false" class="modal fade" style="display: none;" aria-hidden="true">
                     <form class="m-b-none" action="classes/App.php" method="POST">
                     <div class="modal-dialog">
                     <div class="modal-content">
