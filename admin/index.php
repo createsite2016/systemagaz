@@ -2,6 +2,11 @@
 session_start();
 include_once "classes/App.php"; // подключаем функции приложения
 $pdo = new Database();
+$get_user_info = $pdo->getRows("SELECT * FROM `users_8897532`"); // получение данных о пользователях
+foreach ( $get_user_info as $data_user_info ) { }
+if ( $data_user_info['login']=='' ) {
+    exit("<html><head><meta http-equiv='Refresh' content='0; URL=registr.php'></head></html>");
+}
 // Проверка авторизован пользователь или нет.
 if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
     include("views/login/login.php");
