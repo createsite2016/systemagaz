@@ -1,6 +1,15 @@
 <?php
 include_once "admin/classes/App.php"; // подключаем функции приложения
 $pdo = new Database();
+
+// если нет пользователей (то есть магазин открыт в первые), тогда предлагает его создать на страничке регистрации! 
+$get_user_info = $pdo->getRows("SELECT * FROM `users_8897532`"); // получение данных о пользователях
+foreach ( $get_user_info as $data_user_info ) { }
+if ( $data_user_info['login']=='' ) {
+	exit("<html><head><meta http-equiv='Refresh' content='0; URL=admin/registr.php'></head></html>");
+}
+
+
 $shop = $pdo->getRow("SELECT * FROM `magazins`"); // получение данных магазина
 include_once 'view/tpl_head.php';
 
@@ -20,73 +29,6 @@ $pdo->insertRow("INSERT INTO `statistic` (
 	?
 	)",['index',$datatime,'user',$ip]);
 ?>
-
-<!--	<section id="slider"><!--Слайдер новинок-->
-<!--		<div class="container">-->
-<!--			<div class="row">-->
-<!--				<div class="col-sm-12">-->
-<!--					<div id="slider-carousel" class="carousel slide" data-ride="carousel">-->
-<!--						<ol class="carousel-indicators">-->
-<!--							<li data-target="#slider-carousel" data-slide-to="0" class="active"></li>-->
-<!--							<li data-target="#slider-carousel" data-slide-to="1"></li>-->
-<!--							<li data-target="#slider-carousel" data-slide-to="2"></li>-->
-<!--						</ol>-->
-<!--						-->
-<!--						<div class="carousel-inner">-->
-<!--							<div class="item active">-->
-<!--								<div class="col-sm-6">-->
-<!--									<h1><span>E</span>-SHOPPER</h1>-->
-<!--									<h2>Free E-Commerce Template</h2>-->
-<!--									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>-->
-<!--									<button type="button" class="btn btn-default get">Get it now</button>-->
-<!--								</div>-->
-<!--								<div class="col-sm-6">-->
-<!--									<img src="images/home/girl1.jpg" class="girl img-responsive" alt="" />-->
-<!--									<img src="images/home/pricing.png"  class="pricing" alt="" />-->
-<!--								</div>-->
-<!--							</div>-->
-<!--							<div class="item">-->
-<!--								<div class="col-sm-6">-->
-<!--									<h1><span>E</span>-SHOPPER</h1>-->
-<!--									<h2>100% Responsive Design</h2>-->
-<!--									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>-->
-<!--									<button type="button" class="btn btn-default get">Get it now</button>-->
-<!--								</div>-->
-<!--								<div class="col-sm-6">-->
-<!--									<img src="images/home/girl2.jpg" class="girl img-responsive" alt="" />-->
-<!--									<img src="images/home/pricing.png"  class="pricing" alt="" />-->
-<!--								</div>-->
-<!--							</div>-->
-<!--							-->
-<!--							<div class="item">-->
-<!--								<div class="col-sm-6">-->
-<!--									<h1><span>E</span>-SHOPPER</h1>-->
-<!--									<h2>Free Ecommerce Template</h2>-->
-<!--									<p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </p>-->
-<!--									<button type="button" class="btn btn-default get">Get it now</button>-->
-<!--								</div>-->
-<!--								<div class="col-sm-6">-->
-<!--									<img src="images/home/girl3.jpg" class="girl img-responsive" alt="" />-->
-<!--									<img src="images/home/pricing.png" class="pricing" alt="" />-->
-<!--								</div>-->
-<!--							</div>-->
-<!--							-->
-<!--						</div>-->
-<!--						-->
-<!--						<a href="#slider-carousel" class="left control-carousel hidden-xs" data-slide="prev">-->
-<!--							<i class="fa fa-angle-left"></i>-->
-<!--						</a>-->
-<!--						<a href="#slider-carousel" class="right control-carousel hidden-xs" data-slide="next">-->
-<!--							<i class="fa fa-angle-right"></i>-->
-<!--						</a>-->
-<!--					</div>-->
-<!--					-->
-<!--				</div>-->
-<!--			</div>-->
-<!--		</div>-->
-<!--	</section>
-<!--/Слайдер новинок-->
-
 
 	<section>
 		<div class="container">
@@ -162,7 +104,7 @@ $pdo->insertRow("INSERT INTO `statistic` (
 											<?php echo '<a href="product.php?id='.$tovar[id].'">'; ?>
 											
 
-											<img class="my-foto" src="<?php echo $tovar['image']; ?>"  data-large="<?php echo $tovar['image']; ?>" title="<?php echo $tovar['name']; ?>" width="240" height="240">
+											<img src="<?php echo $tovar['image']; ?>"  title="<?php echo $tovar['name']; ?>" width="240" height="240">
 																				
 											
 											<!--/ <img src="<?php echo $tovar['image']; ?>" alt="<?php echo $tovar['name']; ?>" width="240" height="240"/></a> Товары-->
