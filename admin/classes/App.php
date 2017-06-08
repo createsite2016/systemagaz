@@ -16,6 +16,7 @@ if ($error == show) {
  * Clear(%переменная) - обработка переменных перед запросом
  * goWay(%путь, %сообщение) - делает переадресацию на другую страницу с сообщение или безсообщения
  * goWayClass(%путь) - переадресация на класс
+ * create_user - создание нового пользователя
  * get_action(%экшен) - обработка действий пользователя
  *
  * ЗАКАЗЫ
@@ -132,6 +133,20 @@ class App
         $this->Clear($id);
         global $pdo; // Делаем PDO глобальным, для того чтобы видеть ее везде
         $pdo = new Database();
+
+/**
+ * Начальная страница
+ */
+// Создание пользователя, если в системе нет не единого пользователя
+        if ( $action == 'create_user' ) {
+            $new_user_name = $_POST['name'];
+            $new_user_login = $_POST['login'];
+            $new_user_password = $_POST['password'];
+            $role = 3;
+            $profes = 'Директор';
+            $pdo->insertRow("INSERT INTO `users_8897532` (`name`,`login`,`password`,`role`,`profes`) VALUES (?,?,?,?,?) ", [$new_user_name,$new_user_login,$new_user_password,$role,$profes]);
+            $this->goWayClass('index');
+        }
 
 /**
  * Страницы ЗАКАЗЫ
@@ -1563,7 +1578,7 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $id = $_REQUEST['id'];
 
             $pdo->deleteRow("DELETE FROM `users_8897532` WHERE `id` = ?",[$id]);
-            $this->goWayClass('users');
+            $this->goWayClass('exit');
         }
 
 
