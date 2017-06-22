@@ -54,9 +54,9 @@ if ($error == show) {
  * izm_rashod - Изменение расхода (Страница расход)
  *
  * МАГАЗИНЫ
- * add_magaz - Добавление магазина (Станица справочники.магазины)
- * izm_magaz - Изменение магазина (Страница справочники.магазины)
- * del_magaz - Удаление магазина (Страница справочники.магазины)
+ * add_magaz - Добавление магазина (Пункт меню настройки)
+ * izm_magaz - Изменение магазина (Пункт меню настройки)
+ * del_magaz - Удаление магазина (Пункт меню настройки)
  *
  * СТАТУСЫ ЗАКАЗЫ
  * izm_status - Изменение статуса заказа (Страница справочники.статусы заказы)
@@ -92,6 +92,10 @@ if ($error == show) {
  * izm_user - Изменить данные сотрудника (Страница сотрудники)
  * add_user - Добавить нового сотрудника (Страница сотрудники)
  * del_user - Удалить сотрудника (Страница сотрудники)
+ *
+ * СТРАНИЦЫ
+ * add_page - Добавить страницу (Пункт меню Страницы)
+ * del_page - Удалить страницу (Пункт меню Страницы)
  */
 class App
 {
@@ -1243,7 +1247,10 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $private_key = $_POST['private_key'];
             $public_key = $_POST['public_key'];
             $time_day = $_POST['time_day'];
-            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$time_day,$id]);
+            $keywords = $_POST['keywords'];
+            $description = $_POST['description'];
+            $title = $_POST['title'];
+            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?,`keywords` = ?,`description` = ?,`title` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$time_day,$keywords,$description,$title,$id]);
             $this->goWayClass('magazins');
         }
 
@@ -1579,6 +1586,36 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
 
             $pdo->deleteRow("DELETE FROM `users_8897532` WHERE `id` = ?",[$id]);
             $this->goWayClass('exit');
+        }
+
+/**
+* Пункт меню СТРАНИЦЫ
+*/
+
+// Добавление страницы (Станица Страницы)
+        if ( $action == 'add_page' ) {
+            $name = $_POST['name']; // Название страницы
+            $about = $_POST['about']; // Описание страницы
+            $pdo->insertRow("INSERT INTO `pages` (`name`,`about`) VALUES (?,?)",[$name,$about]);
+            $this->goWayClass('pages'); // переход на страницу Pages
+        }
+
+// Удаление страницы (Станица Страницы)
+        if ( $action == 'del_page' ) {
+            $id = $_REQUEST['id']; // айдишник талона
+            $pdo->deleteRow("DELETE FROM `pages` WHERE `id` = ?",[$id]);
+            $this->goWayClass('pages');
+        }
+
+// Изменение данных страницы (Станица Страницы)
+        if ( $action == 'izm_pages' ) {
+
+            $name = $_POST['name'];
+            $about = $_POST['about'];
+            $datapage = $_POST['datapage'];
+            $id = $_POST['id'];
+            $pdo->updateRow("UPDATE `pages` SET `name` = ?, `about` = ?,`datapage` = ? WHERE `id` = ? ",[$name,$about,$datapage,$id]);
+            $this->goWayClass('pages');
         }
 
 
