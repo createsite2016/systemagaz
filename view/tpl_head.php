@@ -129,9 +129,11 @@ jQuery(function(){
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
                             <li><a href="index.php">Главная</a></li>
-                            <li><a href="about.php">О нас</a></li>
-                            <li><a href="contact.php">Контакты</a></li>
-                            <li><a href="sizes.php">Размеры</a></li>
+                            <?php
+                            $get_pages = $pdo->getRows("SELECT * FROM `pages` ORDER BY `id`");
+                            foreach ( $get_pages as $pages ) { ?>
+                                <li><a href="page.php?id=<?php echo $pages['id']; ?>"><?php echo $pages['name']; ?></a></li>
+                            <?php } ?>
                         </ul>
                     </div>
                 </div>
