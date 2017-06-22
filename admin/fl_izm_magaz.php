@@ -128,6 +128,27 @@ $params = $pdo->getRow( "SELECT * FROM `magazins` WHERE `id`= ? ", [$id] ); //и
                     <input type="text" autocomplete="off" name="time_day" placeholder="" class="form-control parsley-validated" value="<?php echo $params['time_day']; ?>">
                   </div>
                 </div>
+                
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Ключевые слова(keywords):</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="keywords" placeholder="" class="form-control parsley-validated" value="<?php echo $params['keywords']; ?>">
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Описание(description):</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="description" placeholder="" class="form-control parsley-validated" value="<?php echo $params['description']; ?>">
+                  </div>
+                </div>
+                
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Заголовок страницы(title):</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="title" placeholder="" class="form-control parsley-validated" value="<?php echo $params['title']; ?>">
+                  </div>
+                </div>
 
                  
                 <div class="form-group">
