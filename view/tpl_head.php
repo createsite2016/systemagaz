@@ -6,9 +6,9 @@
     if (isset($_GET['cat'])) {
         $categor = $_GET['cat'];
         $data_categor = $pdo->getRow("SELECT * FROM `categor` WHERE `id` = ?",[$categor]);
-        $shop['title'] = $data_categor['name'].' Гулькевичи. '.$data_categor['name'].' Кропоткин';
-        $shop['keywords'] = $data_categor['name'].' Гулькевичи. '.$data_categor['name'].' Кропоткин';
-        $shop['description'] = $data_categor['name'].' Гулькевичи. '.$data_categor['name'].' Кропоткин';
+        $shop['title'] = $data_categor['name'].' Гулькевичи, Кропоткин';
+        $shop['keywords'] = $data_categor['name'].' Гулькевичи, Кропоткин';
+        $shop['description'] = $data_categor['name'].' Гулькевичи, Кропоткин';
     }
     ?>
     <meta charset="utf-8">
