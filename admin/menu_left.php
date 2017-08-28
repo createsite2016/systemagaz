@@ -55,8 +55,8 @@ if ($user_role=='3') { ?>
         <a href="#"><i class="icon-folder-open icon-xlarge"></i><span>Справочники</span></a>
         <ul class="dropdown-menu">
           <li><a href="status.php"><i class="icon-credit-card"></i>Статусы (Заказы)</a></li>
-          <li><a href="status_pr.php"><i class="icon-plus"></i>Статусы (+Приходы)</a></li>
-          <li><a href="status_rs.php"><i class="icon-minus"></i>Статусы (-Расходы)</a></li>
+          <li><a href="status_pr.php"><i class="icon-plus"></i>Статусы (+Приход денег)</a></li>
+          <li><a href="status_rs.php"><i class="icon-minus"></i>Статусы (-Расход денег)</a></li>
           <li><a href="dostavka.php"><i class="icon-plane"></i>Службы доставки</a></li>
           <li><a href="potavshiki.php"><i class="icon-globe"></i>Поставщики</a></li>
           <li><a href="money.php"><i class="icon-money"></i>Валюта</a></li>
@@ -66,7 +66,7 @@ if ($user_role=='3') { ?>
       <li><a href="score.php"><i class="icon-dollar icon-xlarge"></i><span>Итого</span></a></li>
 
     <li class="dropdown-submenu">
-        <a href="#"><i class="icon-bar-chart icon-xlarge"></i><span>Аналитика</span></a>
+        <a href="#"><i class="icon-bar-chart icon-xlarge"></i><span>Аналитика (beta)</span></a>
         <ul class="dropdown-menu">
             <li><a href="statistic_tovar.php"><i class="icon-gift"></i>Просмотренные товары</a></li>
             <li><a href="statistic_categor.php"><i class="icon-code-fork"></i>Просмотренные категории</a></li>

@@ -29,7 +29,21 @@ else { include("verh.php"); ?>
 // Доступ только для администраторов
                     if ($user_role=='3') { ?>
                 <form class="m-b-none" action="search_product.php" method="POST">
-                    <br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#categor"><i class="icon-folder-open-alt"></i> Новая категория</a> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> |
+                    <br>
+                    <?php
+                    $sql_get_products = $pdo->getRows("SELECT * FROM `categor` ORDER BY `name` DESC ");
+                    $count_categor = 0;
+                    foreach ( $sql_get_products as $products ) {
+                        $count_categor++;
+                    }
+                    if ($count_categor == 0) { ?>
+                    <b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#categor"><i class="icon-folder-open-alt"></i> Новая категория</a>
+                    <?}?>
+                    <?php
+                    if ($count_categor > 0) { ?>
+                            <b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#categor"><i class="icon-folder-open-alt"></i> Новая категория</a>
+                            | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> |
+                            <?}?>
 
 
                 <div class="col-sm-4">

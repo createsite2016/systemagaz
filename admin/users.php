@@ -38,12 +38,11 @@ else { include("verh.php"); ?>
         <div class="col-lg-12">
 
 <section class="panel">
-<br><b><span class="center"> | <a href="fl_add_user.php" class="btn btn-default btn-xs">Добавить сотрудника</a> | </span></b><br><br>
+<br><b><span class="center"> | <a href="fl_add_user.php" class="btn btn-default btn-xs">Добавить пользователя</a> | </span></b><br><br>
             <div class="table-responsive">
               <table class="table table-striped b-t text-small">
                 <thead>
                   <tr>
-                    <th>Должность</th>
                     <th><b>Имя</b></th>
                     <th><b>Логин</b></th>
                     <th><b>Пароль</b></th>
@@ -58,7 +57,6 @@ $sql_get_device = $pdo->getRows("SELECT * FROM `users_8897532` ");
 foreach ( $sql_get_device as $data_get_device ) {
     $i++; ?>
                   <tr>
-                    <td><?php echo $data_get_device['profes'];// должность ?></td>
                     <td><?php echo $data_get_device['name'];// проффесия ?></td>
                     <td><?php echo $data_get_device['login']; // логин ?></td>
                     <td><?php echo $data_get_device['password'];// пароль ?></td>

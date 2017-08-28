@@ -56,12 +56,12 @@ $pdo->insertRow("INSERT INTO `statistic` (
 						// запускаем цикл - количество итераций равно количеству страниц
 						for ( $i=0; $i<$total_pages; $i++ )
 						{
-// получаем значение $from (как $page_number) для использования в формировании ссылки
+						// получаем значение $from (как $page_number) для использования в формировании ссылки
 							$page_number=$i*$articles_per_page;
-// если $page_number (фактически это проверка того является ли $from текущим) не соответствует
-// текущей странице,
-// выводим ссылку на страницу со значением $from равным $page_number
-
+						// если $page_number (фактически это проверка того является ли $from текущим) не соответствует
+						// текущей странице,
+						// выводим ссылку на страницу со значением $from равным $page_number
+if ($total_articles_number > $articles_per_page ) {
 							if ($page_number!=$from) {
 								$step = $i+1;
 								if ($_GET['i'] == $step) {
@@ -87,6 +87,7 @@ $pdo->insertRow("INSERT INTO `statistic` (
 
 							} // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
 						}
+}
 						?>
 						</ul><br>
 
@@ -139,39 +140,39 @@ $pdo->insertRow("INSERT INTO `statistic` (
 							$total_pages = ceil($total_articles_number/$articles_per_page);
 
 							// запускаем цикл - количество итераций равно количеству страниц
-							for ( $i=0; $i<$total_pages; $i++ )
-							{
-// получаем значение $from (как $page_number) для использования в формировании ссылки
-								$page_number=$i*$articles_per_page;
-// если $page_number (фактически это проверка того является ли $from текущим) не соответствует
-// текущей странице,
-// выводим ссылку на страницу со значением $from равным $page_number
+							for ( $i=0; $i<$total_pages; $i++ ) {
+								// получаем значение $from (как $page_number) для использования в формировании ссылки
+								$page_number = $i * $articles_per_page;
+								// если $page_number (фактически это проверка того является ли $from текущим) не соответствует
+								// текущей странице,
+								// выводим ссылку на страницу со значением $from равным $page_number
+if ($total_articles_number > $articles_per_page) {
+									if ($page_number != $from) {
+										$step = $i + 1;
+										if ($_GET['i'] == $step) {
+											echo "<li class='active'><a href='" . $PHP_SELF . "?page=" . $page_number . "&i=" . $step . "'> " . ($i + 1) .
+												" </a></li>";
+										} else {
+											echo "<li><a href='" . $PHP_SELF . "?page=" . $page_number . "&i=" . $step . "'> " . ($i + 1) .
+												" </a></li>";
+										}
 
-								if ($page_number!=$from) {
-									$step = $i+1;
-									if ($_GET['i'] == $step) {
-										echo "<li class='active'><a href='".$PHP_SELF."?page=".$page_number."&i=".$step."'> ".($i+1).
-											" </a></li>";
-									} else {
-										echo "<li><a href='".$PHP_SELF."?page=".$page_number."&i=".$step."'> ".($i+1).
-											" </a></li>";
+
 									}
+									// иначе просто выводим номер страницы - данная строка необязательна,
+									// пропустив ее вы просто получите линк на текущую страницу
+									else {
+										$page_number = '1';
+										$step = $i + 1;
+										if ($step == '1' and $_GET['page'] == '1') {
+											echo "<li class='active'><a href='" . $PHP_SELF . "?page=" . $page_number . "'> " . ($i + 1) . " </a></li>";
+										} else {
+											echo "<li><a href='" . $PHP_SELF . "?page=" . $page_number . "'> " . ($i + 1) . " </a></li>";
+										}
 
-
+									} // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
 								}
-// иначе просто выводим номер страницы - данная строка необязательна,
-// пропустив ее вы просто получите линк на текущую страницу
-								else {
-									$page_number='1';
-									$step = $i+1;
-									if ($step == '1' and $_GET['page'] == '1') {
-										echo "<li class='active'><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
-									} else {
-										echo "<li><a href='".$PHP_SELF."?page=".$page_number."'> ".($i+1)." </a></li>";
-									}
-
-								} // если page_number - текущая страница - ничего не выводим (ссылку не делаем)
-							}
+}
 							?>
 						</ul>
 						

@@ -86,7 +86,7 @@ $id = $_GET['id'];
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="display: none">
                   <label class="col-lg-3 control-label">Магазин:</label>
                   <div class="col-lg-8">
                     <select name="magazin">
@@ -109,7 +109,7 @@ $id = $_GET['id'];
                     <select name="prodavec">
                       <option selected value="<?php echo $params['prodavec']; ?>"><?php echo $params['prodavec']; ?></option>
                     <?php
-                    $sql_get_magaz = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `role`<'3' ");
+                    $sql_get_magaz = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `role`='3' ");
                     foreach ( $sql_get_magaz as $data ) {
                       if ($data['name']!==$params['prodavec']) {
                          echo "<option>".$data['name']."</option>";

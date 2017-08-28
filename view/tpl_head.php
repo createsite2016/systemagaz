@@ -6,9 +6,9 @@
     if (isset($_GET['cat'])) {
         $categor = $_GET['cat'];
         $data_categor = $pdo->getRow("SELECT * FROM `categor` WHERE `id` = ?",[$categor]);
-        $shop['title'] = $data_categor['name'].' Гулькевичи, Кропоткин';
-        $shop['keywords'] = $data_categor['name'].' Гулькевичи, Кропоткин';
-        $shop['description'] = $data_categor['name'].' Гулькевичи, Кропоткин';
+        $shop['title'] = $data_categor['name'].' '.$shop['city'];
+        $shop['keywords'] = $data_categor['name'].' '.$shop['city'];
+        $shop['description'] = $data_categor['name'].' '.$shop['city'];
     }
     ?>
     <meta charset="utf-8">
@@ -98,7 +98,7 @@ jQuery(function(){
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="index.php"><img src="images/home/logo.png" alt="" /></a>
+                        <a href="index.php"><img src="images/home/logo.png" alt="" /><font size="5" color="#FE980F" face="cursive"><?php echo $shop['name']; ?></font></a>
                     </div>
 
                 </div>

@@ -102,8 +102,21 @@ $params = $pdo->getRow( "SELECT * FROM `magazins` WHERE `id`= ? ", [$id] ); //и
                   <label class="col-lg-3 control-label">Виджет группы ОК?</label>
                   <div class="col-lg-8">
                     <select name="reklama">
-                      <option selected="" value="Да">Да</option>
-                      <option value="Нет">Нет</option>
+                      <?php
+                      if ($params['reklama'] == '') { ?>
+                        <option value="Да">Да</option>
+                        <option selected="" value="Нет">Нет</option>
+                      <?} ?>
+                      <?php
+                      if ($params['reklama'] == 'Да') { ?>
+                        <option selected="" value="Да">Да</option>
+                        <option value="Нет">Нет</option>
+                      <?} ?>
+                      <?php
+                      if ($params['reklama'] == 'Нет') { ?>
+                        <option value="Да">Да</option>
+                        <option selected="" value="Нет">Нет</option>
+                      <?} ?>
                     </select>
                   </div>
                 </div>
@@ -147,6 +160,13 @@ $params = $pdo->getRow( "SELECT * FROM `magazins` WHERE `id`= ? ", [$id] ); //и
                   <label class="col-lg-3 control-label">Заголовок страницы(title):</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="title" placeholder="" class="form-control parsley-validated" value="<?php echo $params['title']; ?>">
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Город:</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="city" placeholder="" class="form-control parsley-validated" value="<?php echo $params['city']; ?>">
                   </div>
                 </div>
 

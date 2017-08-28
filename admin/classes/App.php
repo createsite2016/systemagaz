@@ -296,13 +296,14 @@ VALUES (
 
 
 
-
-
 /**
     * Выгрузка в группу одноклассников
     * $params   - Выгрузка картинки
     * $message  - Выгрузка комментария к ней
 */
+
+// Если есть все параметры, то выполняем загрузку фото и комментария в ОК
+if ( !empty($shop['token']) || !empty($shop['private_key']) || !empty($shop['public_key']) ) {
 
 // Параметры
 $ok_access_token    = $shop['token'];  // Наш вечный токен
@@ -399,9 +400,10 @@ $message            = $name.' Цена: '.$chena_output.'руб. '.$komment.' А
 
 // Если ошибка
             if (isset($step1['error_code'])) {
-                // Обработка ошибки
-                var_dump($step1);
-                //exit();
+                echo "Ошибка подписания параметров запроса на сервер Одноклассников";
+                echo "<br>Проверьте актуальность токена и ключей в настройках профиля";
+                //var_dump($step1);
+                exit();
             }
 
 // Идентификатор для загрузки фото
@@ -410,10 +412,6 @@ $message            = $name.' Цена: '.$chena_output.'руб. '.$komment.' А
 // 2. Закачаем фотку
 
 // Предполагается, что картинка располагается в каталоге со скриптом
-            //$params = array(
-            //    "pic1" => "@testpic.jpg",
-            //);
-
             $params = array(
                 "pic1" => new \CURLFile("../../foto_tovar/" . $_FILES['foto']['name']),
             );
@@ -424,6 +422,7 @@ $message            = $name.' Цена: '.$chena_output.'руб. '.$komment.' А
 // Если ошибка
             if (isset($step2['error_code'])) {
                 // Обработка ошибки
+                echo 'Ошибка добавления фото и комментария в группу одноклассников';
                 exit();
             }
 
@@ -477,7 +476,7 @@ $message            = $name.' Цена: '.$chena_output.'руб. '.$komment.' А
 // Успешно
 echo 'OK';
 
-
+}
 
 
 /**
@@ -488,8 +487,13 @@ echo 'OK';
     * $password - Пароль инстаграмма
 */
 
+// Если есть все параметры, делаем выгрузку в Instagramm
+if ( !empty($shop['instagram_login']) || !empty($shop['instagram_password']) ) {
+
 // Парметры
-    $caption = $name.' цена: '.$chena_output.'руб. '.$komment.' Артикул: '.$article; // текст выгрузки в инстаграмм
+    $username = $shop['instagram_login'];
+    $password = $shop['instagram_password'];
+    $caption = $name . ' цена: ' . $chena_output . 'руб. ' . $komment . ' Артикул: ' . $article; // текст выгрузки в инстаграмм
 
 
 //СОЗДАНИЕ КВАДРАТНОГО ИЗОБРАЖЕНИЯ И ЕГО ПОСЛЕДУЮЩЕЕ СЖАТИЕ ВЗЯТО С САЙТА www.codenet.ru
@@ -503,53 +507,49 @@ echo 'OK';
 
 // создаём исходное изображение на основе
 // исходного файла и определяем его размеры
-$im = imagecreatefromjpeg("../../foto_tovar/" . $_FILES['foto']['name']); //если оригинал был в формате jpg, то создаем изображение в этом же формате. Необходимо для последующего сжатия
-$w_src = imagesx($im); //вычисляем ширину
-$h_src = imagesy($im); //вычисляем высоту изображения
+    $im = imagecreatefromjpeg("../../foto_tovar/" . $_FILES['foto']['name']); //если оригинал был в формате jpg, то создаем изображение в этом же формате. Необходимо для последующего сжатия
+    $w_src = imagesx($im); //вычисляем ширину
+    $h_src = imagesy($im); //вычисляем высоту изображения
 
 // создаём пустую квадратную картинку
 // важно именно truecolor!, иначе будем иметь 8-битный результат
-$dest = imagecreatetruecolor($w, $h);
+    $dest = imagecreatetruecolor($w, $h);
 
 // вырезаем квадратную серединку по x, если фото горизонтальное
-if ($w_src > $h_src) {
-    $w = 1200;
-    $h = 1200;
-    $dest = imagecreatetruecolor($w, $h);
-    imagecopyresampled($dest, $im, 0, 0, round((max($w_src, $h_src) - min($w_src, $h_src)) / 2), 0, $w, $h, min($w_src, $h_src), min($w_src, $h_src));
-}
+    if ($w_src > $h_src) {
+        $w = 1200;
+        $h = 1200;
+        $dest = imagecreatetruecolor($w, $h);
+        imagecopyresampled($dest, $im, 0, 0, round((max($w_src, $h_src) - min($w_src, $h_src)) / 2), 0, $w, $h, min($w_src, $h_src), min($w_src, $h_src));
+    }
 
 // вырезаем квадратную верхушку по y,
 // если фото вертикальное (хотя можно тоже серединку)
-if ($w_src < $h_src) {
-    $w = 1200;
-    $h = 1200;
-    $dest = imagecreatetruecolor($w, $h);
-    imagecopyresampled($dest, $im, 0, 0, 0, 0, $w, $h, min($w_src, $h_src), min($w_src, $h_src));
-}
+    if ($w_src < $h_src) {
+        $w = 1200;
+        $h = 1200;
+        $dest = imagecreatetruecolor($w, $h);
+        imagecopyresampled($dest, $im, 0, 0, 0, 0, $w, $h, min($w_src, $h_src), min($w_src, $h_src));
+    }
 
 // квадратная картинка масштабируется без вырезок
-if ($w_src == $h_src) {
-    $w = 1200;
-    $h = 1200;
-    $dest = imagecreatetruecolor($w, $h);
-    imagecopyresampled($dest, $im, 0, 0, 0, 0, $w, $h, $w_src, $w_src);
-}
+    if ($w_src == $h_src) {
+        $w = 1200;
+        $h = 1200;
+        $dest = imagecreatetruecolor($w, $h);
+        imagecopyresampled($dest, $im, 0, 0, 0, 0, $w, $h, $w_src, $w_src);
+    }
     imagejpeg($dest, "../../foto_tovar/instagram.jpg"); //сохраняем изображение формата jpg в нужную папку, именем будет текущее время. Сделано, чтобы у аватаров не было одинаковых имен.
 
 
-
-
-
-
 // ОТПРАВКА В ИНСТАГРАММ
-function SendRequest($url, $post, $post_data, $user_agent, $cookies)
-{
-    $ch = curl_init();
-    curl_setopt($ch, CURLOPT_URL, 'https://instagram.com/api/v1/' . $url);
-    curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
+    function SendRequest($url, $post, $post_data, $user_agent, $cookies)
+    {
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, 'https://instagram.com/api/v1/' . $url);
+        curl_setopt($ch, CURLOPT_USERAGENT, $user_agent);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_FOLLOWLOCATION, true);
         if ($post) {
             curl_setopt($ch, CURLOPT_POST, true);
             curl_setopt($ch, CURLOPT_POSTFIELDS, $post_data);
@@ -559,43 +559,44 @@ function SendRequest($url, $post, $post_data, $user_agent, $cookies)
         } else {
             curl_setopt($ch, CURLOPT_COOKIEJAR, 'cookies.txt');
         }
-    $response = curl_exec($ch);
-    $http = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-    return array($http, $response);
-}
-
-function GenerateGuid() {
-    return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
-}
-
-function GenerateUserAgent() {
-    $resolutions = array('720x1280', '320x480', '480x800', '1024x768', '1280x720', '768x1024', '480x320');
-    $versions = array('GT-N7000', 'SM-N9000', 'GT-I9220', 'GT-I9100');
-    $dpis = array('120', '160', '320', '240');
-    $ver = $versions[array_rand($versions)];
-    $dpi = $dpis[array_rand($dpis)];
-    $res = $resolutions[array_rand($resolutions)];
-    return 'Instagram 4.' . mt_rand(1, 2) . '.' . mt_rand(0, 2) . ' Android (' . mt_rand(10, 11) . '/' . mt_rand(1, 3) . '.' . mt_rand(3, 5) . '.' . mt_rand(0, 5) . '; ' . $dpi . '; ' . $res . '; samsung; ' . $ver . '; ' . $ver . '; smdkc210; en_US)';
-}
-
-function GenerateSignature($data) {
-    return hash_hmac('sha256', $data, 'b4a23f5e39b5929e0666ac5de94c89d1618a2916');
-}
-
-function GetPostData($filename) {
-    if (!$filename) {
-        echo "The image doesn't exist " . $filename;
-    } else {
-        $cfile = curl_file_create($filename);
-        $post_data = array('device_timestamp' => time(), 'photo' => $cfile);
-        return $post_data;
+        $response = curl_exec($ch);
+        $http = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+        curl_close($ch);
+        return array($http, $response);
     }
-}
 
-// Set the username and password of the account that you wish to post a photo to
-    $username = $shop['instagram_login'];
-    $password = $shop['instagram_password'];
+    function GenerateGuid()
+    {
+        return sprintf('%04x%04x-%04x-%04x-%04x-%04x%04x%04x', mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(16384, 20479), mt_rand(32768, 49151), mt_rand(0, 65535), mt_rand(0, 65535), mt_rand(0, 65535));
+    }
+
+    function GenerateUserAgent()
+    {
+        $resolutions = array('720x1280', '320x480', '480x800', '1024x768', '1280x720', '768x1024', '480x320');
+        $versions = array('GT-N7000', 'SM-N9000', 'GT-I9220', 'GT-I9100');
+        $dpis = array('120', '160', '320', '240');
+        $ver = $versions[array_rand($versions)];
+        $dpi = $dpis[array_rand($dpis)];
+        $res = $resolutions[array_rand($resolutions)];
+        return 'Instagram 4.' . mt_rand(1, 2) . '.' . mt_rand(0, 2) . ' Android (' . mt_rand(10, 11) . '/' . mt_rand(1, 3) . '.' . mt_rand(3, 5) . '.' . mt_rand(0, 5) . '; ' . $dpi . '; ' . $res . '; samsung; ' . $ver . '; ' . $ver . '; smdkc210; en_US)';
+    }
+
+    function GenerateSignature($data)
+    {
+        return hash_hmac('sha256', $data, 'b4a23f5e39b5929e0666ac5de94c89d1618a2916');
+    }
+
+    function GetPostData($filename)
+    {
+        if (!$filename) {
+            echo "The image doesn't exist " . $filename;
+        } else {
+            $cfile = curl_file_create($filename);
+            $post_data = array('device_timestamp' => time(), 'photo' => $cfile);
+            return $post_data;
+        }
+    }
+
 // Set the caption for the photo
     //$caption = $name.' цена: '.$chena_output.'руб. '.$komment.' Артикул: '.$article;
 // Set the path to the file that you wish to post.
@@ -607,71 +608,74 @@ function GetPostData($filename) {
     $guid = GenerateGuid();
 // Set the devide ID
     $device_id = "android-" . $guid;
-            /* LOG IN */
+    /* LOG IN */
 // You must be logged in to the account that you wish to post a photo too
 // Set all of the parameters in the string, and then sign it with their API key using SHA-256
     $data = '{"device_id":"' . $device_id . '","guid":"' . $guid . '","username":"' . $username . '","password":"' . $password . '","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"}';
     $sig = GenerateSignature($data);
     $data = 'signed_body=' . $sig . '.' . urlencode($data) . '&ig_sig_key_version=4';
     $login = SendRequest('accounts/login/', true, $data, $agent, false);
-        if (strpos($login[1], "Sorry, an error occurred while processing this request.")) {
-            echo "Request failed, there's a chance that this proxy/ip is blocked";
+    if (strpos($login[1], "Sorry, an error occurred while processing this request.")) {
+        echo "Request failed, there's a chance that this proxy/ip is blocked";
+    } else {
+        if (empty($login[1])) {
+            echo "Empty response received from the server while trying to login";
         } else {
-            if (empty($login[1])) {
-                echo "Empty response received from the server while trying to login";
+            // Decode the array that is returned
+            $obj = @json_decode($login[1], true);
+            if (empty($obj)) {
+                // echo "Could not decode the response: " . $body;
             } else {
-                // Decode the array that is returned
-                $obj = @json_decode($login[1], true);
-                if (empty($obj)) {
-                    // echo "Could not decode the response: " . $body;
+                // Post the picture
+                $data = GetPostData($filename);
+                $post = SendRequest('media/upload/', true, $data, $agent, true);
+                if (empty($post[1])) {
+                    echo "Empty response received from the server while trying to post the image";
                 } else {
-                    // Post the picture
-                    $data = GetPostData($filename);
-                    $post = SendRequest('media/upload/', true, $data, $agent, true);
-                    if (empty($post[1])) {
-                        echo "Empty response received from the server while trying to post the image";
+                    // Decode the response
+                    $obj = @json_decode($post[1], true);
+                    //var_dump($obj);
+                    if (empty($obj)) {
+                        echo "Could not decode the response";
                     } else {
-                        // Decode the response
-                        $obj = @json_decode($post[1], true);
-                        var_dump($obj);
-                        if (empty($obj)) {
-                            echo "Could not decode the response";
-                        } else {
-                            $status = $obj['status'];
-                            if ($status == 'ok') {
-                                // Remove and line breaks from the caption
-                                $caption = preg_replace("/\r|\n/", "", $caption);
-                                $media_id = $obj['media_id'];
-                                $device_id = "android-" . $guid;
-                                $data = '{"device_id":"' . $device_id . '","guid":"' . $guid . '","media_id":"' . $media_id . '","caption":"' . trim($caption) . '","device_timestamp":"' . time() . '","source_type":"5","filter_type":"0","extra":"{}","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"}';
-                                $sig = GenerateSignature($data);
-                                $new_data = 'signed_body=' . $sig . '.' . urlencode($data) . '&ig_sig_key_version=4';
-                                // Now, configure the photo
-                                $conf = SendRequest('media/configure/', true, $new_data, $agent, true);
-                                if (empty($conf[1])) {
-                                    echo "Empty response received from the server while trying to configure the image";
+                        $status = $obj['status'];
+                        if ($status == 'ok') {
+                            // Remove and line breaks from the caption
+                            $caption = preg_replace("/\r|\n/", "", $caption);
+                            $media_id = $obj['media_id'];
+                            $device_id = "android-" . $guid;
+                            $data = '{"device_id":"' . $device_id . '","guid":"' . $guid . '","media_id":"' . $media_id . '","caption":"' . trim($caption) . '","device_timestamp":"' . time() . '","source_type":"5","filter_type":"0","extra":"{}","Content-Type":"application/x-www-form-urlencoded; charset=UTF-8"}';
+                            $sig = GenerateSignature($data);
+                            $new_data = 'signed_body=' . $sig . '.' . urlencode($data) . '&ig_sig_key_version=4';
+                            // Now, configure the photo
+                            $conf = SendRequest('media/configure/', true, $new_data, $agent, true);
+                            if (empty($conf[1])) {
+                                echo "Empty response received from the server while trying to configure the image";
+                            } else {
+                                if (strpos($conf[1], "login_required")) {
+                                    echo "You are not logged in. There's a chance that the account is banned";
                                 } else {
-                                    if (strpos($conf[1], "login_required")) {
-                                        echo "You are not logged in. There's a chance that the account is banned";
+                                    $obj = @json_decode($conf[1], true);
+                                    $status = $obj['status'];
+                                    if ($status != 'fail') {
+                                        echo "Success";
                                     } else {
-                                        $obj = @json_decode($conf[1], true);
-                                        $status = $obj['status'];
-                                        if ($status != 'fail') {
-                                            echo "Success";
-                                        } else {
-                                            echo 'Fail';
-                                        }
+                                        echo 'Fail';
                                     }
                                 }
-                            } else {
-                                echo "Status isn't okay";
                             }
+                        } else {
+                            echo "Не удалось выполнить загрузку в Instagram";
+                            exit();
                         }
                     }
                 }
             }
         }
+    }
     unlink("../../foto_tovar/instagram.jpg");
+
+}
 
 // делаем переход на страницу товары
 $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
@@ -681,6 +685,11 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
         if ( $action == 'del_categor' ) {
 
             $pdo->deleteRow("DELETE FROM `categor` WHERE `id` = ?",[$id]);
+            $ids = $pdo->getRows("SELECT * FROM `tovar` WHERE `categor_id` = ?",[$id]);
+            foreach ($ids as $items) {
+                $del_photo = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ?",[$items["id"]]);
+                unlink($_SERVER['DOCUMENT_ROOT'].'/'.$del_photo["image"]);
+            }
             $pdo->deleteRow("DELETE FROM `tovar` WHERE `categor_id` = ?",[$id]);
             $this->goWayClass('products');
 
@@ -737,8 +746,8 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
 
             $id = $_GET['id']; // айдишник талона
             $id_categor = $_GET['categor'];
-            $del_photo = $pdo->getRow("SELECT `image` FROM `tovar` WHERE `id` = ?",[$id]);
-            unlink($del_photo);
+            $del_photo = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ?",[$id]);
+            unlink($_SERVER['DOCUMENT_ROOT'].'/'.$del_photo["image"]);
             $pdo->deleteRow("DELETE FROM `tovar` WHERE `id` = ?",[$id]);
             $pdo->deleteRow("DELETE FROM `log_rashod` WHERE `id_tovara` = ?",[$id]);
             $pdo->deleteRow("DELETE FROM `log_prihod` WHERE `id_tovara` = ?",[$id]);
@@ -1248,9 +1257,10 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $public_key = $_POST['public_key'];
             $time_day = $_POST['time_day'];
             $keywords = $_POST['keywords'];
+            $city = $_POST['city'];
             $description = $_POST['description'];
             $title = $_POST['title'];
-            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?,`keywords` = ?,`description` = ?,`title` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$time_day,$keywords,$description,$title,$id]);
+            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?,`keywords` = ?,`city` = ?,`description` = ?,`title` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$time_day,$keywords,$city,$description,$title,$id]);
             $this->goWayClass('magazins');
         }
 

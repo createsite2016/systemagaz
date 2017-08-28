@@ -104,7 +104,7 @@ else { include("verh.php"); ?>
                                     <?php
                                     // ДОСТУП ТОЛЬКО ДЛЯ АДМИНИСТРАТОРОВ
                                     if ( $user_role == '3' ) { ?>
-                                    <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> | </span></b><br><br>
+                                    </span></b><br><br>
                             <?php } ?>
 
                             <div class="table-responsive">

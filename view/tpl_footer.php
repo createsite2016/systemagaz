@@ -13,8 +13,14 @@
                     ?>
                     Все права защищены.</p>
                 <p class="pull-right">
-                    <a target="_blank" href="https://www.instagram.com/<?php echo $shop['instagram_login']; ?>"><img src="../images/instagram.png" width="48">Мы в Instagram</a>
-                    <a target="_blank" href="https://ok.ru/group/<?php echo $shop['id_ok_group']; ?>"><img src="../images/odnoklassniki.png" width="48">Мы в ОК</a>
+                    <?php
+                    if (!empty($shop['instagram_login'])) {?>
+                        <a target="_blank" href="https://www.instagram.com/<?php echo $shop['instagram_login']; ?>"><img src="../images/instagram.png" width="48">Мы в Instagram</a>
+                    <?} ?>
+                    <?php
+                    if (!empty($shop['id_ok_group'])) {?>
+                        <a target="_blank" href="https://ok.ru/group/<?php echo $shop['id_ok_group']; ?>"><img src="../images/odnoklassniki.png" width="48">Мы в ОК</a>
+                    <?} ?>
                     </span></p>
             </div>
             <br>

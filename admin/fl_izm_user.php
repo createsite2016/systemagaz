@@ -47,35 +47,10 @@ $params = $pdo->getRow("SELECT * FROM `users_8897532` WHERE `id`= ? ",[$id]);
                 </div>
 
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Должность:</label>
-                  <div class="col-lg-8">
-                  <select class="select2-offscreen" name="profes" tabindex="-1" id="select2-option" style="width:300px">
-                          
-                          <?php if ($params['profes']=="Менеджер") { 
-                            echo "<option value='Менеджер' selected>Менеджер</option>";
-                            echo "<option value='Директор'>Директор</option>";
-                            echo "<option value='Администратор'>Администратор</option>";
-                          } ?>
-                          <?php if ($params['profes']=="Директор") {
-                            echo "<option value='Директор' selected>Директор</option>";
-                            echo "<option value='Менеджер'>Менеджер</option>";
-                            echo "<option value='Администратор'>Администратор</option>";
-                          } ?>
-                          <?php if ($params['profes']=="Администратор") {
-                            echo "<option value='Администратор' selected>Администратор</option>";
-                            echo "<option value='Менеджер'>Менеджер</option>";
-                            echo "<option value='Директор'>Директор</option>";
-                          } ?>
-                  
-                  </select>
-                    <input type="hidden" name="action" value="izm_user">
-                  </div>
-                </div>
-
-                <div class="form-group">
                   <label class="col-lg-3 control-label">Имя:</label>
                   <div class="col-lg-8">
                     <input type="text" name="u_name" placeholder="Иван" data-required="true" class="form-control parsley-validated" value="<?php echo $params['name']; ?>">
+                    <input type="hidden" name="profes" value="Директор" >
                   </div>
                 </div>
 

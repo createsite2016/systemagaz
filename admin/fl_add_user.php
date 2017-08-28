@@ -27,21 +27,11 @@ else { include("verh.php"); ?>
               <form action="classes/App.php" class="form-horizontal" enctype = "multipart/form-data" method="POST" data-validate="parsley">
 
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Должность:</label>
-                  <div class="col-lg-8">
-                  <select class="select2-offscreen" name="profes" tabindex="-1" id="select2-option" style="width:300px">
-                          <option value="Менеджер">Менеджер</option>
-                          <option value="Администратор">Администратор</option>
-                          <option value="Директор">Директор</option>
-                  </select>
-                  </div>
-                </div>
-
-                <div class="form-group">
                   <label class="col-lg-3 control-label">Имя:</label>
                   <div class="col-lg-8">
                     <input type="text" name="name" placeholder="Иван" class="bg-focus form-control parsley-validated" data-required="true" autocomplete="off">
                       <input type="hidden" name="action" value="add_user">
+                      <input type="hidden" name="profes" value="Директор">
                   </div>
                 </div>
 

@@ -44,7 +44,6 @@ else { include("verh.php"); ?>
                     <th><b>Профит</b></th>
                     <th><b>ТТН</b></th>
                     <th><b>Комментарий</b></th>
-                    <th><b>Магазин</b></th>
                     <th><b>Менеджер</b></th>
                     <th><b>Продавец</b></th>
                     <th><b>Ред.</b></th>
@@ -53,26 +52,6 @@ else { include("verh.php"); ?>
 <?php
 // Если роль пользователя 1
 include('showdata_forpeople.php');
-if ($user_role=='1') {
-    $sql_get_data = $pdo->getRows("SELECT * FROM `in_way` ORDER BY `datatime` DESC ");
-    foreach ( $sql_get_data as $data_get_device ) { ?>
-                  <tr>
-                    <td><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></td>
-                    <td><?php echo $data_get_device['tovar']; ?></td>
-                    <td><?php echo $data_get_device['kolvo']; ?></td>
-                    <td><?php echo $data_get_device['chena']; ?></td>
-                    <td><?php echo $data_get_device['profit']; ?></td>
-                    <td><?php echo $data_get_device['ttn']; ?></td>
-                    <td><?php echo $data_get_device['komment']; ?></td>
-                    <td><?php echo $data_get_device['magazin']; ?></td>
-                    <td><?php echo $data_get_device['menedger']; ?></td>
-                    <td><?php echo $data_get_device['prodavec']; ?></td>
-                    <td><a href="fl_del_way.php?id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_way.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a>
-                    </td>
-                  </tr>
-<?php }}
-
 
 // Если роль пользователя 3
 if ($user_role=='3') {
@@ -86,7 +65,6 @@ if ($user_role=='3') {
                     <td><?php echo $data_get_device['profit']; ?></td>
                     <td><?php echo $data_get_device['ttn']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
-                    <td><?php echo $data_get_device['magazin']; ?></td>
                     <td><?php echo $data_get_device['menedger']; ?></td>
                     <td><?php echo $data_get_device['prodavec']; ?></td>
                     <td><a href="classes/App.php?id=<?php echo $data_get_device['id']; ?>&action=del_way"><font color="red">Удалить</font></a>
@@ -143,7 +121,7 @@ if ($user_role=='3') {
                     <input type="hidden" name="user_name" value="<?php echo $name ?>" >
                     </div>
 
-                    <div class="block">
+                    <div class="block" style="display: none">
                     <label class="control-label">Магазин:</label><br>
                       <select name="magazin">
                     <?php
@@ -159,7 +137,7 @@ if ($user_role=='3') {
                     <label class="control-label">Продавец:</label><br>
                       <select name="prodavec">
                     <?php
-                    $sql_get_magaz = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `role`<'3' ");
+                    $sql_get_magaz = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `role` = '3' ");
                     foreach ( $sql_get_magaz as $data ) {
                       echo "<option>".$data['name']."</option>";
                     }

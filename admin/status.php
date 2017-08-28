@@ -46,21 +46,7 @@ else { include("verh.php"); ?>
                   </tr>
                 </thead>
 <?php
-// Если роль пользователя 1
 include('showdata_forpeople.php');
-if ($user_role=='1') {
-    $sql_get_device = $pdo->getRows("SELECT * FROM `status` ORDER BY ? ",[sotr]);
-    foreach ( $sql_get_device as $data_get_device ) { ?>
-                  <tr>
-                    <td><?php echo $data_get_device['sort']; ?></td>
-                    <td><?php echo $data_get_device['name']; ?></td>
-                    <td bgcolor="<?php echo $data_get_device['color']; ?>"></td>
-                    <td><?php echo $data_get_device['komment']; ?></td>
-                    <td><a href="classes/App.php?action=del_status&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_status.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
-                  </tr>
-<?php }}
-
 
 // Если роль пользователя 3
 if ($user_role=='3') {
@@ -69,7 +55,7 @@ if ($user_role=='3') {
                   <tr>
                     <td><?php echo $data_get_device['sort']; ?></td>
                     <td><?php echo $data_get_device['name']; ?></td>
-                    <td bgcolor="<?php echo $data_get_device['color']; ?>"><font color="black"><?php echo $data_get_device['name_color']; ?></font></td>
+                    <td><font color="black"><?php echo $data_get_device['name_color']; ?></font></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
                    <td><a href="classes/App.php?action=del_status&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_status.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
