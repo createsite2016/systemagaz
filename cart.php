@@ -7,6 +7,12 @@ $shop = $pdo->getRow("SELECT * FROM `magazins`"); // получение данн
 include_once('view/tpl_head.php');
 ?>
 
+<script src="js/jquery.js"></script>
+<script src="js/mask.js"></script>
+<script>
+    $("#checkphone").mask("+7(999) 999-9999", {placeholder: "+7(___) ___ - ____" });
+</script>
+
 <section>
     <div class="container">
         <div class="row">
@@ -21,14 +27,18 @@ include_once('view/tpl_head.php');
                     <table class="table-bordered table-striped table" id="rex">
                         </table>
 <!--оформление заказа-->
-                            <div class="col-sm-3">
+                            <div id="ndsfnsdfjsklf" style="display: block">
                                 <div class="shopper-info">
                                     <p>Оформление заказа:</p>
                                     <form>
-                                        <input type="text" placeholder="Как к Вам обращаться?" id="checkname">
-                                        <input type="text" placeholder="Ваш телефон(Без +7 и 8)" id="checkphone">
-                                        <input type="text" placeholder="Адрес доставки" id="checkadress">
-                                        <input type="text" placeholder="Пожелание или просьба" id="checkkomment">
+                                        <div id="labelname">*Ваше имя</div>
+                                        <input type="text" placeholder="Иван" id="checkname" required>
+                                        <div id="labelphone">*Номер телефона</div>
+                                        <input type="text" placeholder="Ваш телефон(Без +7 и 8)" id="checkphone" required>
+                                        <div id="labeladress">*Адрес доставки</div>
+                                        <input type="text" placeholder="Город, улица, дом" id="checkadress" required>
+                                        Комментарий
+                                        <input type="text" placeholder="Звонить после 17 часов" id="checkkomment">
                                     </form>
                                     <button class="btn btn-primary" onclick="addCheck()" href=""><i class="fa fa-shopping-cart"></i> Оформить заказ</button>
 
