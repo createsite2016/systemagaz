@@ -77,7 +77,7 @@ $id = $_GET['id'];
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="display: none">
                   <label class="col-lg-3 control-label">Магазин:</label>
                   <div class="col-lg-8">
                     <select name="magazin">
@@ -107,17 +107,28 @@ $id = $_GET['id'];
 
                 <br>
                 <br>
+                <script>
+                  function select() {
+                    var selind = document.getElementById("ttn").options.selectedIndex;
+                    if (document.getElementById("ttn").options[selind].text == 'Да') {
+                      document.getElementById("ttn_edit").style.display = '';
+                    } else {
+                      document.getElementById("ttn_edit").style.display = 'none';
+                    }
+                  }
+
+                </script>
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Наложка:</label>
                   <div class="col-lg-8">
-                    <select name="nalogka">
+                    <select name="nalogka" id="ttn" onchange="select();">
                     <option value="Нет">Нет</option>
                     <option value="Да">Да</option>
                     </select>
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" id="ttn_edit" style="display: none">
                   <label class="col-lg-3 control-label">ТТН:</label>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="nakladnaya" class="form-control parsley-validated" value="">
