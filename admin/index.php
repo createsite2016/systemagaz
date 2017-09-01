@@ -85,53 +85,18 @@ else {
                     <th><b>Количество<b></th>
                     <th><b>Статус</b></th>
                     <th><b>Менеджер</b></th>
-                    <th><b>Магазин</b></th>
+                    <th><b>Комментарий</b></th>
                     <th>Редактировать</th>
                   </tr>
                 </thead>
 <?php
 // Если роль пользователя 1
 include('showdata_forpeople.php');
-if ($user_role=='1') {
-    if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
-
-    $sql_tovar = $pdo->getRows("SELECT priem.id,datatime,fio,phone,adress,dostavka,tovar,status,user_name,postavshik,sklad,status.color FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
-    foreach ($sql_tovar as $tovar) { ?>
-        <tr>
-            <td>
-                <div class="checkbox">
-                    <label class="checkbox-custom">
-                        <input form="form" name="products[]" type="checkbox" value="<?php echo $data_get_device['id']; // id записи ?>">
-                        <i class="icon-unchecked"></i>
-                    </label>
-                </div>
-            </td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['id']; // Заказ ?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php $date = new DateTime($data_get_device['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['fio']; // фамилия ?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['phone'];?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['adress']; // адрес ?></font></b></td>
-            <?php $tovar_name = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ? ",[$tovar['tovar']]) ?>
-            <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><a href="../product.php?id=<?php echo $tovar['tovar']; ?>"><?php echo $tovar_name['name']; // содержание ?></a></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['kolvo']; // количество ?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['status']; ?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['user_name']; ?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>"><b><font color="black"><?php echo $data_get_device['sklad']; ?></font></b></td>
-            <td bgcolor="<?php echo $data_get_device['color'];?>">
-                <div class="btn-group">
-                    <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil"></i></a>
-                    <ul class="dropdown-menu pull-right">
-                        <li><a href="fl_izm_zakaz.php?id=<?php echo $data_get_device['id']; ?>&usid=<?php echo $id_user; ?>&k=<?php echo $tovar['kolvo']; ?>">Изменить</a></li>
-                    </ul>
-                </div>
-            </td>
-        </tr>
-    <?php }}
 // Если роль пользователя 3
 if ($user_role=='3') {
     if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
 
-    $sql_tovar = $pdo->getRows("SELECT priem.id,priem.color as id_status,datatime,fio,phone,adress,dostavka,tovar,status,kolvo,user_name,postavshik,sklad,status.color  FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
+    $sql_tovar = $pdo->getRows("SELECT priem.id,priem.color as id_status,datatime,fio,phone,adress,dostavka,tovar,status,kolvo,user_name,postavshik,priem.komment,status.color  FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
     foreach ($sql_tovar as $tovar) { ?>
                   <tr>
                     <td>
@@ -148,11 +113,11 @@ if ($user_role=='3') {
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['phone'];?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['adress']; // адрес ?></font></b></td>
                     <?php $tovar_name = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ? ",[$tovar['tovar']]) ?>
-                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><a href="../product.php?id=<?php echo $tovar['tovar']; ?>" target="_blank"><?php echo $tovar_name['name']; // содержание ?></a></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><a href="../product.php?id=<?php echo $tovar['tovar']; ?>&statistic=false" target="_blank"><?php echo $tovar_name['name']; echo '<br>('; echo $tovar_name['article'].')'; // содержание ?></a></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['kolvo']; // количество ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['status']; ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['user_name']; ?></font></b></td>
-                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['sklad']; ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['komment']; ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>">
                       <div class="btn-group">
                         <a href="" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-pencil"></i></a>
