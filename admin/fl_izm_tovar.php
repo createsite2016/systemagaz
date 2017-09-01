@@ -114,7 +114,7 @@ $id = $_GET['id'];
                   </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="display: none">
                   <label class="col-lg-3 control-label">Показать этот товар на витрине?</label>
                   <div class="col-lg-8">
                     <select name="status">
