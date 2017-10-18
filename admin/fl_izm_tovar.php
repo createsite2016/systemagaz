@@ -33,7 +33,7 @@ $id = $_GET['id'];
 ?>
 <section class="panel">
             <div class="panel-body">
-              <form action="classes/App.php" class="form-horizontal" method="POST" data-validate="parsley">
+              <form action="classes/App.php" enctype="multipart/form-data" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                   <div class="col-lg-9 media">
                     <center><h4><i class="icon-edit"></i>Редактирование свойств товара</h4></center>
@@ -60,8 +60,18 @@ $id = $_GET['id'];
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
                     <input type="hidden" name="id_categor" value="<?php echo $id_categor; ?>" >
                     <input type="hidden" name="action" value="izm_tovar">
+                    <input type="hidden" name="path_file_old" value="../../<?php echo $params['image']; ?>">
                   </div>
                 </div>
+                  
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Фото:</label>
+                      <div class="col-lg-8">
+                          <img src="../<?php echo $params['image']; ?>" height="180" width="180">
+                          <br>
+                          <input type="file" name="foto" title="Изменить фото товара" style="left: -204.562px; top: 17px;">
+                      </div>
+                  </div>
 
                   <div class="form-group">
                       <label class="col-lg-3 control-label">Артикул:</label>

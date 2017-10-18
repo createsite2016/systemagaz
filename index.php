@@ -1,4 +1,5 @@
 <?php
+ob_start("ob_gzhandler");
 include_once "admin/classes/App.php"; // подключаем функции приложения
 $pdo = new Database();
 
@@ -29,6 +30,7 @@ $pdo->insertRow("INSERT INTO `statistic` (
 	?
 	)",['index',$datatime,'user',$ip]);
 ?>
+
 
 	<section>
 		<div class="container">

@@ -33,7 +33,7 @@ else { include("verh.php"); ?>
             // если название магазина отсутствует, тогда выводим кнопку создать магазин
             $sql_get_magazins = $pdo->getRows( "SELECT * FROM `magazins` ORDER BY `name` DESC ");
             foreach ( $sql_get_magazins as $data_magaz ) { }
-            if ( $data_magaz['komment']=='' ) { ?>
+            if ( empty($data_magaz) ) { ?>
                 |<a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-shopping-cart"></i> Новый магазин</a> |
             <?php } ?>
         </span></b><br><br>
@@ -55,23 +55,6 @@ else { include("verh.php"); ?>
 <?php
 // Если роль пользователя 1
 include('showdata_forpeople.php');
-if ($user_role=='1') {
-    $sql_get_device = $pdo->getRows( "SELECT * FROM `magazins` ORDER BY `name` DESC ");
-    foreach ( $sql_get_device as $data_get_device ) { ?>
-                  <tr>
-                    <td><?php echo $data_get_device['name']; // название магаза ?></td>
-                    <td><?php echo $data_get_device['phone']; ?></td>
-                    <td><?php echo $data_get_device['email']; ?></td>
-                    <td><?php echo $data_get_device['komment']; ?></td>
-                    <td><?php echo $data_get_device['reklama']; ?></td>
-                      <td><?php echo $data_get_device['id_ok_group']; ?></td>
-                      <td><?php echo $data_get_device['instagram_login']; ?></td>
-                      <td><?php echo $data_get_device['instagram_password']; ?></td>
-                    <td><a href="classes/App.php?action=del_magaz&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_magaz.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
-                  </tr>
-<?php }}
-
 
 // Если роль пользователя 3
 if ($user_role=='3') {
@@ -86,7 +69,7 @@ if ($user_role=='3') {
                       <td><?php echo $data_get_device['id_ok_group']; ?></td>
                       <td><?php echo $data_get_device['instagram_login']; ?></td>
                       <td><?php echo $data_get_device['instagram_password']; ?></td>
-                    <td><a href="classes/App.php?action=del_magaz&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
+                    <td><a data-toggle="modal" href="#delete<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_magaz.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
                   </tr>
 <?php }} ?>
@@ -127,6 +110,31 @@ if ($user_role=='3') {
                     </div>
                     </form>
                     </div>
+
+            <?php
+            $sql_get_device = $pdo->getRows( "SELECT * FROM `magazins` ORDER BY `name` DESC ");
+            foreach ( $sql_get_device as $data_get_device ) { ?>
+                <!--Модальное окно удаления товара-->
+                <div id="delete<?php echo $data_get_device['id']; ?>" data-backdrop="false" class="modal fade" style="display: none;" aria-hidden="true">
+                    <form class="m-b-none" enctype = "multipart/form-data" action="classes/App.php?action=del_magaz&id=<?php echo $data_get_device['id']; ?>"  method="POST">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>
+                                    <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Вы хотите удалить магазин?</h4>
+                                </div>
+
+                                <center>
+                                    <div class="modal-footer">
+                                        <button type="submit" class="btn btn-primary">Да</button>
+                                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Нет!</button>
+                                    </div>
+                                </center>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            <?php } ?>
 <!-- / Конец тела страницы -->
 <?php include("niz.php"); }?>
 

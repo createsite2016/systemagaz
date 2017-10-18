@@ -36,15 +36,6 @@ if ($user_role=='3') { ?>
                   echo " (отгрузок: ".$valuta.")";
                   ?>
               </a></li>
-        <li><a href="long_time_product.php"><i class="icon-time"></i>
-                <?php
-                $days = $pdo->getRow("SELECT * FROM `magazins`");
-                $interval_day = $days['time_day'];
-                $count = $pdo->getRows("SELECT * FROM `tovar` WHERE `datatime` <= DATE_SUB(CURRENT_DATE, INTERVAL ? DAY)",[$interval_day]);
-                foreach ($count as $valuta){$i++;}
-                echo $i."шт добавлено более ".$interval_day." дней назад";
-                ?>
-            </a></li>
       </ul>
       </li>   
       <li><a href="prihod.php"><i class="icon-smile icon-xlarge"></i><span>Приходы</span></a></li>
@@ -65,13 +56,13 @@ if ($user_role=='3') { ?>
 
       <li><a href="score.php"><i class="icon-dollar icon-xlarge"></i><span>Итого</span></a></li>
 
-    <li class="dropdown-submenu">
+    <!-- <li class="dropdown-submenu">
         <a href="#"><i class="icon-bar-chart icon-xlarge"></i><span>Аналитика (beta)</span></a>
         <ul class="dropdown-menu">
             <li><a href="statistic_tovar.php"><i class="icon-gift"></i>Просмотренные товары</a></li>
             <li><a href="statistic_categor.php"><i class="icon-code-fork"></i>Просмотренные категории</a></li>
             <li><a href="statistic_incoming.php"><i class="icon-globe"></i>Посещений всего</a></li>
         </ul>
-    </li>
+    </li> -->
 <?php } ?>
 

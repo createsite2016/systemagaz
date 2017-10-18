@@ -39,10 +39,17 @@ $params = $pdo->getRow("SELECT * FROM `users_8897532` WHERE `id`= ? ",[$id]);
 ?>
 <section class="panel">
             <div class="panel-body">
-              <form action="classes/App.php" class="form-horizontal" method="POST" data-validate="parsley">
+              <form action="classes/App.php" enctype = "multipart/form-data" class="form-horizontal" method="POST" data-validate="parsley">
                 <div class="form-group">
                   <div class="col-lg-9 media">
                     <center><h4><i class="icon-edit"></i>Изменение данных сотрудника</h4></center>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Аватарка:</label>
+                  <div class="col-lg-8">
+                    <input type="file" name="foto" title="Выбрать картинку"></a><br>
                   </div>
                 </div>
 
@@ -51,6 +58,7 @@ $params = $pdo->getRow("SELECT * FROM `users_8897532` WHERE `id`= ? ",[$id]);
                   <div class="col-lg-8">
                     <input type="text" name="u_name" placeholder="Иван" data-required="true" class="form-control parsley-validated" value="<?php echo $params['name']; ?>">
                     <input type="hidden" name="profes" value="Директор" >
+                     <input type="hidden" name="action" value="izm_user" >
                   </div>
                 </div>
 

@@ -35,7 +35,7 @@ else { include("verh.php"); ?>
 //  ВЫВОД СТРАНИЦ НАВИГАЦИИ
 $arra = $pdo->getRow("SELECT count(*) FROM `priem` ");
 $total_articles_number = $arra['count(*)']; //общее количество статей
-$articles_per_page = 20; // количество заказов на странице
+$articles_per_page = 100; // количество заказов на странице
 $b = $_GET['page'];
 if (!isset($_GET['page'])) {
     $b=0;

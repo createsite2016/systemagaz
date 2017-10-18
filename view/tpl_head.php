@@ -10,6 +10,17 @@
         $shop['keywords'] = $data_categor['name'].' '.$shop['city'];
         $shop['description'] = $data_categor['name'].' '.$shop['city'];
     }
+    if (isset($_GET['id'])) {
+        $id_tov = $_GET['id'];
+        $data_categor = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ?",[$id_tov]);
+        $shop['title'] = $data_categor['name'].' '.$shop['city'];
+        $shop['keywords'] = $data_categor['name'].' '.$shop['city'];
+        $shop['description'] = $data_categor['name'].' '.$shop['city'];
+    }
+    if ( empty($_GET['id']) & empty($_GET['cat']) ) {
+        $shop['keywords'] = $shop['keywords'].' '.$shop['city'];
+        $shop['description'] = $shop['description'].' '.$shop['city'];
+    }
     ?>
     <meta charset="utf-8">
     <meta name="keywords" content="<?php echo $shop['keywords']; ?>" />
@@ -18,12 +29,20 @@
     <meta name="author" content="Torpix company, made in Girey city">
     <title><?php echo $shop['title']; ?></title>
     <link rel="shortcut icon" href="../icon.ico" type="image/x-icon">
-    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <?php
+    $get_theme = $pdo->getRow("SELECT * FROM `magazins`");
+    if ($get_theme['theme']) {
+        echo '<link href="css/bootstrap.min_'.$get_theme['theme'].'.css" rel="stylesheet">';
+        echo '<link href="css/main_'.$get_theme['theme'].'.css" rel="stylesheet">';
+    } else {
+        echo '<link href="css/bootstrap.min.css" rel="stylesheet">';
+        echo '<link href="css/main.css" rel="stylesheet">';
+    }
+    ?>
     <link href="css/font-awesome.min.css" rel="stylesheet">
     <link href="css/prettyPhoto.css" rel="stylesheet">
     <link href="css/price-range.css" rel="stylesheet">
     <link href="css/animate.css" rel="stylesheet">
-    <link href="css/main.css" rel="stylesheet">
     <link href="css/responsive.css" rel="stylesheet">
 
     <!--[if lt IE 9]>
@@ -38,14 +57,14 @@
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
     <script src="js/jquery-1.8.2.min.js"></script>
 	<script src="js/zoomsl-3.0.min.js"></script>
-    <?php include("../metrica.php"); // подключение метрики ?>
-    <script id="chatBroEmbedCode">
-        /* Chatbro Чат Начало скрипта */
-        function ChatbroLoader(chats,async) {async=async!==false;var params={embedChatsParameters:chats instanceof Array?chats:[chats],needLoadCode:typeof Chatbro==='undefined'};var xhr=new XMLHttpRequest();xhr.withCredentials = true;xhr.onload=function(){eval(xhr.responseText)};xhr.onerror=function(){console.error('Chatbro loading error')};xhr.open('POST','//www.chatbro.com/embed_chats/',async);xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');xhr.send('parameters='+encodeURIComponent(JSON.stringify(params)))}
-        /* Chatbro Чат Конец скрипта */
-        ChatbroLoader({encodedChatId: '4Cad'});
-    </script>
-</head><!--/head-->
+
+        <?php
+            if ( !empty($shop['chatbroscript']) ) {
+                echo $shop['chatbroscript'];
+            }
+        ?>
+
+</head>
 
 <body>
 <!-- Лупа -->	
@@ -64,16 +83,16 @@ jQuery(function(){
 	});  
 });
 </script>
-<!-- RedConnect -->
-<script id="rhlpscrtg" type="text/javascript" charset="utf-8" async="async" src="https://web.redhelper.ru/service/main.js?c=xakerfsb"></script>
-<div style="display: none">
-    <a class="rc-copyright" href="http://redconnect.ru">Обратный звонок RedConnect</a>
-</div>
-<!--/RedConnect -->
+
+        <?php
+            if ( !empty($shop['redconnectscript']) ) {
+                echo $shop['redconnectscript'];
+            }
+        ?>
 
 
-<header id="header"><!--header-->
-    <div class="header_top"><!--header_top-->
+<header id="header">
+    <div class="header_top">
         <div class="container">
             <div class="row">
                 <div class="col-sm-6">
@@ -91,14 +110,14 @@ jQuery(function(){
                 </div>
             </div>
         </div>
-    </div><!--/header_top-->
+    </div>
 
     <div class="header-middle"><!--header-middle-->
         <div class="container">
             <div class="row">
                 <div class="col-sm-4">
                     <div class="logo pull-left">
-                        <a href="index.php"><img src="images/home/logo.png" alt="" /><font size="5" color="#FE980F" face="cursive"><?php echo $shop['name']; ?></font></a>
+                        <a href="index.php"><img src="images/home/logo.png" alt="" /><font size="5"><?php echo $shop['name']; ?></font></a>
                     </div>
 
                 </div>

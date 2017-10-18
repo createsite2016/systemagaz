@@ -181,8 +181,8 @@ class App
             foreach ($sql_get_status as $data_get_device2) {
                 $name_status = $data_get_device2['name'];
             }
-            // если статус равен 29(Тобишь закрыт)
-            if ( $status == '29' ) {
+            // если статус равен 2(Тобишь закрыт)
+            if ( $status == '2' ) {
                 // в заказах выбираем id товара
                 $tovar = $pdo->getRow("SELECT * FROM `priem` WHERE `id` = ? ",[$id]);
                 // по id товара получаем всю инфу о товаре
@@ -309,7 +309,13 @@ if ( !empty($shop['token']) || !empty($shop['private_key']) || !empty($shop['pub
 $ok_access_token    = $shop['token'];  // Наш вечный токен
 $ok_private_key     = $shop['private_key'];  // Секретный ключ приложения
 $ok_public_key      = $shop['public_key'];  // Публичный ключ приложения
-$ok_group_id        = $shop['id_ok_group'];  // ID нашей группы
+//$ok_group_id        = $shop['id_ok_group'];  // ID нашей группы
+if (!empty($shop['id_ok_group'])) {
+    $ok_group_id        = $shop['id_ok_group'];
+}
+if (!empty($shop['id_ok_page'])) {
+    $ok_group_id        = $shop['id_ok_page'];
+}
 $message            = $name.' Цена: '.$chena_output.'руб. '.$komment.' Артикул товара: '.$article. ' Заказать можно тут: https://vitashopik.ru/product.php?id='.$id_tovara; // текст для выгрузки
 
 // Запрос
@@ -697,7 +703,7 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
 
 // Изменение категории (Страница товары)
         if ( $action == 'izm_categor' ) {
-
+            
             $name = $_POST['name'];
             $id = $_POST['id'];
             $sort = $_POST['sort']; // цифра порядка сортировка вывода
@@ -708,7 +714,12 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
 
 // Изменение товара (Страница товары)
         if ( $action == 'izm_tovar' ) {
+            
+            $uploadfile = "../../foto_tovar/" . $_FILES['foto']['name'];
+            move_uploaded_file($_FILES['foto']['tmp_name'], $uploadfile);
+            $dbfile = "foto_tovar/" . $_FILES['foto']['name'];
 
+            $old_file = $_POST['path_file_old'];
             $article = $_POST['article']; // артикул товара
             $categor_id = $_POST['categor_id'];
             $name = $_POST['name'];
@@ -721,23 +732,42 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $id_categor = $_POST['id_categor'];
             $money_input = $_POST['money_input'];
             $money_output = $_POST['money_output'];
+            
+            if ( !empty($_FILES['foto']['name']) ) { // если выбрали фото товара
+                $pdo->updateRow("UPDATE `tovar` SET
+                `article` = ?,
+                `name` = ?,
+                `model` = ?,
+                `chena_input` = ?,
+                `chena_output` = ?,
+                `money_input` = ?,
+                `money_output` = ?,
+                `komment` = ?,
+                `categor_id` = ?,
+                `status` = ?,
+                `image` = ?
+                WHERE `id` = ? ",[$article,$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$categor_id,$status,$dbfile,$id]);
 
-            echo $article;
+                unlink($old_file);
+                $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
+            }
+            
+            if ( empty($_FILES['foto']['name']) ) { // если фото товара не выбранно
+                $pdo->updateRow("UPDATE `tovar` SET
+                `article` = ?,
+                `name` = ?,
+                `model` = ?,
+                `chena_input` = ?,
+                `chena_output` = ?,
+                `money_input` = ?,
+                `money_output` = ?,
+                `komment` = ?,
+                `categor_id` = ?,
+                `status` = ?
+                WHERE `id` = ? ",[$article,$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$categor_id,$status,$id]);
 
-            $pdo->updateRow("UPDATE `tovar` SET
-    `article` = ?,
-	`name` = ?,
-	`model` = ?,
-	`chena_input` = ?,
-	`chena_output` = ?,
-	`money_input` = ?,
-	`money_output` = ?,
-	`komment` = ?,
-	`categor_id` = ?,
-	`status` = ?
-	WHERE `id` = ? ",[$article,$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$categor_id,$status,$id]);
-
-            $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
+                $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
+            }
 
         }
 
@@ -1249,6 +1279,7 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $email = $_POST['email']; // Электронная почта
             $komment = $_POST['komment']; // Комментарий магазина
             $idokgroup = $_POST['idokgroup']; // ID группы в одноклассниках
+            $idokpage = $_POST['idokpage']; // ID страницы в одноклассниках
             $reklama = $_POST['reklama']; // показ рекламы ('Да' или 'Нет')
             $instagram_login = $_POST['instagramlogin']; // логин инстаграмм
             $instagram_password = $_POST['instagrampassword']; // пароль инстаграмм
@@ -1260,7 +1291,15 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $city = $_POST['city'];
             $description = $_POST['description'];
             $title = $_POST['title'];
-            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?,`keywords` = ?,`city` = ?,`description` = ?,`title` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$time_day,$keywords,$city,$description,$title,$id]);
+            $sms_login = $_POST['smslogin']; // смс логин
+            $sms_password = $_POST['smspassword']; // смс пароль
+            $sms_id = $_POST['smsid']; // айди устройства
+            $sms_number = $_POST['smsnumber']; // номер на который будет отправлятся смс
+            $chatbroscript = $_POST['chatbroscript']; // скрипт подключения чата 
+            $redconnectscript = $_POST['redconnectscript']; // скрипт подключения обратного звонка
+            $theme = $_POST['theme']; // цвет темы магазина
+            
+            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`id_ok_page` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?,`keywords` = ?,`city` = ?,`description` = ?,`title` = ?,`smslogin` = ?,`smspassword` = ?,`smsid` = ?,`smsnumber` = ?,`chatbroscript` = ?,`redconnectscript` = ?,`theme` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$idokpage,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$time_day,$keywords,$city,$description,$title,$sms_login,$sms_password,$sms_id,$sms_number,$chatbroscript,$redconnectscript,$theme,$id]);
             $this->goWayClass('magazins');
         }
 
@@ -1545,6 +1584,10 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
 // Изменение данных сотрудника (Страница сотрудники)
         if ( $action == 'izm_user' ) {
 
+            $uploadfile = "../images/" . $_FILES['foto']['name'];
+            move_uploaded_file($_FILES['foto']['tmp_name'], $uploadfile);
+            $dbfile = "images/" . $_FILES['foto']['name'];
+
             $profes = $_POST['profes'];
             $u_name = $_POST['u_name'];
             $u_login = $_POST['u_login'];
@@ -1561,8 +1604,16 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
                 $role = '1';
             }
 
-            $pdo->updateRow("UPDATE `users_8897532` SET `role` = ?, `profes` = ?,`name` = ?,`login` = ?,`password` = ? WHERE `id` = ? ",[$role,$profes,$u_name,$u_login,$u_password,$id]);
-            $this->goWayClass('users');
+            if ($_FILES['foto']['name']) {
+                $del_photo = $pdo->getRow("SELECT * FROM `users_8897532` WHERE `id` = ?",[$id]);
+                unlink($_SERVER['DOCUMENT_ROOT'].'/admin/'.$del_photo["image"]);
+                $pdo->updateRow("UPDATE `users_8897532` SET `role` = ?, `profes` = ?,`name` = ?,`login` = ?,`password` = ?,`image` = ? WHERE `id` = ? ",[$role,$profes,$u_name,$u_login,$u_password,$dbfile,$id]);
+            }
+            if ( empty($_FILES['foto']['name']) ) {
+                $pdo->updateRow("UPDATE `users_8897532` SET `role` = ?, `profes` = ?,`name` = ?,`login` = ?,`password` = ? WHERE `id` = ? ",[$role,$profes,$u_name,$u_login,$u_password,$id]);
+            }
+
+            $this->goWayClass('exit');
         }
 
 // Добавление нового сотрудника (Страница сотрудники)

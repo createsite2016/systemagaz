@@ -56,14 +56,15 @@ else { include("verh.php"); ?>
 
                 </div>
 
+                <?php
+                $sql_get_categor = $pdo->getRows(" SELECT * FROM `postavshiki` ORDER BY `name`");
+                if ( !empty($sql_get_categor[0]['name']) ) { ?>
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Поставщик:</label>
                     <div class="col-lg-8">
                         <select name="postavshik">
                             <?php
                             $id_categor = $_GET['categor'];
-
-                            $sql_get_categor = $pdo->getRows(" SELECT * FROM `postavshiki` ORDER BY `name`");
                             foreach ( $sql_get_categor as $data_categor ) {
                                 echo "<option value='".$data_categor[name]."'>".$data_categor['name']."</option>";
                             }
@@ -73,9 +74,10 @@ else { include("verh.php"); ?>
                         <input type="hidden" name="chena_output" value="<?php echo $params['chena_output']; ?>" >
                         <input type="hidden" name="chena_input" value="<?php echo $params['chena_input']; ?>" >
                         <input type="hidden" name="id_categor" value="<?php echo $id_categor; ?>" >
-                        <input type="hidden" name="user_name" value="<?php echo $name ?>" >
+                        <input type="hidden" name="user_name" value="<?php echo $name; ?>" >
                     </div>
                 </div>
+                <?php } ?>
 
                 <div class="form-group">
                     <label class="col-lg-3 control-label">Комментарий:</label>
@@ -87,8 +89,10 @@ else { include("verh.php"); ?>
 
                 <div class="form-group">
                     <div class="col-lg-9 col-lg-offset-3">
+                        <?php if ( !empty($sql_get_categor[0]['name']) ) { ?>
                         <button type="submit" class="btn btn-primary">Принять товар</button>
                         <span class="center"><a href="fl_open_products.php?id_categor=<?php echo $id_categor; ?>" class="btn btn-default btn-xs">Отмена</a></span>
+                        <?php } else { echo "<font color='red'>Добавьте хотя бы одного поставщика товара: </font> <font color='green'><a href='potavshiki.php'>Справочники->Поставщики</a></font>";}?>
                     </div>
                 </div>
             </form>

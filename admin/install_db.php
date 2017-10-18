@@ -3,13 +3,17 @@
 // Подключаемся к базе данных, указывая параметры базы данных,
 // имя пользователя и пароль.
 
+// $charset = 'UTF8';
+// $db = 'test_bd';
+// $host = 'localhost';
+
 $charset = 'UTF8';
-$db = 'test_bd';
-$host = 'localhost';
+$db = $_POST['db'];
+$host = $_POST['localhost'];
 
 $dataSource = "mysql:dbname={$db};host={$host};charset={$charset}"; // тип СУБД, хост сервера и имя базы данных
-$user = 'root';
-$password = 'root';
+$user = $_POST['login'];
+$password = $_POST['password'];
 $db = new PDO($dataSource, $user, $password); // Подключаемся к базе данных
 
 // Добавляем в таблицу users записи
@@ -18,7 +22,7 @@ $db->exec("CREATE TABLE `categor` (
   `name` varchar(255) NOT NULL,
   `sort` varchar(55) NOT NULL DEFAULT '' COMMENT 'Сортировка вывода на ветрине'
 ) ENGINE=InnoDB DEFAULT CHARSET=$charset;");
-echo 'Успешно мигрированна таблица categor<br>';
+echo '<br>Успешно мигрированна таблица categor<br>';
 
 $db->exec("CREATE TABLE `dostavka` (
   `id` int(11) NOT NULL,
@@ -110,8 +114,15 @@ $db->exec("CREATE TABLE `magazins` (
   `email` varchar(55) NOT NULL,
   `reklama` varchar(11) NOT NULL DEFAULT '' COMMENT 'Вывод рекламы',
   `id_ok_group` varchar(55) NOT NULL DEFAULT '' COMMENT 'ID группы в ОК',
+  `id_ok_page` varchar(55) NOT NULL DEFAULT '' COMMENT 'ID страницы в ОК',
   `instagram_login` varchar(55) NOT NULL DEFAULT '' COMMENT 'Логин в инстграмме',
   `instagram_password` varchar(55) NOT NULL DEFAULT '' COMMENT 'Пароль для инстаграмма',
+  `smslogin` varchar(55) NOT NULL DEFAULT '' COMMENT 'Логин для смс отправки',
+  `smspassword` varchar(55) NOT NULL DEFAULT '' COMMENT 'Пароль для смс отправки',
+  `smsid` varchar(55) NOT NULL DEFAULT '' COMMENT 'айди устройства',
+  `smsnumber` varchar(55) NOT NULL DEFAULT '' COMMENT 'Номер на который будет приходить смс',
+  `chatbroscript` LONGTEXT NOT NULL DEFAULT '' COMMENT 'скрипт для чата',
+  `redconnectscript` LONGTEXT NOT NULL DEFAULT '' COMMENT 'скрипт для обратного звонка',
   `token` varchar(255) NOT NULL DEFAULT '' COMMENT 'Вечный токен',
   `private_key` varchar(255) NOT NULL DEFAULT '' COMMENT 'Секретный ключ приложения',
   `public_key` varchar(255) NOT NULL DEFAULT '' COMMENT 'Публичный ключ приложения',
@@ -119,7 +130,8 @@ $db->exec("CREATE TABLE `magazins` (
   `keywords` varchar(255) NOT NULL COMMENT 'Ключевые слова',
   `description` varchar(55) NOT NULL COMMENT 'Описание',
   `title` varchar(255) NOT NULL COMMENT 'Тайт, заголовок страницы',
-  `city` varchar(255) DEFAULT NULL COMMENT 'Название города'
+  `city` varchar(255) DEFAULT NULL COMMENT 'Название города',
+  `theme` varchar(55) DEFAULT NULL COMMENT 'Тема магазина'
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица magazins<br>';
 
@@ -150,7 +162,7 @@ $db->exec("CREATE TABLE `postavshiki` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `komment` varchar(255) NOT NULL
-) ENGINE=InnoDB AUTO_INCREMENT=31 DEFAULT CHARSET=$charset;");
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица postavshiki<br>';
 
 $db->exec("CREATE TABLE `priem` (
@@ -164,7 +176,7 @@ $db->exec("CREATE TABLE `priem` (
   `rem_datatime` datetime DEFAULT NULL COMMENT 'дата ремонта',
   `status` varchar(255) NOT NULL DEFAULT 'Новый заказ' COMMENT 'статус',
   `sklad` varchar(255) NOT NULL,
-  `color` varchar(255) NOT NULL DEFAULT '31',
+  `color` varchar(255) NOT NULL DEFAULT '1',
   `dostavka` varchar(255) NOT NULL,
   `status_id` varchar(255) NOT NULL,
   `postavshik` varchar(255) NOT NULL,
@@ -236,7 +248,7 @@ $db->exec("CREATE TABLE `status` (
   `name_color` varchar(255) NOT NULL DEFAULT '' COMMENT 'Имя цвета',
   `komment` varchar(255) NOT NULL DEFAULT '' COMMENT 'Комментарий',
   `sort` varchar(255) NOT NULL DEFAULT '' COMMENT 'Сортировка'
-) ENGINE=InnoDB AUTO_INCREMENT=34 DEFAULT CHARSET=$charset;");
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица status<br>';
 
 $db->exec("CREATE TABLE `status_pr` (
@@ -281,9 +293,16 @@ $db->exec("CREATE TABLE `users_8897532` (
   `profes` varchar(255) NOT NULL DEFAULT '' COMMENT 'Профессия',
   `inn` varchar(55) NOT NULL DEFAULT '' COMMENT 'ИНН',
   `ogrn` varchar(55) NOT NULL DEFAULT '' COMMENT 'ОГРН',
+  `image` varchar(255) NOT NULL DEFAULT '' COMMENT 'Аватарка',
   `phone` varchar(55) NOT NULL DEFAULT '' COMMENT 'Номер телефона'
 ) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица users_8897532<br>';
+
+$db->exec("INSERT INTO `status` (`id`, `name`, `color`, `name_color`, `komment`, `sort`) VALUES
+(1, 'Новый заказ', '#FFFFFF', 'Без цвета', 'Этот статус не удалять!!!', '0');");
+$db->exec("INSERT INTO `status` (`id`, `name`, `color`, `name_color`, `komment`, `sort`) VALUES
+(2, 'Заказ закрыт', '#FFFFFF', 'Без цвета', 'Этот статус не удалять!!!', '0');");
+echo '<font color="red"></font><br>';
 
 $db->exec("INSERT INTO `users_8897532` (`id`, `login`, `name`, `password`, `role`, `profes`, `inn`, `ogrn`, `phone`) VALUES
 (1, 'admin', 'Андрей Галушко', '123456', '3', 'Директор', '2437286324', '2874783246873', '9891234567');");
@@ -513,6 +532,165 @@ ALTER TABLE `tovar`
 ALTER TABLE `users_8897532`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT COMMENT 'Ключ',AUTO_INCREMENT=1;");
 echo 'Установленны ключи ко всем таблицам и автоинкремент<br>';
+
+
+
+// Открыть текстовый файл
+$filename = 'classes/Database.php';
+
+$text = '<?php
+
+class Database{
+    public $isConn;
+    protected $datab;
+    static $username, $password, $host, $dbname;
+
+
+
+    // Соединение с БД
+        public function __construct($username="'.$_POST['login'].'", $password="'.$_POST['password'].'", $host="'.$_POST['localhost'].'", $dbname="'.$_POST['db'].'", $options = []){
+        //public function __construct($username="ce72683_magaz", $password="UC7dQbZC", $host="localhost", $dbname="ce72683_magaz", $options = []){
+            $this->isConn = TRUE;
+        try {
+            $this->datab = new PDO("mysql:host={$host};dbname={$dbname};charset=utf8", $username, $password, $options);
+            $this->datab->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            $this->datab->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        } catch (PDOException $e) {
+            ?>
+            <!DOCTYPE html>
+            <html lang="ru">
+            <head>
+                <meta charset="utf-8">
+                <title>Система управления интернет торговлей</title>
+                <meta name="" content="mobile first, app, web app, responsive, admin dashboard, flat, flat ui">
+                <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+                <link rel="shortcut icon" href="/../../icon.ico" type="image/x-icon">
+                <link rel="stylesheet" href="/../admin/css/bootstrap.css">
+                <link rel="stylesheet" href="/../admin/css/font-awesome.min.css">
+                <link rel="stylesheet" href="/../admin/css/font.css">
+                <link rel="stylesheet" href="/../admin/js/select2/select2.css">
+                <link rel="stylesheet" href="/../admin/css/style.css">
+                <link rel="stylesheet" href="/../admin/css/plugin.css">
+                <link rel="stylesheet" href="/../admin/css/landing.css">
+<br><br><br><br><center><strong>Не удалось подключиться к БД, проверьте параметры соединения</strong></center>
+            <br>
+            <br>
+            <br>
+            <br>
+
+
+
+            <section class="panel">
+                <header class="panel-heading text-center">
+                    Подключение
+                </header>
+                <form action="/admin/install_db.php" class="panel-body" method="POST">
+
+                    <div class="block">
+                        <label class="control-label">}{ост</label>
+                        <input type="text" placeholder="ваш логин" name="localhost" value="localhost" autocomplete="on" class="form-control">
+                    </div>
+
+                    <div class="block">
+                        <label class="control-label">БД</label>
+                        <input type="text" placeholder="ваш логин" name="db" value="" autocomplete="on" class="form-control">
+                    </div>
+
+                    <div class="block">
+                        <label class="control-label">Логин</label>
+                        <input type="text" placeholder="ваш логин" name="login" value="" autocomplete="on" class="form-control">
+                    </div>
+
+                    <div class="block">
+                        <label class="control-label">Пароль</label>
+                        <input type="password" id="inputPassword" placeholder="ваш пароль" value="" autocomplete="on" name="password" class="form-control">
+                    </div>
+
+
+                    </div>
+                    <center>
+                        <button type="submit" class="btn btn-info"><i class="icon-signin"></i> Подключить</button>
+                    </center>
+                </form>
+            </section>
+            <?
+            exit;
+        }
+
+    }
+
+
+    // отключение от бд
+    public function Disconnect(){
+        $this->datab = NULL;
+        $this->isConn = FALSE;
+    }
+    // получить данные
+    public function getRow($query, $params = []){
+        try {
+            $stmt = $this->datab->prepare($query);
+            $stmt->execute($params);
+            return $stmt->fetch();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+    // получить массив данных
+    public function getRows($query, $params = []){
+        try {
+            $stmt = $this->datab->prepare($query);
+            $stmt->execute($params);
+            return $stmt->fetchAll();
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+    // вставить данные
+    public function insertRow($query, $params = []){
+        try {
+            $stmt = $this->datab->prepare($query);
+            $stmt->execute($params);
+            return TRUE;
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+    // обновить данные
+    public function updateRow($query, $params = []){
+        $this->insertRow($query, $params);
+    }
+    // удалить данные
+    public function deleteRow($query, $params = []){
+        $this->insertRow($query, $params);
+    }
+    // получить последний добавленный ID
+    public function lastInsertId($query, $params = []){
+        try {
+            $stmt = $this->datab->prepare($query);
+            $stmt->execute($params);
+            $stmt = $this->datab->lastInsertId($query);
+            return $stmt;
+        } catch (PDOException $e) {
+            throw new Exception($e->getMessage());
+        }
+    }
+
+
+
+}
+
+?>';
+
+// Открываем файл, флаг W означает - файл открыт на запись
+$f_hdl = fopen($filename, 'w');
+
+// Записываем в файл $text
+fwrite($f_hdl, $text);
+
+// Закрывает открытый файл
+fclose($f_hdl);
+
+exit("<html><head><meta http-equiv='Refresh' content='0; URL=index.php'></head></html>");
 
 
 

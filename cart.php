@@ -13,6 +13,7 @@ include_once('view/tpl_head.php');
     $("#checkphone").mask("+7(999) 999-9999", {placeholder: "+7(___) ___ - ____" });
 </script>
 
+
 <section>
     <div class="container">
         <div class="row">

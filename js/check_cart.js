@@ -66,10 +66,10 @@ function showMiniCart() {
 
 function addCheck() {
     // оформеление заказа
-    var checkname = document.getElementById("checkname").value;
-    var check_phone = document.getElementById("checkphone").value;
-    var check_adress = document.getElementById("checkadress").value;
-    var check_komment = document.getElementById("checkkomment").value;
+    var checkname = document.getElementById('checkname').value;
+    var checkphone = document.getElementById('checkphone').value;
+    var checkadress = document.getElementById('checkadress').value;
+    var checkkomment = document.getElementById('checkkomment').value;
     var error = 0;
 
      if (checkname.length < 3) {
@@ -78,13 +78,13 @@ function addCheck() {
      } else {
          document.getElementById('labelname').innerHTML = "<font color='green'>Имя полученно</font>";
      }
-     if (check_phone.length !== 16) {
+     if (checkphone.length !== 16) {
          error = 1;
          document.getElementById('labelphone').innerHTML = "<font color='red'>Номер не полный</font>";
      } else {
          document.getElementById('labelphone').innerHTML = "<font color='green'>Телефон получен</font>";
      }
-     if ( check_adress < 3 ) {
+     if ( checkadress < 3 ) {
          error = 1;
          document.getElementById('labeladress').innerHTML = "<font color='red'>Адрес слишком короткий</font>";
      } else {
@@ -96,7 +96,7 @@ function addCheck() {
                  url: '../ajax_check.php', // на этот скрипт отправка
                  type: 'post', // метод post
                  response: 'text',
-                 data: {id: z, kolvo: cart[z], name: checkname, phone: check_phone, adress: check_adress, komment: check_komment}, // параметры отправки
+                 data: {id: z, kolvo: cart[z], name: checkname, phone: checkphone, adress: checkadress, komment: checkkomment}, // параметры отправки
                  success: function (data) { // выполнение отправки
                      console.log('Ответ от сервера', data);
                  }
@@ -108,10 +108,10 @@ function addCheck() {
          showMiniCart();
          alert('Спасибо Вам ' + checkname + ', Ваш заказ принят, ожидайте звонка нашего менеджера и смс на Ваш телефон.');
          //alert(data);
-         document.getElementById("checkname").value = '';
-         document.getElementById("checkphone").value= '';
-         document.getElementById("checkadress").value= '';
-         document.getElementById("checkkomment").value= '';
+         document.getElementById('checkname').value = '';
+         document.getElementById('checkphone').value= '';
+         document.getElementById('checkadress').value= '';
+         document.getElementById('checkkomment').value= '';
      }
 
 }

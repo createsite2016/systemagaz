@@ -28,24 +28,27 @@ if ($kolvo > 0) {
     $number_zakaza = $pdo->lastInsertId("INSERT INTO `priem` (`tovar`,`kolvo`,`fio`,`phone`,`adress`,`komment`,`datatime`,`sklad`) VALUES (?,?,?,?,?,?,?,?) ",
         [$id,$kolvo,$name,$phone,$adress,$komment,$datatime,$magazin['name']]);
 
-    // подключаем класс для смс рассылки
-    $sms_login = "xakerfsb@gmail.com";
-    $sms_password = "16213150z";
-    $sms_device_id = "45409";
+    
+    //  смс рассылка (https://smsgateway.me)
+    if ( !empty($magazin['smslogin']) & !empty($sms_login = $magazin['smslogin']) & !empty($magazin['smsid']) ) {
+    $sms_login = $magazin['smslogin'];
+    $sms_password = $magazin['smspassword'];
+    $sms_device_id = $magazin['smsid'];
     include_once "smsGateway.php";
     $smsGateway = new SmsGateway($sms_login, $sms_password);
     $deviceID = $sms_device_id; // номер устройства
-    $number = '+7'.$phone; // номер на который отправлять
-    $message = $name.', Ваш номер заказа: '.$number_zakaza; // смска
-    $result = $smsGateway->sendMessageToNumber($number, $message, $deviceID);
+    $number = $phone; // номер на который отправлять (телефон покупателя)
+    $message = $name.', Ваш номер заказа: '.$number_zakaza.', ожидайте звонка от менеджера'; // смска
+    $result = $smsGateway->sendMessageToNumber($number, $message, $deviceID); // отправка смс покупателю
 
 
-    $number = '+79892370744'; // номер на который отправлять
-    $message = 'Привет, только что поступил заказ от: '.$name.', номер заказа: '.$number_zakaza.', номер телефона: '.'+7'.$phone; // смска
-    $result = $smsGateway->sendMessageToNumber($number, $message, $deviceID);
+    $number = $magazin['smsnumber']; // номер на который отправлять (телефон для уведомлений)
+    $message = 'Привет, только что поступил заказ от: '.$name.', номер заказа: '.$number_zakaza.', номер телефона: '.$phone; // смска
+    $result = $smsGateway->sendMessageToNumber($number, $message, $deviceID); // отправка смс на телефон для уведоммлений
 
     // добавление в базу клиентов
-    $pdo->insertRow("INSERT INTO `klient` (`name`,`phone`,`adress`) VALUES (?,?,?) ", [$name,$phone,$adress]);
+    $pdo->insertRow("INSERT INTO `klient` (`name`,`phone`,`adress`,`komment`) VALUES (?,?,?,?) ", [$name,$phone,$adress,$komment]);
+    }
 }
 
 

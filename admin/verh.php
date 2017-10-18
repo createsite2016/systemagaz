@@ -11,6 +11,7 @@ foreach ($udata as $value) {
     $user_sc = $value['sklad']; //
     $id_user = $value['id']; // адишник пользователя
     $user_role = $value['role']; // права пользователя
+    $avatar = $value['image']; // права пользователя
 }
 
 function go_link($link_way,$link_name){
@@ -33,12 +34,12 @@ function go_link($link_way,$link_name){
             <link rel='stylesheet' href='css/plugin.css'>
             <link rel='stylesheet' href='css/landing.css'>
 
-    <script id="chatBroEmbedCode">
-        /* Chatbro Widget Embed Code Start */
-        function ChatbroLoader(chats,async) {async=async!==false;var params={embedChatsParameters:chats instanceof Array?chats:[chats],needLoadCode:typeof Chatbro==='undefined'};var xhr=new XMLHttpRequest();xhr.withCredentials = true;xhr.onload=function(){eval(xhr.responseText)};xhr.onerror=function(){console.error('Chatbro loading error')};xhr.open('POST','//www.chatbro.com/embed_chats/',async);xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');xhr.send('parameters='+encodeURIComponent(JSON.stringify(params)))}
-        /* Chatbro Widget Embed Code End */
-        ChatbroLoader({encodedChatId: '4Cad'});
-    </script>
+<!--    <script id="chatBroEmbedCode">-->
+<!--        /* Chatbro Widget Embed Code Start */-->
+<!--        function ChatbroLoader(chats,async) {async=async!==false;var params={embedChatsParameters:chats instanceof Array?chats:[chats],needLoadCode:typeof Chatbro==='undefined'};var xhr=new XMLHttpRequest();xhr.withCredentials = true;xhr.onload=function(){eval(xhr.responseText)};xhr.onerror=function(){console.error('Chatbro loading error')};xhr.open('POST','//www.chatbro.com/embed_chats/',async);xhr.setRequestHeader('Content-Type','application/x-www-form-urlencoded');xhr.send('parameters='+encodeURIComponent(JSON.stringify(params)))}-->
+<!--        /* Chatbro Widget Embed Code End */-->
+<!--        ChatbroLoader({encodedChatId: '4Cad'});-->
+<!--    </script>-->
 </head>
 <body>
   <header id="header" class="navbar">
@@ -46,7 +47,7 @@ function go_link($link_way,$link_name){
       <li class="dropdown">
         <a href="#" class="dropdown-toggle" data-toggle="dropdown">            
           <span class="hidden-xs-only"><?php echo $name; ?></span>
-          <span class="thumb-small avatar inline"><img src="images/avatar.jpg" alt="Mika Sokeil" class="img-circle"></span>
+          <span class="thumb-small avatar inline"><img src="<?if ($avatar) {echo $avatar;} else {?>images/avatar.jpg<?}?>" alt="Mika Sokeil" class="img-circle"></span>
           <b class="caret hidden-xs-only"></b>
         </a>
         <ul class="dropdown-menu">

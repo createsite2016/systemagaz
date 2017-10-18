@@ -21,6 +21,10 @@
                     if (!empty($shop['id_ok_group'])) {?>
                         <a target="_blank" href="https://ok.ru/group/<?php echo $shop['id_ok_group']; ?>"><img src="../images/odnoklassniki.png" width="48">Мы в ОК</a>
                     <?} ?>
+                    <?php
+                    if (!empty($shop['id_ok_page'])) {?>
+                        <a target="_blank" href="https://ok.ru/profile/<?php echo $shop['id_ok_page']; ?>"><img src="../images/odnoklassniki.png" width="48">Мы в ОК</a>
+                    <?} ?>
                     </span></p>
             </div>
             <br>
