@@ -136,82 +136,94 @@ if ($user_role=='3') {
                     <div class="modal-body">
 
                     <div class="block">
-                    <label class="control-label">Статус:</label><br>
-                      <select name="status">
                     <?php
                     $sql_get_magaz = $pdo->getRows("SELECT * FROM `status_pr` ");
-                    foreach ( $sql_get_magaz as $data) {
-                      echo "<option>".$data['name']."</option>";
-                    }
-                    ?>
-                      </select>
+                    if (empty($sql_get_magaz)) {?>
+                        <a class="btn btn-warning" href="status_pr.php"><i class="icon-plus"></i> Для добавления прихода, нужно добавить статус</a>
+                    </div>
+                    </form>
+                    </div>
+                    <?} else {?>
+                        <label class="control-label">Статус:</label><br>
+                        <select name="status">
+                        <?foreach ( $sql_get_magaz as $data) {
+                            echo "<option>".$data['name']."</option>";
+                        }?>
+                        </select>
                     </div>
 
-                    <div class="block">
-                    <label class="control-label">Комментарий:</label>
-                    <input class="form-control" placeholder="Комментарий" type="text" name="komment" autofocus autocomplete="off">
-                    <input type="hidden" name="action" value="add_prihod">
-                    </div>
+                        <div class="block">
+                            <label class="control-label">Комментарий:</label>
+                            <input class="form-control" placeholder="Комментарий" type="text" name="komment" autofocus autocomplete="off">
+                            <input type="hidden" name="action" value="add_prihod">
+                        </div>
 
-                    <b><font color="green"><i class="icon-money"></i>НАЛИЧНЫЕ</font></b>
+                        <b><font color="green"><i class="icon-money"></i>НАЛИЧНЫЕ</font></b>
 
-                    <div class="block">
-                    <label class="control-label">UAH:</label>
-                    <input class="form-control" placeholder="UAH" type="tel" pattern="[0-9]{0,100}" name="uah" autofocus autocomplete="off">
-                    </div>
+                        <div class="block">
+                            <label class="control-label">UAH:</label>
+                            <input class="form-control" placeholder="UAH" type="tel" pattern="[0-9]{0,100}" name="uah" autofocus autocomplete="off">
+                        </div>
 
-                    <div class="block">
-                    <label class="control-label">USD:</label>
-                    <input class="form-control" placeholder="USD" type="tel" pattern="[0-9]{0,100}" name="usd" autofocus autocomplete="off">
-                    </div>
+                        <div class="block">
+                            <label class="control-label">USD:</label>
+                            <input class="form-control" placeholder="USD" type="tel" pattern="[0-9]{0,100}" name="usd" autofocus autocomplete="off">
+                        </div>
 
-                    <div class="block">
-                    <label class="control-label">EUR:</label>
-                    <input class="form-control" placeholder="EUR" type="tel" pattern="[0-9]{0,100}" name="eur" autofocus autocomplete="off">
-                    </div>
+                        <div class="block">
+                            <label class="control-label">EUR:</label>
+                            <input class="form-control" placeholder="EUR" type="tel" pattern="[0-9]{0,100}" name="eur" autofocus autocomplete="off">
+                        </div>
 
-                    <b><font color="green"><i class="icon-credit-card"></i>БЕЗНАЛ</font></b>
+                        <b><font color="green"><i class="icon-credit-card"></i>БЕЗНАЛ</font></b>
 
-                    <div class="block">
-                    <label class="control-label">Счет1:</label>
-                    <input class="form-control" placeholder="Счет1" type="tel" pattern="[0-9]{0,100}" name="cash1" autofocus autocomplete="off">
-                    </div>
+                        <div class="block">
+                            <label class="control-label">Счет1:</label>
+                            <input class="form-control" placeholder="Счет1" type="tel" pattern="[0-9]{0,100}" name="cash1" autofocus autocomplete="off">
+                        </div>
 
-                    <div class="block">
-                    <label class="control-label">Счет2:</label>
-                    <input class="form-control" placeholder="Счет2" type="tel" pattern="[0-9]{0,100}" name="cash2" autofocus autocomplete="off">
-                    </div>
+                        <div class="block">
+                            <label class="control-label">Счет2:</label>
+                            <input class="form-control" placeholder="Счет2" type="tel" pattern="[0-9]{0,100}" name="cash2" autofocus autocomplete="off">
+                        </div>
 
-                    <div class="block">
-                    <label class="control-label">Счет3:</label>
-                    <input class="form-control" placeholder="Счет3" type="tel" pattern="[0-9]{0,100}" name="cash3" autofocus autocomplete="off">
-                    </div>
-                    
-                    <div class="block">
-                    <label class="control-label">Счет4:</label>
-                    <input class="form-control" placeholder="Счет4" type="tel" pattern="[0-9]{0,100}" name="cash4" autofocus autocomplete="off">
-                    </div>
+                        <div class="block">
+                            <label class="control-label">Счет3:</label>
+                            <input class="form-control" placeholder="Счет3" type="tel" pattern="[0-9]{0,100}" name="cash3" autofocus autocomplete="off">
+                        </div>
 
-                    <div class="block">
-                    <label class="control-label">Счет5:</label>
-                    <input class="form-control" placeholder="Счет5" type="tel" pattern="[0-9]{0,100}" name="cash5" autofocus autocomplete="off">
-                    </div>
+                        <div class="block">
+                            <label class="control-label">Счет4:</label>
+                            <input class="form-control" placeholder="Счет4" type="tel" pattern="[0-9]{0,100}" name="cash4" autofocus autocomplete="off">
+                        </div>
 
-                    <div class="block">
-                    <label class="control-label">Счет6:</label>
-                    <input class="form-control" placeholder="Счет6" type="tel" pattern="[0-9]{0,100}" name="cash6" autofocus autocomplete="off">
-                    <input type="hidden" name="user_name" value="<?php echo $name ?>" >
-                    </div>
+                        <div class="block">
+                            <label class="control-label">Счет5:</label>
+                            <input class="form-control" placeholder="Счет5" type="tel" pattern="[0-9]{0,100}" name="cash5" autofocus autocomplete="off">
+                        </div>
+
+                        <div class="block">
+                            <label class="control-label">Счет6:</label>
+                            <input class="form-control" placeholder="Счет6" type="tel" pattern="[0-9]{0,100}" name="cash6" autofocus autocomplete="off">
+                            <input type="hidden" name="user_name" value="<?php echo $name ?>" >
+                        </div>
 
                     </div>
-                    <div class="modal-footer">
-                    <button type="submit" class="btn btn-primary">Принять заказ</button>
-                    <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Отмена</button>
-                    </div>
+                        <div class="modal-footer">
+                            <button type="submit" class="btn btn-primary">Принять заказ</button>
+                            <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Отмена</button>
+                        </div>
                     </div>
                     </div>
                     </form>
                     </div>
+                    <?}
+                    ?>
+
+
+
+
+
 <!-- / Конец тела страницы -->
 <?php include("niz.php"); }?>
 

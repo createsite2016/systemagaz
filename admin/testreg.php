@@ -24,7 +24,7 @@ else {
     $_SESSION['login'] = $login; // записуем в сессию логин
     $_SESSION['id'] = $check['id']; // записуем в сессию айдишку
     $db->Disconnect(); // опустошаем объект БД
-    $App->goWay('index'); // уходим на страницу index.php
+    $App->goWay('index'); // уходим на страницу index_old.php
 }
 
 ?>

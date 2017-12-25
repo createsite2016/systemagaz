@@ -94,6 +94,13 @@ $id = $_GET['id'];
                   </div>
                 </div>
 
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Фирма изготовитель:</label>
+                      <div class="col-lg-8">
+                          <input type="text" autocomplete="off" name="firma" class="form-control parsley-validated" value="<?php echo $params['firma']; ?>">
+                      </div>
+                  </div>
+
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Количество:</label>
                   <div class="col-lg-8">
@@ -106,40 +113,121 @@ $id = $_GET['id'];
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Входящая цена:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="chena_input" class="form-control parsley-validated" value="<?php echo $params['chena_input']; ?>">
+                    <input type="number" autocomplete="off" name="chena_input" class="form-control parsley-validated" value="<?php echo $params['chena_input']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Исходящая цена:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="chena_output" class="form-control parsley-validated" value="<?php echo $params['chena_output']; ?>">
+                    <input type="number" autocomplete="off" name="chena_output" class="form-control parsley-validated" value="<?php echo $params['chena_output']; ?>">
                   </div>
                 </div>
 
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Описание:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="komment" class="form-control parsley-validated" value="<?php echo $params['komment']; ?>">
+                      <textarea class="form-control parsley-validated" placeholder="" style="height: 271px;" name="komment" autofocus autocomplete="off"><?php echo $params['komment']; ?></textarea>
                   </div>
                 </div>
 
-                <div class="form-group" style="display: none">
-                  <label class="col-lg-3 control-label">Показать этот товар на витрине?</label>
-                  <div class="col-lg-8">
-                    <select name="status">
-                    <?php
-                    $status = $params['status'];
-                    echo "<option selected value=".$status.">".$status."</option>";
-                    if ($params['status'] == 'Да') { ?>
-                        <option value="Нет">Нет</option>
-                    <?php } else { ?>
-                        <option value="Да">Да</option>
-                    <?php } ?>
 
-                    </select>
+
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Новинка:</label>
+                      <div class="col-lg-8">
+                          <select name="new">
+                              <?php
+                              if ($params['new']) {
+                                  $status = $params['new'];
+                              } else {
+                                  $status = 'Нет';
+                              }
+
+                              echo "<option selected value=".$status.">".$status."</option>";
+                              if ($params['new'] == 'Да') { ?>
+                                  <option value="Нет">Нет</option>
+                              <?php } else { ?>
+                                  <option value="Да">Да</option>
+                              <?php } ?>
+
+                          </select>
+                      </div>
                   </div>
-                </div>
+
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">% Скидки на товар:</label>
+                      <div class="col-lg-8">
+                          <input type="text" autocomplete="off" name="skidka" class="form-control parsley-validated" value="<?=$params['skidka']?>">
+                      </div>
+                  </div>
+
+
+
+
+                  <!--Размер:-->
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Размер:</label>
+                      <div class="col-lg-8">
+                          <input class="form-control parsley-validated" placeholder="" type="text" name="razmer" value="<?=$params['razmer']?>" autofocus autocomplete="off">
+                      </div>
+                  </div>
+
+                  <!--Вес:-->
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Вес:</label>
+                      <div class="col-lg-8">
+                          <input class="form-control parsley-validated" placeholder="" type="text" value="<?=$params['ves']?>" name="ves" autofocus autocomplete="off">
+                      </div>
+                  </div>
+
+                  <!--Объем:-->
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Объем:</label>
+                      <div class="col-lg-8">
+                          <input class="form-control parsley-validated" placeholder="" type="text" name="obem" value="<?=$params['obem']?>" autofocus autocomplete="off">
+                      </div>
+                  </div>
+
+                  <!--Длина:-->
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Длина:</label>
+                      <div class="col-lg-8">
+                          <input class="form-control parsley-validated" placeholder="" type="text" name="dlina" value="<?=$params['dlina']?>" autofocus autocomplete="off">
+                      </div>
+                  </div>
+
+                  <!--Материал:-->
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Материал:</label>
+                      <div class="col-lg-8">
+                          <input class="form-control parsley-validated" placeholder="" type="text" value="<?=$params['material']?>" name="material" autofocus autocomplete="off">
+                      </div>
+                  </div>
+
+                  <!--Цвет:-->
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Цвет:</label>
+                      <div class="col-lg-8">
+                          <input class="form-control parsley-validated" placeholder="" type="text" name="color" value="<?=$params['color']?>" autofocus autocomplete="off">
+                      </div>
+                  </div>
+
+                  <!--Гарантия:-->
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Гарантия:</label>
+                      <div class="col-lg-8">
+                          <input class="form-control parsley-validated" placeholder="" type="text" value="<?=$params['garant']?>" name="garant" autofocus autocomplete="off">
+                      </div>
+                  </div>
+
+                  <!--Комплектация:-->
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Комплектация:</label>
+                      <div class="col-lg-8">
+                          <input class="form-control parsley-validated" placeholder="" type="text" name="complect" value="<?=$params['complect']?>" autofocus autocomplete="off">
+                      </div>
+                  </div>
 
                  
                 <div class="form-group">

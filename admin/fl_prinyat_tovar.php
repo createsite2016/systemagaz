@@ -92,7 +92,7 @@ else { include("verh.php"); ?>
                         <?php if ( !empty($sql_get_categor[0]['name']) ) { ?>
                         <button type="submit" class="btn btn-primary">Принять товар</button>
                         <span class="center"><a href="fl_open_products.php?id_categor=<?php echo $id_categor; ?>" class="btn btn-default btn-xs">Отмена</a></span>
-                        <?php } else { echo "<font color='red'>Добавьте хотя бы одного поставщика товара: </font> <font color='green'><a href='potavshiki.php'>Справочники->Поставщики</a></font>";}?>
+                        <?php } else { echo "<font color='red'>Нужно добавить хотя бы одного поставщика товара: </font> <font color='green'><a href='potavshiki.php'>Справочники->Поставщики</a></font>";}?>
                     </div>
                 </div>
             </form>

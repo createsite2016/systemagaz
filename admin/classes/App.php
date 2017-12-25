@@ -1,5 +1,5 @@
 <?php
-
+session_start();
 include_once "Database.php"; // подключаем БД
 
 // Вывод ошибок. ( для показа написать $error = show; )
@@ -8,6 +8,13 @@ if ($error == show) {
     ini_set('display_errors', TRUE);
 } else {
     ini_set('display_errors', FALSE);
+}
+
+// Проверка авторизован пользователь или нет.
+if (empty($_SESSION['login']) or empty($_SESSION['id'])) {
+    $user["RULES"] = 'n';
+} else {
+    $user["RULES"] = 'y';
 }
 
 
@@ -96,6 +103,13 @@ if ($error == show) {
  * СТРАНИЦЫ
  * add_page - Добавить страницу (Пункт меню Страницы)
  * del_page - Удалить страницу (Пункт меню Страницы)
+ *
+ * ЗАЯВКИ
+ * del_zayavka - Удалить заявку (Страница заявки)
+ *
+ * КЛИЕНТЫ
+ * del_klient - Удалить клиента (Страница клиенты)
+ *
  */
 class App
 {
@@ -197,7 +211,7 @@ class App
                 $pdo->insertRow("INSERT INTO `prihod` (`cash1`,`datatime`,`manager`,`statya`,`komment`) VALUES (?,?,?,?,?)",[$prihod,$datatime,$user_name,'Продажа интернет',$text_komment]); // запись выручки от продажи в приход
 
             }
-            $pdo->updateRow("UPDATE `priem` SET `phone`='$phone',`fio`='$fio',`adress`='$adress',`status`='$name_status',`color`='$status',`user_name`='$user_name' WHERE `id`='$id' ");
+            $pdo->updateRow("UPDATE `priem` SET `phone`='$phone',`fio`='$fio',`adress`='$adress',`status`='$name_status',`color`='$status',`user_name`='$user_name',`kolvo` = '$kolvo' WHERE `id`='$id' ");
             $pdo->insertRow("INSERT INTO `log_priem` (`id_zakaz`,`datatime`,`meneger`,`status`,`fio`,`phone`,`adress`) VALUES ('$id','$datatime','$user_name','$name_status','$fio','$phone','$adress')");
             $this->goWayClass('index');
         }
@@ -265,6 +279,20 @@ class App
             $datatime = date("Y-m-d H:i:s"); // дата добавления товара
             $id_categor = $_POST['categor_id']; // ключ категории
             $user_id = $_POST['user_id']; // айдишник пользователя, который добавляет товар
+
+            // свойства товара
+            $new = $_POST["new"];
+            $skidka = $_POST["skidka"];
+            $firma = $_POST["firma"];
+            $razmer = $_POST["razmer"];
+            $ves = $_POST["ves"];
+            $obem = $_POST["obem"];
+            $dlina = $_POST["dlina"];
+            $material = $_POST["material"];
+            $color = $_POST["color"];
+            $garant = $_POST["garant"];
+            $complect = $_POST["complect"];
+
             $shop = $pdo->getRow("SELECT * FROM `magazins`"); // получение данных магазина
 
             // вносим новый товар в категорию
@@ -280,7 +308,20 @@ INSERT INTO `tovar` (
 `datatime`,
 `user_id`,
 `image`,
-`article`) 
+`article`,
+
+`new`,
+`skidka`,
+`firma`,
+`razmer`,
+`ves`,
+`obem`,
+`dlina`,
+`material`,
+`color`,
+`garant`,
+`complect`
+) 
 VALUES (
 ?,
 ?,
@@ -292,7 +333,21 @@ VALUES (
 ?,
 ?,
 ?,
-?)", [$id_categor, $name, $model, $chena_input, $chena_output, $komment, $status, $datatime, $user_id, $dbfile, $article]);
+?,
+
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?,
+?
+
+)", [$id_categor, $name, $model, $chena_input, $chena_output, $komment, $status, $datatime, $user_id, $dbfile, $article,   $new,$skidka,$firma,$razmer,$ves,$obem,$dlina,$material,$color,$garant,$complect]);
 
 
 
@@ -732,7 +787,20 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $id_categor = $_POST['id_categor'];
             $money_input = $_POST['money_input'];
             $money_output = $_POST['money_output'];
-            
+            $new = $_POST['new'];
+            $skidka = $_POST['skidka'];
+            $firma = $_POST['firma'];
+
+            // свойства товара
+            $razmer = $_POST["razmer"];
+            $ves = $_POST["ves"];
+            $obem = $_POST["obem"];
+            $dlina = $_POST["dlina"];
+            $material = $_POST["material"];
+            $color = $_POST["color"];
+            $garant = $_POST["garant"];
+            $complect = $_POST["complect"];
+
             if ( !empty($_FILES['foto']['name']) ) { // если выбрали фото товара
                 $pdo->updateRow("UPDATE `tovar` SET
                 `article` = ?,
@@ -745,8 +813,21 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
                 `komment` = ?,
                 `categor_id` = ?,
                 `status` = ?,
-                `image` = ?
-                WHERE `id` = ? ",[$article,$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$categor_id,$status,$dbfile,$id]);
+                `image` = ?,
+                `new` = ?,
+                `skidka` = ?,
+                `firma` = ?,
+                
+                `razmer` = ?,
+                `ves` = ?,
+                `obem` = ?,
+                `dlina` = ?,
+                `material` = ?,
+                `color` = ?,
+                `garant` = ?,
+                `complect` = ?
+                
+                WHERE `id` = ? ",[$article,$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$categor_id,$status,$dbfile,$new,$skidka,$firma,   $razmer,$ves,$obem,$dlina,$material,$color,$garant,$complect,$id]);
 
                 unlink($old_file);
                 $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
@@ -763,8 +844,22 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
                 `money_output` = ?,
                 `komment` = ?,
                 `categor_id` = ?,
-                `status` = ?
-                WHERE `id` = ? ",[$article,$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$categor_id,$status,$id]);
+                `status` = ?,
+                `new` = ?,
+                `skidka` = ?,
+                `firma` = ?,
+                
+                
+                
+                `razmer` = ?,
+                `ves` = ?,
+                `obem` = ?,
+                `dlina` = ?,
+                `material` = ?,
+                `color` = ?,
+                `garant` = ?,
+                `complect` = ?
+                WHERE `id` = ? ",[$article,$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$categor_id,$status,$new,$skidka,$firma,    $razmer,$ves,$obem,$dlina,$material,$color,$garant,$complect,$id]);
 
                 $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             }
@@ -1298,8 +1393,10 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $chatbroscript = $_POST['chatbroscript']; // скрипт подключения чата 
             $redconnectscript = $_POST['redconnectscript']; // скрипт подключения обратного звонка
             $theme = $_POST['theme']; // цвет темы магазина
+            $vklink = $_POST["vklink"]; // ссылка на ВК профиль
+            $facebooklink = $_POST["facebooklink"]; // ссылка на фэйсбук профиль
             
-            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`id_ok_page` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?,`keywords` = ?,`city` = ?,`description` = ?,`title` = ?,`smslogin` = ?,`smspassword` = ?,`smsid` = ?,`smsnumber` = ?,`chatbroscript` = ?,`redconnectscript` = ?,`theme` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$idokpage,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$time_day,$keywords,$city,$description,$title,$sms_login,$sms_password,$sms_id,$sms_number,$chatbroscript,$redconnectscript,$theme,$id]);
+            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`id_ok_page` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?,`keywords` = ?,`city` = ?,`description` = ?,`title` = ?,`smslogin` = ?,`smspassword` = ?,`smsid` = ?,`smsnumber` = ?,`chatbroscript` = ?,`redconnectscript` = ?,`theme` = ?,`vklink` = ?, `facebooklink` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$idokpage,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$time_day,$keywords,$city,$description,$title,$sms_login,$sms_password,$sms_id,$sms_number,$chatbroscript,$redconnectscript,$theme,$vklink,$facebooklink,$id]);
             $this->goWayClass('magazins');
         }
 
@@ -1650,7 +1747,7 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
         }
 
 /**
-* Пункт меню СТРАНИЦЫ
+* СТРАНИЦА СТРАНИЦЫ
 */
 
 // Добавление страницы (Станица Страницы)
@@ -1679,6 +1776,28 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $this->goWayClass('pages');
         }
 
+
+/**
+* СТРАНИЦА ЗАЯВКИ
+*/
+
+// Удаление заявки (Станица заявки)
+        if ( $action == 'del_zayavka' ) {
+            $id = $_REQUEST['id']; // айдишник талона
+            $pdo->deleteRow("DELETE FROM `zayavki` WHERE `id` = ?",[$id]);
+            $this->goWayClass('zayavki');
+        }
+
+/**
+* СТРАНИЦА КЛИЕНТЫ
+*/
+
+// Удаление клиента (Станица клиенты)
+        if ( $action == 'del_klient' ) {
+            $id = $_REQUEST['id']; // айдишник талона
+            $pdo->deleteRow("DELETE FROM `klient` WHERE `id` = ?",[$id]);
+            $this->goWayClass('klients');
+        }
 
 // classes/App.php
 // <input type="hidden" name="action" value="add_magaz">

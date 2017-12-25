@@ -4,7 +4,7 @@ $pdo = new Database();
 $get_user_info = $pdo->getRows("SELECT * FROM `users_8897532`"); // получение данных о пользователях
 foreach ( $get_user_info as $data_user_info ) { }
 if ( $data_user_info['id']>0 ) {
-exit("<html><head><meta http-equiv='Refresh' content='0; URL=index.php'></head></html>");
+exit("<html><head><meta http-equiv='Refresh' content='0; URL=index_old.php'></head></html>");
 }
 ?>
 <!DOCTYPE html>

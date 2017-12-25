@@ -105,7 +105,75 @@ for ( $i=0; $i<$total_pages; $i++ )
     <?php
 // ДОСТУП ТОЛЬКО ДЛЯ АДМИНИСТРАТОРОВ
     if ( $user_role == '3' ) { ?>
-            <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> | </span></b><br><br>
+            <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a>
+            |
+
+            <script>
+                function send() {
+                    var file_data = $('#sortpicture').prop('files')[0];
+                    var categor = document.getElementById('categor');
+                    var form_data = new FormData();
+                    form_data.append('file', file_data);
+                    form_data.append('categor', categor.value);
+                    alert(form_data);
+                    $.ajax({
+                        url: 'readex.php',
+                        dataType: 'text',
+                        cache: false,
+                        contentType: false,
+                        processData: false,
+                        data: form_data,
+                        type: 'post',
+                        success: function(php_script_response){
+                            alert(php_script_response);
+                            location.href=location.href;
+                        }
+                    });
+                }
+
+                function show_btn() {
+                    document.getElementById('upload').style.display = '';
+                }
+
+
+            </script>
+
+            <style>
+                .fileContainer {
+                    overflow: hidden;
+                    position: relative;
+                }
+                .test {
+                    display: none;
+                }
+
+                .fileContainer [type=file] {
+                    cursor: inherit;
+                    display: block;
+                    font-size: 999px;
+                    filter: alpha(opacity=0);
+                    min-height: 100%;
+                    min-width: 100%;
+                    opacity: 0;
+                    position: absolute;
+                    right: 0;
+                    text-align: right;
+                    top: 0;
+                }
+            </style>
+
+
+            <label class="btn btn-white">
+                <i class="icon-cloud-upload text"></i>Выбрать таблицу эксель(.xlsx)
+                <input id="sortpicture" class="test" type="file" onchange="show_btn();" name="sortpic" accept=".xlsx">
+                <input type="hidden" name="categor" id="categor" value="<?=$_GET['id_categor']?>">
+            </label>
+            <button id="upload" onclick="send();" class="btn btn-sm btn-info" style="display: none">Загрузить выбранный файл</button>
+
+
+
+
+        </span></b><br><br>
 <?php } ?>
 
     <div class="table-responsive">
@@ -116,8 +184,7 @@ for ( $i=0; $i<$total_pages; $i++ )
                     <th><b>Наименование</b></th>
                     <th><b>Страна производитель</b></th>
                     <th><b>Количество</b></th>
-                    <th><b>Цена (закупка)</b></th>
-                    <th><b>Цена (продажа)</b></th>
+                    <th><b>Цена (закупка/продажа)</b></th>
                     <th><b>Описание</b></th>
                     <th><b>Действие</b></th>
                   </tr>
@@ -134,8 +201,8 @@ if ($user_role=='1') {
                     <td><a href="../product.php?id=<?php echo $data_products['id']; ?>"><?php echo $data_products['name']; ?></a></td>
                     <td><?php echo $data_products['model']; ?></td>
                     <td><?php echo $data_products['kolvo']; ?></td>
-                    <td><?php echo $data_products['chena_input']; echo " "; echo $data_products['money_input']; ?></td>
-                      <td> </td>
+                    <td><?php echo $data_products['chena_input'];?></td>
+                     
                       <td><?php echo $data_products['chena_output'];?></td>
                     <td><?php echo $data_products['status']; ?></td>
                     <td>Нет прав</td>
@@ -150,32 +217,40 @@ if ($user_role=='3') {
     foreach ( $sql_products as $data_products ) { ?>
                   <tr>
                    <?php if ($data_products['kolvo']>0){ ?>
-                    <td><?php echo $data_products['article']; ?></td>
-                      <td><a href="../product.php?id=<?php echo $data_products['id']; ?>" target="_blank"><?php echo $data_products['name']; ?></a></td>
+                    <td><?=$data_products['article'];?><br><img src="../<?=$data_products['image'];?>" alt="не загруженно фото товара" width="40"></td>
+                    <td>
+                        <a href="../product.php?id=<?php echo $data_products['id']; ?>" target="_blank"><?php echo $data_products['name']; ?></a>
+                        <br>
+                        <a href="history.php?id=<?php echo $data_products['id']; ?>" target="_blank"><font color="#d2691e"><i class="icon-time"></i>История поступлений товара</a></font>
+                    </td>
                     <td><?php echo $data_products['model']; ?></td>
                     <td><?php echo $data_products['kolvo']; ?></td>
-                      <td><?php echo $data_products['chena_input'];?></td>
-                      <td><?php echo $data_products['chena_output'];?></td>
+                      <td><font color="red"><i class="icon-money"></i><?=$data_products['chena_input'];?></font>/<font color="Green"><i class="icon-money"></i><?=$data_products['chena_output'];?></font></td>
+                      
                     <td><?php echo $data_products['komment']; ?></td>
-                    <td><a data-toggle="modal" href="#delete<?php echo $data_products['id']; ?>"><font color="red">Удалить</font></a>
-                    <a href="fl_izm_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a><br>
-                    <a href="fl_prinyat_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
-                        <?php
-                        if ($data_products['kolvo']>0){ ?>
-                            <a href="fl_prodat_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a>
-                        <?php } ?>
+                    <td>
+                        <a data-toggle="modal" href="#delete<?php echo $data_products['id']; ?>"><font color="red"><i class="icon-trash"></i>Удалить</font></a>
+                        <a href="fl_izm_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green"><i class="icon-pencil"></i>Изменить</font></a><br>
+                        <a href="fl_prinyat_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
+                            <?php
+                            if ($data_products['kolvo']>0){ ?>
+                                <br><a href="fl_prodat_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>">(-)Продать</a>
+                            <?php } ?>
                     </td><?php }
                    else { ?>
 
-                       <td><b><font color="#a52a2a"><?php echo $data_products['article']; ?></font></b></td>
-                       <td><b><font color="#a52a2a"><a href="../product.php?id=<?php echo $data_products['id']; ?>" target="_blank"><?php echo $data_products['name']; ?></a></font></b></td>
+                       <td><b><font color="#a52a2a"><?php echo $data_products['article']; ?><br><img src="../<?=$data_products['image'];?>" alt="альтернативный текст" width="40"></font></b></td>
+                       <td>
+                           <b><font color="#a52a2a"><a href="../product.php?id=<?php echo $data_products['id']; ?>" target="_blank"><?php echo $data_products['name']; ?></a></font></b>
+                           <br>
+                           <a href="history.php?id=<?php echo $data_products['id']; ?>" target="_blank"><font color="#d2691e"><i class="icon-time"></i>История поступлений товара</a></font>
+                       </td>
                        <td><b><font color="#a52a2a"><?php echo $data_products['model']; ?></font></b></td>
                        <td><b><font color="#a52a2a"><?php echo $data_products['kolvo']; ?></font></b></td>
-                       <td><b><font color="#a52a2a"><?php echo $data_products['chena_input'];?></font></b></td>
-                       <td><b><font color="#a52a2a"><?php echo $data_products['chena_output'];?></font></b></td>
+                       <td><b><font color="red"><?=$data_products['chena_input'];?></font>/<font color="Green"><?=$data_products['chena_output'];?></font></b></td>
                        <td><b><font color="#a52a2a"><?php echo $data_products['komment']; ?></font></b></td>
-                       <td><b><font color="#a52a2a"><a data-toggle="modal" href="#delete<?php echo $data_products['id']; ?>"><font color="red">Удалить</font></a>
-                           <a href="fl_izm_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green">Изменить</font></a><br>
+                       <td><b><font color="#a52a2a"><a data-toggle="modal" href="#delete<?php echo $data_products['id']; ?>"><font color="red"><i class="icon-trash"></i>Удалить</font></a>
+                           <a href="fl_izm_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>"><font color="Green"><i class="icon-pencil"></i>Изменить</font></a><br>
                            <a href="fl_prinyat_tovar.php?id=<?php echo $data_products['id']; ?>&categor=<?php echo $id_categor; ?>">(+)Принять</a>
                            <?php
                            if ($data_products['kolvo']>0){ ?>
@@ -267,6 +342,7 @@ if ($user_role=='3') {
                                 </div>
                             </div>
 
+                            <!--Фото:-->
                             <div class="modal-body">
                                 <div class="block">
                                     <label class="control-label">Фото:</label>
@@ -274,13 +350,7 @@ if ($user_role=='3') {
                                 </div>
                             </div>
 
-                            <div class="modal-body">
-                                <div class="block">
-                                    <label class="control-label">Страна производитель:</label>
-                                    <input class="form-control parsley-validated" placeholder="" type="text" name="model" autofocus autocomplete="off">
-                                </div>
-                            </div>
-
+                            <!--Цена(Закупка):-->
                             <div class="modal-body">
                                 <div class="block">
                                     <label class="control-label">Цена(Закупка):</label>
@@ -288,6 +358,7 @@ if ($user_role=='3') {
                                 </div>
                             </div>
 
+                            <!--Цена(Продажа):-->
                             <div class="modal-body">
                                 <div class="block">
                                     <label class="control-label">Цена(Продажа):</label>
@@ -295,10 +366,125 @@ if ($user_role=='3') {
                                 </div>
                             </div>
 
+                            <!--Страна производитель:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Страна производитель:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="model" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!--Описание:-->
                             <div class="modal-body">
                                 <div class="block">
                                     <label class="control-label">Описание:</label>
-                                    <input class="form-control parsley-validated" placeholder="" type="text" name="komment" autofocus autocomplete="off">
+                                    <input class="form-control parsley-validated" placeholder="" name="komment" autofocus autocomplete="off"></input>
+                                </div>
+                            </div>
+
+
+
+                            <!-- СВОЙСТВА ТОВАРА-->
+
+                            <!--Фирма изготовитель:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Фирма изготовитель:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="firma" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!--Новинка:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Новинка:</label>
+                                    <select name="new">
+                                        <option selected="" value="Нет">Нет</option>
+                                        <option value="Да">Да</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <!--% скидки на товар:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">% Процент скидки:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="skidka" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!--Размер:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Размер:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="razmer" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!--Вес:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Вес:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="ves" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!--Объем:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Объем:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="obem" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!--Длина:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Длина:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="dlina" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!--Материал:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Материал:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="material" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!--Цвет:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Цвет:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="color" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!--Гарантия:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Гарантия:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="garant" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+                            <!--Комплектация:-->
+                            <div class="modal-body">
+                                <div class="block">
+                                    <label class="control-label">Комплектация:</label>
+                                    <input class="form-control parsley-validated" placeholder="" type="text" name="complect" autofocus autocomplete="off">
+                                </div>
+                            </div>
+
+
+                            <div class="modal-body" style="display: none">
+                                <div class="block">
+                                    <label class="control-label">Показывать на витрине?</label><br>
+                                    <select name="status">
+                                        <option selected value="Да">Да</option>
+                                        <option value="Нет">Нет</option>
+                                    </select>
                                 </div>
                             </div>
 

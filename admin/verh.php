@@ -56,7 +56,12 @@ function go_link($link_way,$link_name){
       </li>
     </ul>
     <a class="navbar-brand" href="index.php"></a>
-      <p><a href="../index.php" target="_blank"><b><font color="red">-- Перейти в магазин -- </font></b></a></p>
+      <p>
+          <br>
+          <a href="../index.php" target="_blank"><b><font color="red"><i class="icon-laptop"></i> Перейти в магазин (публичная часть) </font></b>
+          </a> | <a href="../ff9em098we90823fjdhs88723wf98sdf823f89duf89suff323f2sdfsfd.php" target="_blank"><b><font color="black"><i class="icon-code"></i> открыть IDE < /code > </font></b>
+          </a>
+      </p>
     <button type="button" class="btn btn-link pull-left nav-toggle visible-xs" data-toggle="class:slide-nav slide-nav-left" data-target="body">
       <i class="icon-reorder icon-xlarge text-default"></i>
     </button>

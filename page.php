@@ -1,25 +1,19 @@
 <?php
-include_once "admin/classes/App.php"; // подключаем функции приложения
-$pdo = new Database();
-$shop = $pdo->getRow("SELECT * FROM `magazins`"); // получение данных магазина
-include_once('view/tpl_head.php');
-$id = $_GET['id'];
-$data_page = $pdo->getRow("SELECT * FROM `pages` WHERE `id` = ? ",[$id]); // получение данных старницы
-?>
-    <section>
-        <div class="container">
-            <div class="row">
-                <div class="col-sm-3">
-                    <?php include'view/tpl_left_menu_categors.php'; // подключение меню категорий ?>
-                </div>
 
-                <div class="col-sm-9 padding-right">
-                    <div class="features_items">
-                        <h2 class="title text-center"><?php echo $data_page['name'] ?></h2>
-                        <?php echo $data_page['datapage'] ?>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-<?php include_once 'view/tpl_footer.php'; ?>
+# Страница пользователя с разной информацией
+
+include_once "admin/classes/App.php"; // Класс доступа к БД и функционалу
+$template["TEMPLATE_PATH"] = 'theme/bf_vjx/'; // путь до макета шаблона
+
+$template["MAGAZIN"] = $pdo->getRow("SELECT * FROM `magazins`"); // данные о магазине
+
+$template["CATEGORIES"] = $pdo->getRows("SELECT `id`,`name` FROM `categor` ORDER BY `sort`"); // список категорий
+$template["NAME_OPEN_CATEGOR"] = $pdo->getRow("SELECT `name`,`id`,`datapage` FROM `pages` WHERE `id` = ?",[$_GET['id']]); // получение активной страницы
+
+$template["PAGES"] = $pdo->getRows("SELECT `name`,`id`,`about` FROM `pages` ORDER BY `id`"); // получение страниц пользователя
+$template["SEO"]["TITLE"] = $template["NAME_OPEN_CATEGOR"]['name'].' '.$template["MAGAZIN"]['city']; // Заголовок
+$template["SEO"]["KEYWORDS"] = $template["NAME_OPEN_CATEGOR"]['name'].' '.$template["MAGAZIN"]['city']; // Ключевые слова
+$template["SEO"]["DESCRIPTION"] = $template["NAME_OPEN_CATEGOR"]['name'].' '.$template["MAGAZIN"]['city']; // Описание
+
+include $template["TEMPLATE_PATH"].'page.php'; // подключение страницы шаблона
+?>

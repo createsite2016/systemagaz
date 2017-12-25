@@ -43,12 +43,13 @@ else { include("verh.php"); ?>
                     if ($count_categor > 0) { ?>
                             <b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#categor"><i class="icon-folder-open-alt"></i> Новая категория</a>
                             | <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a> |
+                              <a class="btn btn-warning" href="data/example.xlsx"><i class="icon-cloud-download"></i> Скачать пример эксель файла для импорта</a> |
                             <?}?>
 
 
                 <div class="col-sm-4">
                   <div class="input-group">
-                    <input type="text" name="search_tovar" class="input-sm form-control" placeholder="Поиск по артиклю" value="">
+                    <input type="text" name="search_tovar" class="input-sm form-control" autofocus placeholder="Поиск по артиклю" value="">
                     <span class="input-group-btn">
                       <button class="btn btn-sm btn-white" type="submit">Найти</button>
                     </span>
@@ -168,6 +169,7 @@ if ($user_role=='3') {
                                         // получение крайнего артикула
                                         $number_article = $pdo->getRow("SELECT * FROM `tovar` ORDER BY `datatime` DESC");
                                         ?>
+<!--Артикул:-->
                                 <div class="modal-body">
                                     <div class="block">
                                         <label class="control-label">Артикул:</label>
@@ -175,15 +177,17 @@ if ($user_role=='3') {
                                     </div>
                                 </div>
 
+<!--Название:-->
                                 <div class="modal-body">
                                     <div class="block">
-                                        <label class="control-label">Название:</label>
+                                        <label class="control-label">Наименование товара:</label>
                                             <input class="form-control parsley-validated" placeholder="" type="text" name="name" autofocus autocomplete="off">
                                             <input type="hidden" name="action" value="add_tovar">
                                             <input type="hidden" name="user_id" value="<?php echo $id_user; ?>">
                                     </div>
                                 </div>
 
+<!--Фото:-->
                                 <div class="modal-body">
                                     <div class="block">
                                         <label class="control-label">Фото:</label>
@@ -191,13 +195,7 @@ if ($user_role=='3') {
                                     </div>
                                 </div>
 
-                                <div class="modal-body">
-                                    <div class="block">
-                                        <label class="control-label">Страна производитель:</label>
-                                        <input class="form-control parsley-validated" placeholder="" type="text" name="model" autofocus autocomplete="off">
-                                    </div>
-                                </div>
-
+<!--Цена(Закупка):-->
                                 <div class="modal-body">
                                     <div class="block">
                                         <label class="control-label">Цена(Закупка):</label>
@@ -205,6 +203,7 @@ if ($user_role=='3') {
                                     </div>
                                 </div>
 
+<!--Цена(Продажа):-->
                                 <div class="modal-body">
                                     <div class="block">
                                         <label class="control-label">Цена(Продажа):</label>
@@ -212,14 +211,119 @@ if ($user_role=='3') {
                                     </div>
                                 </div>
 
+<!--Страна производитель:-->
                                 <div class="modal-body">
                                     <div class="block">
-                                        <label class="control-label">Описание:</label>
-                                        <input class="form-control parsley-validated" placeholder="" type="text" name="komment" autofocus autocomplete="off">
+                                        <label class="control-label">Страна производитель:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="model" autofocus autocomplete="off">
                                     </div>
                                 </div>
 
+<!--Описание:-->
                                 <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Описание:</label>
+                                        <textarea class="form-control parsley-validated" placeholder="" name="komment" autofocus autocomplete="off"></textarea>
+                                    </div>
+                                </div>
+
+
+
+<!-- СВОЙСТВА ТОВАРА-->
+
+<!--Фирма изготовитель:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Фирма изготовитель:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="firma" autofocus autocomplete="off">
+                                    </div>
+                                </div>
+
+<!--Новинка:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Новинка:</label>
+                                        <select name="new">
+                                            <option selected="" value="Нет">Нет</option>
+                                            <option value="Да">Да</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+<!--% скидки на товар:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">% Процент скидки:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="skidka" autofocus autocomplete="off">
+                                    </div>
+                                </div>
+
+<!--Размер:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Размер:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="razmer" autofocus autocomplete="off">
+                                    </div>
+                                </div>
+
+<!--Вес:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Вес:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="ves" autofocus autocomplete="off">
+                                    </div>
+                                </div>
+
+<!--Объем:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Объем:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="obem" autofocus autocomplete="off">
+                                    </div>
+                                </div>
+
+<!--Длина:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Длина:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="dlina" autofocus autocomplete="off">
+                                    </div>
+                                </div>
+
+<!--Материал:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Материал:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="material" autofocus autocomplete="off">
+                                    </div>
+                                </div>
+
+<!--Цвет:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Цвет:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="color" autofocus autocomplete="off">
+                                    </div>
+                                </div>
+
+<!--Гарантия:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Гарантия:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="garant" autofocus autocomplete="off">
+                                    </div>
+                                </div>
+
+<!--Комплектация:-->
+                                <div class="modal-body">
+                                    <div class="block">
+                                        <label class="control-label">Комплектация:</label>
+                                        <input class="form-control parsley-validated" placeholder="" type="text" name="complect" autofocus autocomplete="off">
+                                    </div>
+                                </div>
+
+
+                                <div class="modal-body" style="display: none">
                                     <div class="block">
                                         <label class="control-label">Показывать на витрине?</label><br>
                                         <select name="status">

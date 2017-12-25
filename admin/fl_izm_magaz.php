@@ -26,21 +26,81 @@ else { include("verh.php"); ?>
             <section class="panel">
               <header class="panel-heading">
                 <ul class="nav nav-tabs nav-justified">
-                  <li class="active"><a href="#home" data-toggle="tab">Магазин</a></li>
-                  <li class=""><a href="#profile" data-toggle="tab">Одноклассники</a></li>
-                  <li class=""><a href="#messages" data-toggle="tab">Instagram</a></li>
-                  <li class=""><a href="#settings" data-toggle="tab">SEO (Продвижение)</a></li>
-                  <li class=""><a href="#sms" data-toggle="tab">SMS сервер
+
+                    <?if ( empty($_GET["razdel"]) ) {
+                        $home = 'tab-pane active';
+                        $homel = 'active';
+                    } else {
+                        $home = 'tab-pane';
+                        $homel = '';
+                    }?>
+
+                    <?if ($_GET["razdel"] == "profile" ) {
+                        $profile = 'tab-pane active';
+                        $profilel = 'active';
+                    } else {
+                        $profile = 'tab-pane';
+                        $profilel = '';
+                    }?>
+
+                    <?if ($_GET["razdel"] == "messages" ) {
+                        $messages = 'tab-pane active';
+                        $messagesl = 'active';
+                    } else {
+                        $messages = 'tab-pane';
+                        $messagesl = '';
+                    }?>
+
+                    <?if ($_GET["razdel"] == "settings" ) {
+                        $settings = 'tab-pane active';
+                        $settingsl = 'active';
+                    } else {
+                        $settings = 'tab-pane';
+                        $settingsl = '';
+                    }?>
+
+                    <?if ($_GET["razdel"] == "sms" ) {
+                        $sms = 'tab-pane active';
+                        $smsl = 'active';
+                    } else {
+                        $sms = 'tab-pane';
+                        $smsl = '';
+                    }?>
+
+                    <?if ($_GET["razdel"] == "chats" ) {
+                        $chats = 'tab-pane active';
+                        $chatsl = 'active';
+                    } else {
+                        $chats = 'tab-pane';
+                        $chatsl = '';
+                    }?>
+
+                    <?if ($_GET["razdel"] == 'social' ) {
+                        $social = 'tab-pane active';
+                        $sociall = 'active';
+                    } else {
+                        $social = 'tab-pane';
+                        $sociall = '';
+                    }?>
+
+
+                  <li class="<?=$homel?>"><a href="#home" data-toggle="tab">Магазин</a></li>
+                  <li class="<?=$profilel?>"><a href="#profile" data-toggle="tab">Одноклассники</a></li>
+                  <li class="<?=$messagesl?>"><a href="#messages" data-toggle="tab">Instagram</a></li>
+                  <li class="<?=$settingsl?>"><a href="#settings" data-toggle="tab">SEO (Продвижение)</a></li>
+                  <li class="<?=$smsl?>"><a href="#sms" data-toggle="tab">SMS сервер
                                                   <i class="icon-info-sign text-muted" data-toggle="popover" data-html="true" data-placement="top" data-content="API сервиса: (https://smsgateway.me)" title="" data-trigger="hover" data-original-title=""></i>
                       </a>
                   </li>
-                  <li class=""><a href="#chats" data-toggle="tab">Чат и Звонки</a></li>
+                  <li class="<?=$chatsl?>"><a href="#chats" data-toggle="tab">Чат и Звонки</a></li>
+                  <li class="<?=$sociall?>"><a href="#social" data-toggle="tab">Ссылки на соц.сети</a></li>
                 </ul>
               </header>
               <div class="panel-body">
                 <div class="tab-content">
-<!--Настройки магазина-->
-                  <div class="tab-pane active" id="home">
+
+<!--Магазин-->
+                  <div class="<?=$home?>" id="home">
                     <div class="form-group">
                       <label class="col-lg-3 control-label">Название:</label>
                       <div class="col-lg-8">
@@ -70,7 +130,7 @@ else { include("verh.php"); ?>
                       </div>
                     </div>
                       
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                       <label class="col-lg-3 control-label">Тема оформления:</label>
                       <div class="col-lg-8">
                           <select name="theme">
@@ -100,7 +160,7 @@ else { include("verh.php"); ?>
                   </div>
 
 <!--Одноклассники-->
-                  <div class="tab-pane" id="profile">
+                  <div class="<?=$profile?>" id="profile">
                     <div class="form-group">
                       <label class="col-lg-3 control-label">ID группы в ОК:</label>
                       <div class="col-lg-8">
@@ -108,7 +168,7 @@ else { include("verh.php"); ?>
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                       <label class="col-lg-3 control-label">ID страницы в ОК:</label>
                       <div class="col-lg-8">
                         <input type="text" autocomplete="off" name="idokpage" placeholder="" class="form-control parsley-validated" value="<?php echo $params['id_ok_page']; ?>">
@@ -136,7 +196,7 @@ else { include("verh.php"); ?>
                       </div>
                     </div>
 
-                    <div class="form-group">
+                    <div class="form-group" style="display: none">
                       <label class="col-lg-3 control-label">Виджет группы ОК?</label>
                       <div class="col-lg-8">
                         <select name="reklama">
@@ -161,7 +221,7 @@ else { include("verh.php"); ?>
                   </div>
 
 <!--Инстаграмм-->
-                  <div class="tab-pane" id="messages">
+                  <div class="<?=$messages?>" id="messages">
                     <div class="form-group">
                       <label class="col-lg-3 control-label">Instagram логин:</label>
                       <div class="col-lg-8">
@@ -178,7 +238,7 @@ else { include("verh.php"); ?>
                   </div>
 
 <!--SEO продвижение-->
-                  <div class="tab-pane" id="settings">
+                  <div class="<?=$settings?>" id="settings">
                     <div class="form-group" style="display: none">
                       <label class="col-lg-3 control-label">Лимит дней:</label>
                       <div class="col-lg-8">
@@ -217,7 +277,7 @@ else { include("verh.php"); ?>
                     
                     
 <!--SMS сервер-->
-                   <div class="tab-pane" id="sms">
+                   <div class="<?=$sms?>" id="sms">
                        
                     <div class="form-group">
                         <center>
@@ -262,7 +322,7 @@ else { include("verh.php"); ?>
                   </div>
 
 <!--Чат и звонки-->
-                  <div class="tab-pane" id="chats">
+                  <div class="<?=$chats?>" id="chats">
                     <div class="form-group">
                       <label class="col-lg-3 control-label"><a href="https://www.chatbro.com/ru/" target="blank">Chatbro</a> скрипт:</label>
                       <div class="col-lg-8">                      
@@ -274,6 +334,23 @@ else { include("verh.php"); ?>
                       <label class="col-lg-3 control-label"><a href="https://redconnect.ru/" target="blank">RedConnect</a> скрипт:</label>
                       <div class="col-lg-8">                     
                         <textarea name="redconnectscript" placeholder="Сюда поместите скрипт из сервиса RedConnect" rows="5" class="form-control parsley-validated" data-trigger="keyup"><?php echo $params['redconnectscript']; ?></textarea>
+                      </div>
+                    </div>
+                  </div>
+
+<!--Ссылки на соц. сети-->
+                  <div class="<?=$social?>" id="social">
+                    <div class="form-group">
+                      <label class="col-lg-3 control-label">VK:</label>
+                      <div class="col-lg-8">
+                        <textarea name="vklink" placeholder="Сюда поместите ссылку на ваш ВК аккаунт формата: http://vk.com/вашаккаунт" rows="5" class="form-control parsley-validated" data-trigger="keyup"><?php echo $params['vklink']; ?></textarea>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <label class="col-lg-3 control-label">Facebook:</label>
+                      <div class="col-lg-8">
+                        <textarea name="facebooklink" placeholder="Сюда поместите ссылку на ваш фэйсбук аккаунт формата: https://www.facebook.com/вашаккаунт" rows="5" class="form-control parsley-validated" data-trigger="keyup"><?php echo $params['facebooklink']; ?></textarea>
                       </div>
                     </div>
                   </div>

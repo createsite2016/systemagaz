@@ -66,10 +66,11 @@ else {
                 </div>
               </div>
             </footer>
-            <form action="check_list.php" target="_blank" method="POST" id="form">
+            <form action="del_list.php" method="POST" id="form">
 <section class="panel">
 <br><b><span class="center"> |
-            <button class="btn btn-sm btn-info" id="checkbtn" type="submit" form="form"><i class="icon-document"></i> Сформировать чеклист</button>
+            <button class="btn btn-sm btn-info" id="checkbtn" type="submit" form="form"><i class="icon-document"></i> Удалить заказы</button>
+
         </span></b><br><br>
             <div class="table">
               <table class="table text-small">
@@ -110,7 +111,11 @@ if ($user_role=='3') {
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['id']; // Заказ ?></font></b></td>
                       <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php $date = new DateTime($tovar['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                       <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['fio']; // фамилия ?></font></b></td>
-                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['phone'];?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black">
+
+
+                                <a href="http://qrcoder.ru/code/?%2B7<?php echo $tovar['phone'];?>&4&0" target="_blank" onclick="window.open(this.href,this.target,'width=600,height=600,scrollbars=1,left=400,top=100');return false;"><?php echo $tovar['phone'];?></a>
+                            </font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['adress']; // адрес ?></font></b></td>
                     <?php $tovar_name = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ? ",[$tovar['tovar']]) ?>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><a href="../product.php?id=<?php echo $tovar['tovar']; ?>&statistic=false" target="_blank"><?php echo $tovar_name['name']; echo '<br>('; echo $tovar_name['article'].')'; // содержание ?></a></font></b></td>
@@ -124,7 +129,7 @@ if ($user_role=='3') {
                           <ul class="dropdown-menu pull-right">
                               <?php
                               // если заказ закрыт, его не показываю
-                              if ( $tovar['id_status'] != '29' ) { ?>
+                              if ( $tovar['id_status'] != '2' ) { ?>
                                   <li><a href="fl_izm_zakaz.php?id=<?php echo $tovar['id']; ?>&usid=<?php echo $id_user; ?>&kolvo=<?php echo $tovar['kolvo']; ?>">Изменить</a></li>
                                   <li class="divider"></li>
                               <?php } ?>

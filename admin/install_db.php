@@ -1,4 +1,4 @@
-<? echo 'файл установки БД';
+<? echo '<br><br>мастер настройки базы данных<br><br><br>====================================<br>';
 
 // Подключаемся к базе данных, указывая параметры базы данных,
 // имя пользователя и пароль.
@@ -8,21 +8,50 @@
 // $host = 'localhost';
 
 $charset = 'UTF8';
-$db = $_POST['db'];
-$host = $_POST['localhost'];
 
-$dataSource = "mysql:dbname={$db};host={$host};charset={$charset}"; // тип СУБД, хост сервера и имя базы данных
-$user = $_POST['login'];
+
+if (empty($_POST['db']) and empty($_POST['localhost']) and empty($_POST['password'])) {
+    $db_name = "torpix";
+    $host = "localhost";
+    $user = "root";
+    $password = "root";
+} else {
+    $db_name = $_POST['db'];
+    $host = $_POST['localhost'];
+    $user = $_POST['login'];
 $password = $_POST['password'];
+}
+
+
+// Create connection
+$conn = new mysqli($host, $user, $password);
+// Check connection
+if ($conn->connect_error) {
+    die("Ошибка соединения с БД, не верный логин или пароль, возможно и хост");
+}
+// Create database
+$sql = 'CREATE DATABASE IF NOT EXISTS '.$db_name.' CHARSET = '.$charset;
+if ($conn->query($sql) === TRUE) {
+    echo "База данных успешно созданна";
+} else {
+    echo "<font color='red'>Не удалось создать БД: <br>" . $conn->error."</font>";
+}
+$conn->close();
+
+
+
+
+$dataSource = "mysql:dbname={$db_name};host={$host};charset={$charset}"; // тип СУБД, хост сервера и имя базы данных
 $db = new PDO($dataSource, $user, $password); // Подключаемся к базе данных
 
+
 // Добавляем в таблицу users записи
-$db->exec("CREATE TABLE `categor` (
+$db->exec("CREATE TABLE IF NOT EXISTS `categor` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `sort` varchar(55) NOT NULL DEFAULT '' COMMENT 'Сортировка вывода на ветрине'
 ) ENGINE=InnoDB DEFAULT CHARSET=$charset;");
-echo '<br>Успешно мигрированна таблица categor<br>';
+echo '<font color="green"><br>Успешно мигрированна таблица categor<br>';
 
 $db->exec("CREATE TABLE `dostavka` (
   `id` int(11) NOT NULL,
@@ -55,7 +84,8 @@ echo 'Успешно мигрированна таблица in_way<br>';
 $db->exec("CREATE TABLE `klient` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Имя клиента',
-  `phone` varchar(55) NOT NULL DEFAULT '' COMMENT 'Номер телефона клиента',
+  `phone` varchar(55) NOT NULL DEFAULT '' COMMENT 'Номер телефона клиента(он же логин от ЛК)',
+  `password` varchar(55) NOT NULL DEFAULT '' COMMENT 'Пароль клиента от личного кабинет',
   `adress` varchar(255) NOT NULL DEFAULT '' COMMENT 'Адрес клиента'
 ) ENGINE=InnoDB AUTO_INCREMENT=10 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица klient<br>';
@@ -131,7 +161,9 @@ $db->exec("CREATE TABLE `magazins` (
   `description` varchar(55) NOT NULL COMMENT 'Описание',
   `title` varchar(255) NOT NULL COMMENT 'Тайт, заголовок страницы',
   `city` varchar(255) DEFAULT NULL COMMENT 'Название города',
-  `theme` varchar(55) DEFAULT NULL COMMENT 'Тема магазина'
+  `theme` varchar(55) DEFAULT NULL COMMENT 'Тема магазина',
+  `vklink` varchar(255) DEFAULT NULL COMMENT 'Ссылка на профиль ВК',
+  `facebooklink` varchar(255) DEFAULT NULL COMMENT 'Ссылка на профиль Фэйсбук'
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица magazins<br>';
 
@@ -265,6 +297,19 @@ $db->exec("CREATE TABLE `status_rs` (
 ) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица status_rs<br>';
 
+
+$db->exec("CREATE TABLE `zayavki` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT COMMENT 'Ключ',
+  `name` varchar(255) NOT NULL DEFAULT '' COMMENT 'Имя заказчика',
+  `phone` varchar(255) NOT NULL DEFAULT '' COMMENT 'Телефон заказчика',
+  `tema` varchar(255) NOT NULL DEFAULT '' COMMENT 'Тема обращения',
+  `obrashenie` varchar(255) NOT NULL DEFAULT '' COMMENT 'Текст обращения',
+  `datatime` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=$charset;");
+echo 'Успешно мигрированна таблица zayavki<br>';
+
+
 $db->exec("CREATE TABLE `tovar` (
   `id` int(11) NOT NULL,
   `categor_id` varchar(255) NOT NULL DEFAULT '' COMMENT 'Ключ категории',
@@ -280,7 +325,19 @@ $db->exec("CREATE TABLE `tovar` (
   `kolvo` varchar(255) NOT NULL DEFAULT '0' COMMENT 'Количество товара',
   `user_id` varchar(255) NOT NULL DEFAULT '' COMMENT 'Пользователь который добавил товар',
   `image` varchar(255) NOT NULL DEFAULT '' COMMENT 'Картинка товара',
-  `article` varchar(255) NOT NULL DEFAULT '' COMMENT 'Артикул к товару'
+  `article` varchar(255) NOT NULL DEFAULT '' COMMENT 'Артикул к товару',
+  `new` varchar(255) NOT NULL DEFAULT '' COMMENT 'Новинка',
+  `skidka` varchar(255) NOT NULL DEFAULT '' COMMENT 'Процент скидки',
+  `firma` varchar(255) NOT NULL DEFAULT '' COMMENT 'Фирма изготовитель',
+  `razmer` varchar(255) NOT NULL DEFAULT '' COMMENT 'Свойство - Размер',
+  `ves` varchar(255) NOT NULL DEFAULT '' COMMENT 'Свойство - Вес',
+  `obem` varchar(255) NOT NULL DEFAULT '' COMMENT 'Свойство - Объем',
+  `dlina` varchar(255) NOT NULL DEFAULT '' COMMENT 'Свойство - Длина',
+  `material` varchar(255) NOT NULL DEFAULT '' COMMENT 'Свойство - Материал',
+  `color` varchar(255) NOT NULL DEFAULT '' COMMENT 'Свойство - Цвет',
+  `garant` varchar(255) NOT NULL DEFAULT '' COMMENT 'Свойство - Гарантия',
+  `complect` varchar(255) NOT NULL DEFAULT '' COMMENT 'Свойство - Комплектация',
+  `shows` varchar(255) NOT NULL DEFAULT '' COMMENT 'Количество показов'
 ) ENGINE=InnoDB AUTO_INCREMENT=435 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица tovar<br>';
 
@@ -305,8 +362,8 @@ $db->exec("INSERT INTO `status` (`id`, `name`, `color`, `name_color`, `komment`,
 echo '<font color="red"></font><br>';
 
 $db->exec("INSERT INTO `users_8897532` (`id`, `login`, `name`, `password`, `role`, `profes`, `inn`, `ogrn`, `phone`) VALUES
-(1, 'admin', 'Андрей Галушко', '123456', '3', 'Директор', '2437286324', '2874783246873', '9891234567');");
-echo '<font color="red">Внесен пользователь логин: admin     пароль: 123456</font><br>';
+(1, 'admin', 'Администратор', '123456', '3', 'Директор', '2437286324', '2874783246873', '9891234567');");
+echo '</font><font color="red">Внесен пользователь логин: admin     пароль: 123456</font><br>';
 
 $db->exec("-- Indexes for table `categor`
 --
@@ -690,7 +747,7 @@ fwrite($f_hdl, $text);
 // Закрывает открытый файл
 fclose($f_hdl);
 
-exit("<html><head><meta http-equiv='Refresh' content='0; URL=index.php'></head></html>");
+exit("<html><head><meta http-equiv='Refresh' content='5; URL=magazins.php'></head><body>Запускается основной блок программы..</body></html>");
 
 
 

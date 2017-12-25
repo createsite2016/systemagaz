@@ -60,8 +60,7 @@ $id = $_GET['id'];
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Комментарий:</label>
                   <div class="col-lg-8">
-                    <input type="text" autocomplete="off" name="komment" placeholder="" class="form-control parsley-validated" value="<?php echo $params['komment']; ?>">
-                  <input type="hidden" name="action" value="izm_prihod">
+                    <input type="text" autocomplete="off" name="komment" class="form-control parsley-validated" value="<?=$params['komment']; ?>" >
                   </div>
                 </div>
 
@@ -69,6 +68,7 @@ $id = $_GET['id'];
                   <label class="col-lg-3 control-label">UAH:</label>
                   <div class="col-lg-8">
                     <input type="tel" pattern="[0-9]{0,100}" autocomplete="off" name="uah" placeholder="" class="form-control parsley-validated" value="<?php echo $params['uah']; ?>">
+                    <input type="hidden" name="action" value="izm_prihod">
                   </div>
                 </div>
 

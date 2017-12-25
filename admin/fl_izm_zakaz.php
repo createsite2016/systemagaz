@@ -63,7 +63,7 @@ $id = $_GET['id'];
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
                     <input type="hidden" name="usid" value="<?php echo $usid ?>" >
                     <input type="hidden" name="user_name" value="<?php echo $name ?>" >
-                    <input type="hidden" name="kolvo" value="<?php echo $_GET['kolvo'] ?>" >
+
                     <input type="hidden" name="action" value="izm_zakaz" >
                   </div>
                 </div>
@@ -76,6 +76,13 @@ $id = $_GET['id'];
                         $tovar_name = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ? ",[$params['tovar']]);
                         echo $tovar_name['name']; ?>
                       </textarea>
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label class="col-lg-3 control-label">Количество:</label>
+                  <div class="col-lg-8">
+                    <input type="text" autocomplete="off" name="kolvo" class="form-control parsley-validated" value="<?php echo $_GET['kolvo'] ?>">
                   </div>
                 </div>
 

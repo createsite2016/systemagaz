@@ -7,6 +7,7 @@ echo "<small>&copy; Система управления интернет тор�
 ?>
 <img src="images/logo.png" width="200" height="30">
 </p>
+
     </div>
   </footer>
   <a href="#" class="hide slide-nav-block" data-toggle="class:slide-nav slide-nav-left" data-target="body"></a>

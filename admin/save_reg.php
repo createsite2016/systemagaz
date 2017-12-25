@@ -59,7 +59,7 @@ print <<<HERE
               <h3 class="h2 text-black">Придумайте другой логин</h1>
             </div>
             <div class="list-group m-b-small">
-              <a href="index.php" class="list-group-item">
+              <a href="index_old.php" class="list-group-item">
                 <i class="icon-chevron-right"></i>
                 <i class="icon-home"></i> Вернуться на главную
               </a>
@@ -97,7 +97,7 @@ print <<<HERE
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" http-equiv='Refresh' content='2; URL=index.php'>
+  <meta charset="UTF-8" http-equiv='Refresh' content='2; URL=index_old.php'>
   <title>Успешная регистрации</title>
   <meta name="">
   <meta name=""> 
@@ -125,7 +125,7 @@ print <<<HERE
               <h3 class="h2 text-black">Регистрация прошла успешно, теперь вы можете авторизоваться</h1>
             </div>
             <div class="list-group m-b-small">
-              <a href="index.php" class="list-group-item">
+              <a href="index_old.php" class="list-group-item">
                 <i class="icon-chevron-right"></i>
                 <i class="icon-home"></i> Вернуться на главную
               </a>

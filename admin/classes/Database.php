@@ -8,7 +8,7 @@ class Database{
 
 
     // Соединение с БД
-        public function __construct($username="root", $password="root", $host="localhost", $dbname="test_bd", $options = []){
+        public function __construct($username="root", $password="root", $host="localhost", $dbname="torpix", $options = []){
         //public function __construct($username="ce72683_magaz", $password="UC7dQbZC", $host="localhost", $dbname="ce72683_magaz", $options = []){
             $this->isConn = TRUE;
         try {
