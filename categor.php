@@ -14,8 +14,8 @@ $template["NAME_OPEN_CATEGOR"] = $pdo->getRow("SELECT `name` FROM `categor` WHER
 
 
 //  ВЫВОД СТРАНИЦ НАВИГАЦИИ
-$arra = $pdo->getRow("SELECT count(*) FROM `tovar` WHERE `categor_id` = ? ",[ $_GET['cat'] ]);
-$total_articles_number = $arra['count(*)']; //общее количество статей
+$arra = $pdo->getRows("SELECT count(*) FROM `tovar` WHERE `categor_id` = ? GROUP BY `article`",[ $_GET['cat'] ]);
+$total_articles_number = count($arra); //общее количество статей
 $articles_per_page = 6; // количество заказов на странице
 $b = $_GET['page'];
 if (!isset($_GET['page'])) {

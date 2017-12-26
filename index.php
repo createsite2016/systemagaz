@@ -15,8 +15,8 @@ $template["NAME_OPEN_CATEGOR"]["name"] = 'Новинки';
 
 
 //  ВЫВОД СТРАНИЦ НАВИГАЦИИ
-$arra = $pdo->getRow("SELECT count(*) FROM `tovar` ");
-$total_articles_number = $arra['count(*)']; //общее количество статей
+$arra = $pdo->getRows("SELECT COUNT(*) AS `kolvo_in_group` FROM `tovar` GROUP BY `article`");
+$total_articles_number = count($arra); //общее количество статей
 $articles_per_page = 6; // количество заказов на странице
 $b = $_GET['page'];
 if (!isset($_GET['page'])) {
