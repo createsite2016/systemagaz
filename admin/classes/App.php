@@ -371,7 +371,7 @@ if (!empty($shop['id_ok_group'])) {
 if (!empty($shop['id_ok_page'])) {
     $ok_group_id        = $shop['id_ok_page'];
 }
-$message            = $name.' Цена: '.$chena_output.'руб. '.$komment.' Артикул товара: '.$article. ' Заказать можно тут: https://vitashopik.ru/product.php?id='.$id_tovara; // текст для выгрузки
+$message            = $name.' Цена: '.$chena_output.'руб. '.$komment.' Артикул товара: '.$article. ' Заказать можно тут: https://'.$_SERVER['SERVER_NAME'].'/product.php?id='.$id_tovara; // текст для выгрузки
 
 // Запрос
             function getUrl($url, $type = "GET", $params = array(), $timeout = 30, $image = false, $decode = true)
