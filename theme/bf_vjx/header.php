@@ -18,6 +18,7 @@ $template["TOVARS_SKIDKI"] = $pdo->getRows("SELECT
     <meta name="keywords" content="<?=$template["SEO"]["KEYWORDS"]?>" />
     <meta name="description" content="<?=$template["SEO"]["DESCRIPTION"]?>">
     <link href="<?=$template["TEMPLATE_PATH"];?>css/style.css" rel="stylesheet" type="text/css">
+    <link rel="shortcut icon" href="../icon.ico" type="image/x-icon">
     <!--[if lte IE 8]>
     <script type="text/javascript" src="<?=$template[TEMPLATE_PATH];?>js/html5support.js"></script>
     <![endif]-->
