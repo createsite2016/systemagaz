@@ -364,13 +364,9 @@ if ( !empty($shop['token']) || !empty($shop['private_key']) || !empty($shop['pub
 $ok_access_token    = $shop['token'];  // Наш вечный токен
 $ok_private_key     = $shop['private_key'];  // Секретный ключ приложения
 $ok_public_key      = $shop['public_key'];  // Публичный ключ приложения
-//$ok_group_id        = $shop['id_ok_group'];  // ID нашей группы
-if (!empty($shop['id_ok_group'])) {
-    $ok_group_id        = $shop['id_ok_group'];
-}
-if (!empty($shop['id_ok_page'])) {
-    $ok_group_id        = $shop['id_ok_page'];
-}
+$ok_group_id        = $shop['id_ok_group'];  // ID нашей группы
+
+
 $message            = $name.' Цена: '.$chena_output.'руб. '.$komment.' Артикул товара: '.$article. ' Заказать можно тут: https://'.$_SERVER['SERVER_NAME'].'/product.php?id='.$id_tovara; // текст для выгрузки
 
 // Запрос
