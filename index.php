@@ -8,7 +8,7 @@ $template["TEMPLATE_PATH"] = 'theme/bf_vjx/'; // путь до макета ша
 $template["MAGAZIN"] = $pdo->getRow("SELECT * FROM `magazins`"); // данные о магазине
 
 $template["CATEGORIES"] = $pdo->getRows("SELECT `id`,`name` FROM `categor` ORDER BY `sort`"); // список категорий
-$template["NAME_OPEN_CATEGOR"]["name"] = 'Новинки';
+$template["NAME_OPEN_CATEGOR"]["name"] = $template["MAGAZIN"]["name"];
 
 
 
