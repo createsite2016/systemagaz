@@ -11,9 +11,9 @@ $template["CATEGORIES"] = $pdo->getRows("SELECT `id`,`name` FROM `categor` ORDER
 $template["NAME_OPEN_CATEGOR"] = $pdo->getRow("SELECT `name`,`id`,`datapage` FROM `pages` WHERE `id` = ?",[$_GET['id']]); // получение активной страницы
 
 $template["PAGES"] = $pdo->getRows("SELECT `name`,`id`,`about` FROM `pages` ORDER BY `id`"); // получение страниц пользователя
-$template["SEO"]["TITLE"] = $template["NAME_OPEN_CATEGOR"]['name'].' '.$template["MAGAZIN"]['city']; // Заголовок
-$template["SEO"]["KEYWORDS"] = $template["NAME_OPEN_CATEGOR"]['name'].' '.$template["MAGAZIN"]['city']; // Ключевые слова
-$template["SEO"]["DESCRIPTION"] = $template["NAME_OPEN_CATEGOR"]['name'].' '.$template["MAGAZIN"]['city']; // Описание
+$template["SEO"]["TITLE"] = $template["MAGAZIN"]['name'].' '.$template["MAGAZIN"]['city'].' - '.$template["NAME_OPEN_CATEGOR"]['name']; // Заголовок
+$template["SEO"]["KEYWORDS"] = $template["MAGAZIN"]['name'].' '.$template["MAGAZIN"]['city'].' - '.$template["NAME_OPEN_CATEGOR"]['name']; // Ключевые слова
+$template["SEO"]["DESCRIPTION"] = $template["MAGAZIN"]['name'].' '.$template["MAGAZIN"]['city'].' - '.$template["NAME_OPEN_CATEGOR"]['name']; // Описание
 
 include $template["TEMPLATE_PATH"].'page.php'; // подключение страницы шаблона
 ?>
