@@ -14,7 +14,9 @@
                     $count_footer_categor = 0;
                     foreach ( $template["CATEGORIES"] as $category ) {
                         if ($count_footer_categor > 10){$count_footer_categor=0;?></ul><ul><?}?>
+                        <?if(!$category['parent']){?>
                         <li><a href="categor.php?cat=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
+                        <?}?>
                     <?php $count_footer_categor++;} ?>
                 </ul>
             </div>
@@ -127,7 +129,7 @@
                 <div class="input_hold">
                     <label>Номер телефона</label>
                     <div class="input">
-                        <input name="" required="" id="lcphone" required="" type="text">
+                        <input name="" required="" id="lcphone" required="" type="text" autocomplete="off">
                     </div>
                 </div>
             </div>
@@ -136,7 +138,7 @@
                 <div class="input_hold">
                     <label>Пароль</label>
                     <div class="input">
-                        <input name="" placeholder="" id="password" required="" type="password">
+                        <input name="" placeholder="" id="password" required="" type="password" autocomplete="off">
                     </div>
                 </div>
                 <div class="more">
@@ -171,7 +173,7 @@
         <div class="input_hold">
             <label>Номер телефона</label>
             <div class="input">
-                <input name="" id="resetphone" required="" type="text">
+                <input name="" id="resetphone" required="" type="text" autocomplete="off">
             </div>
             <!-- end .input -->
         </div>

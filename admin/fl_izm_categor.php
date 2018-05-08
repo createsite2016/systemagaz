@@ -29,6 +29,7 @@ else { include("verh.php"); ?>
       <div class="row">
 <?php
     $id = $_GET['id'];
+    $parent = $_GET['parent'];
     $params = $pdo->getRow("SELECT * FROM `categor` WHERE `id`= ? ",[$id]);
 ?>
 <section class="panel">
@@ -45,6 +46,7 @@ else { include("verh.php"); ?>
                   <div class="col-lg-8">
                     <input type="text" autocomplete="off" name="name" placeholder="" class="form-control parsley-validated" value="<?php echo $params['name']; ?>">
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
+                    <input type="hidden" name="parent" value="<?=$parent?>" >
                       <input type="hidden" name="action" value="izm_categor">
                   </div>
                 </div>

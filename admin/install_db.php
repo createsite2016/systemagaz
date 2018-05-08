@@ -49,7 +49,8 @@ $db = new PDO($dataSource, $user, $password); // Подключаемся к б�
 $db->exec("CREATE TABLE IF NOT EXISTS `categor` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `sort` varchar(55) NOT NULL DEFAULT '' COMMENT 'Сортировка вывода на ветрине'
+  `sort` varchar(55) NOT NULL DEFAULT '' COMMENT 'Сортировка вывода на ветрине',
+  `parent` varchar(255) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=$charset;");
 echo '<font color="green"><br>Успешно мигрированна таблица categor<br>';
 

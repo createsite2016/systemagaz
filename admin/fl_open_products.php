@@ -41,6 +41,7 @@ if ( $id_categor == null ) {
 $sql_get_name_categor = $pdo->getRows("SELECT * FROM `categor` WHERE `id` = ? LIMIT 1 ", [$id_categor]);
 foreach ( $sql_get_name_categor as $data_name_categor ) {
     $name_categor = $data_name_categor['name'];
+    $id_return_categor = $data_name_categor['parent'];
 } ?>
 
 
@@ -99,13 +100,30 @@ for ( $i=0; $i<$total_pages; $i++ )
 
 
 <section class="panel">
+<?
+$sql_get_categors = $pdo->getRows("SELECT * FROM `categor` WHERE `parent` = ? ",[$_GET['id_categor']]);
+?>
+<br><b><span class="center"><b>
 
-<br><b><span class="center"><b> |   <a href="products.php">  <- <?php echo $name_categor; ?></a></b> |
+                <?
+                if(count($sql_get_categors)>0){?>
+                |   <a href="products.php">  <- <?php echo $name_categor; ?></a></b> |
+                <?} else {?>
+                |   <a href="fl_open_products.php?id_categor=<?=$id_return_categor?>">  <- <?php echo $name_categor; ?></a></b> |
+                <?}?>
+
+
 
     <?php
 // ДОСТУП ТОЛЬКО ДЛЯ АДМИНИСТРАТОРОВ
     if ( $user_role == '3' ) { ?>
             <a class="btn btn-sm btn-info" data-toggle="modal" href="#tovar"><i class="icon-shopping-cart"></i> Новый товар</a>
+            <?
+            if(!$_GET['parent']){?>
+                |<a class="btn btn-sm btn-info" data-toggle="modal" href="#newcategor"><i class="icon-folder-open-alt"></i> Новая категория</a>
+            <?} else {?>
+
+            <?}?>
             |
 
             <script>
@@ -190,27 +208,37 @@ for ( $i=0; $i<$total_pages; $i++ )
                   </tr>
                 </thead>
 <?php
-// Если роль пользователя 1
 include('showdata_forpeople.php');
-if ($user_role=='1') {
-    if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
-    $sql_products = $pdo->getRows("SELECT * FROM `tovar` WHERE `categor_id` =  ? DESC LIMIT ?,?",[$id_categor,$b,$articles_per_page]);
-    foreach ( $sql_products as $data_products ) { ?>
-                  <tr>
-                    <td><?php echo $data_products['article']; ?></td>
-                    <td><a href="../product.php?id=<?php echo $data_products['id']; ?>"><?php echo $data_products['name']; ?></a></td>
-                    <td><?php echo $data_products['model']; ?></td>
-                    <td><?php echo $data_products['kolvo']; ?></td>
-                    <td><?php echo $data_products['chena_input'];?></td>
-                     
-                      <td><?php echo $data_products['chena_output'];?></td>
-                    <td><?php echo $data_products['status']; ?></td>
-                    <td>Нет прав</td>
-                  </tr>
-<?php }}
+
+// ВЫВОД КАТЕГОРИЙ
+foreach ( $sql_get_categors as $categors ) {?>
+    <tr>
+        <td></td>
+        <td><a href="fl_open_products.php?id_categor=<?php echo $categors['id']; ?>&parent=<?=$_GET['id_categor']?>"><img src="images/categor.png"><?php echo $categors['name'];
+                $sql_get_tovar = $pdo->getRow("SELECT SUM(`kolvo`) FROM `tovar` WHERE `categor_id` = $categors[id] ");
+                foreach ($sql_get_tovar as $test){
+                    if ($test > 0) {
+                        echo "<font color='#228b22'> ( кол-во товара: ".$test."шт. )</font>";
+                    } else {
+                        echo "<font color='#a9a9a9'> ( категория пуста )</font>";
+                    }
+                }
+                ?></a></td>
+        <td><a data-toggle="modal" href="#deletecategor<?php echo $categors['id']; ?>"><font color="red">Удалить</font></a>
+            <a href="fl_izm_categor.php?id=<?php echo $categors['id']; ?>&parent=<?=$_GET['id_categor']?>"><font color="Green">Изменить</font></a></td>
+        <td></td>
+        <td></td>
+        <td></td>
+        <td></td>
+    </tr>
+<?}?>
 
 
-// Если роль пользователя 3
+
+
+
+<?
+// ВОВОД ТОВАРА Если роль пользователя 3
 if ($user_role=='3') {
     if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
     $sql_products = $pdo->getRows("SELECT * FROM `tovar` WHERE `categor_id` =  ? ORDER BY `name` DESC LIMIT $b,$articles_per_page",[$id_categor]);
@@ -309,7 +337,6 @@ if ($user_role=='3') {
                                     </div>
                                 </div>
                             </footer>
-
 
 
             <div id="tovar" data-backdrop="false" class="modal fade" style="display: none;" aria-hidden="true">
@@ -521,6 +548,62 @@ if ($user_role=='3') {
             </div>
 <?php endforeach; ?>
 
+                            <div id="newcategor" data-backdrop="false" class="modal fade" style="display: none;" aria-hidden="true">
+                                <form class="m-b-none" action="classes/App.php" method="POST">
+                                    <div class="modal-dialog">
+                                        <div class="modal-content">
+                                            <div class="modal-header">
+                                                <button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>
+                                                <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Новая категория</h4>
+                                            </div>
+
+                                            <div class="modal-body">
+                                                <div class="block">
+                                                    <label class="control-label">Название:</label>
+                                                    <input class="form-control parsley-validated" placeholder="" type="text" name="name" autofocus="" autocomplete="off">
+                                                    <input type="hidden" name="parent" value="<?=$_GET['id_categor']?>">
+                                                    <input type="hidden" name="action" value="add_categor">
+                                                </div>
+                                            </div>
+
+
+                                            <div class="modal-footer">
+                                                <button type="submit" class="btn btn-primary">Добавить</button>
+                                                <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Отмена</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+
+
+                            <?php
+                            $sql_products = $pdo->getRows("SELECT * FROM `categor` WHERE `parent` = ? ",[$_GET['id_categor']]);
+                            foreach ( $sql_products as $windows ){ ?>
+
+                                <!--Модальное окно удаления категории-->
+                                <div id="deletecategor<?php echo $windows['id']; ?>" data-backdrop="false" class="modal fade" style="display: none;" aria-hidden="true">
+                                    <form class="m-b-none" enctype = "multipart/form-data" action="classes/App.php?id=<?php echo $windows['id']; ?>&action=del_categor&parent=<?=$_GET['id_categor']?>"  method="POST">
+                                        <div class="modal-dialog">
+                                            <div class="modal-content">
+                                                <div class="modal-header">
+                                                    <button type="button" class="close" data-dismiss="modal"><i class="icon-remove"></i></button>
+                                                    <h4 class="modal-title" id="myModalLabel"><i class="icon-edit"></i>Вы хотите удалить категорию товара?</h4>
+                                                </div>
+
+                                                <center>
+                                                    <div class="modal-footer">
+                                                        <button type="submit" class="btn btn-primary">Да</button>
+                                                        <button type="button" class="btn btn-sm btn-default" data-dismiss="modal">Нет</button>
+                                                    </div>
+                                                </center>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                                <div class="modal-overlay"></div>
+
+                            <?php } ?>
 
 
 

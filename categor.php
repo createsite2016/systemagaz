@@ -7,7 +7,7 @@ $template["TEMPLATE_PATH"] = 'theme/bf_vjx/'; // путь до макета ша
 
 $template["MAGAZIN"] = $pdo->getRow("SELECT * FROM `magazins`"); // данные о магазине
 
-$template["CATEGORIES"] = $pdo->getRows("SELECT `id`,`name` FROM `categor` ORDER BY `sort`"); // список категорий
+$template["CATEGORIES"] = $pdo->getRows("SELECT `id`,`name`,`parent` FROM `categor` ORDER BY `sort`"); // список категорий
 $template["NAME_OPEN_CATEGOR"] = $pdo->getRow("SELECT `name` FROM `categor` WHERE `id` = ?",[$_GET['cat']]); // имя открытой категории
 
 
@@ -79,8 +79,8 @@ FROM `tovar` WHERE `kolvo` > 0 AND `categor_id` = ? GROUP BY `article` LIMIT $b,
 
 $template["PAGES"] = $pdo->getRows("SELECT `name`,`id`,`about` FROM `pages` ORDER BY `id`"); // получение страниц пользователя
 $template["SEO"]["TITLE"] = $template["NAME_OPEN_CATEGOR"]['name'].' '.$template["MAGAZIN"]['city']; // Заголовок
-$template["SEO"]["KEYWORDS"] = $template["NAME_OPEN_CATEGOR"]['name'].' '.$template["MAGAZIN"]['city']; // Ключевые слова
-$template["SEO"]["DESCRIPTION"] = $template["NAME_OPEN_CATEGOR"]['name'].' '.$template["MAGAZIN"]['city']; // Описание
+$template["SEO"]["KEYWORDS"]    = $template["MAGAZIN"]['keywords'].' '.$template["MAGAZIN"]['city']; // Ключевые слова
+$template["SEO"]["DESCRIPTION"] = $template["MAGAZIN"]['description'].' '.$template["MAGAZIN"]['city']; // Описание
 
 include $template["TEMPLATE_PATH"].'categor.php'; // подключение страницы шаблона
 ?>

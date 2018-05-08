@@ -74,11 +74,11 @@ $template["TOVARS_POPULARS"] = $pdo->getRows("SELECT COUNT(*) AS kolvo_in_group,
                                                     <div class="price">
 
                                                         <?if ($tovar['skidka'] !== ''){?>
-                                                            <span class="price_num"><?echo number_format($tovar['chena_output']-($tovar['chena_output']/100 * $tovar['skidka']), 0, ',', ' ');?> руб.
+                                                            <span class="price_num"><?$res_chena = $tovar['chena_output']-($tovar['chena_output']/100 * $tovar['skidka']); echo number_format($res_chena, 0, ',', ' ');?> руб.
                                             <del><?echo number_format($tovar['chena_output'], 0, ',', ' ');?> руб.</del>
                                         </span>
                                                         <?} else {?>
-                                                            <span class="price_num"><?echo number_format($tovar['chena_output'], 0, ',', ' ');?> руб.
+                                                            <span class="price_num"><?$res_chena = $tovar['chena_output']; echo number_format($res_chena, 0, ',', ' ');?> руб.
                                         </span>
                                                         <?}?>
 

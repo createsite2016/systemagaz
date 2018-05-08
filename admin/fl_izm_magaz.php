@@ -160,7 +160,15 @@ else { include("verh.php"); ?>
                   </div>
 
 <!--Одноклассники-->
-                  <div class="<?=$profile?>" id="profile">
+
+                    <div class="<?=$profile?>" id="profile">
+                        <div class="form-group">
+                            <center>
+                                <b>Инструкция по интеграции <a href="https://pixlpark.ru/faq/social/odnoklassniki" target="blank">ТУТ</a><b>
+                                    </b></b>
+                            </center>
+                        </div>
+
                     <div class="form-group">
                       <label class="col-lg-3 control-label">ID группы в ОК:</label>
                       <div class="col-lg-8">

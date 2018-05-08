@@ -43,20 +43,40 @@ $id = $_GET['id'];
                 <div class="form-group">
                   <label class="col-lg-3 control-label">Категория:</label>
                   <div class="col-lg-8">
-                    <select name="categor_id">
-                    <?php
-                    $id_categor = $_GET['categor']; // получение категории
+                      <select name="categor_id" id="selecategor">
+                          <?php
+                          $sql_get_categor = $pdo->getRows("SELECT * FROM `categor` ");
+                          $sql_get_select_categor = $pdo->getRow("SELECT * FROM `categor` WHERE `id` = ?",[$_GET['categor']]);
+                          foreach ( $sql_get_categor as $data_categor ) {
 
-                    $sql_get_select_tovat = $pdo->getRows("SELECT * FROM `categor` WHERE `id` = ? ",[$id_categor]);
-                    foreach ( $sql_get_select_tovat as $select_tovar ) {
-                      echo "<option selected value=".$select_tovar['id'].">".$select_tovar['name']."</option>";
-                    }
-                    $sql_get_categor = $pdo->getRows("SELECT * FROM `categor` WHERE `id`<>? ",[$id_categor]);
-                    foreach ( $sql_get_categor as $data_categor ) {
-                      echo "<option value=".$data_categor['id'].">".$data_categor['name']."</option>";
-                    }
-                    ?>
-                    </select>
+                              if($data_categor['parent']){
+                                  if($sql_get_select_categor['id'] == $data_categor['id']){
+                                      $get_categor = $pdo->getRow("SELECT * FROM `categor` WHERE `id` = ?",[$data_categor['parent']]);
+                                      echo "<option selected value=".$data_categor['id'].">".$get_categor['name']."--".$data_categor['name']."</option>";
+                                  } else {
+                                      $get_categor = $pdo->getRow("SELECT * FROM `categor` WHERE `id` = ?",[$data_categor['parent']]);
+                                      echo "<option value=".$data_categor['id'].">".$get_categor['name']."--".$data_categor['name']."</option>";
+                                  }
+
+                              } else {
+                                  if($sql_get_select_categor['id'] == $data_categor['id']){
+                                      echo "<option selected value=".$data_categor['id'].">".$data_categor['name']."</option>";
+                                  } else {
+                                      echo "<option value=".$data_categor['id'].">".$data_categor['name']."</option>";
+                                  }
+
+                              }
+
+
+                          }
+                          ?>
+                      </select>
+                      <script type='text/javascript'>
+                          function sorted(id){for(var c=document.getElementById(id),b=c.options,a=0;a<b.length;)
+                              if(b[a+1]&&b[a].text>b[a+1].text){c.insertBefore(b[a+1],b[a]);a=a>=1?a-1:a+1}else a++;
+                               };
+                          sorted("selecategor");
+                      </script>
                     <input type="hidden" name="id" value="<?php echo $id ?>" >
                     <input type="hidden" name="id_categor" value="<?php echo $id_categor; ?>" >
                     <input type="hidden" name="action" value="izm_tovar">

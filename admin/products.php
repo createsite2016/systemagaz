@@ -83,7 +83,7 @@ if ($user_role=='1') {
 // Если роль пользователя 3
 if ($user_role=='3') {
 
-    $sql_get_products = $pdo->getRows("SELECT * FROM `categor` ORDER BY `sort` ");
+    $sql_get_products = $pdo->getRows("SELECT * FROM `categor` WHERE `parent`='' ORDER BY `sort` ");
     foreach ( $sql_get_products as $products ) {
         ?>
                             <tr>
@@ -152,16 +152,31 @@ if ($user_role=='3') {
                                 <div class="modal-body">
                                     <div class="block">
                                         <label class="control-label">Категория:</label>
-                                        <select name="categor_id">
+                                        <select name="categor_id" id="selecategor">
                                         <?php
                                         $sql_get_categor = $pdo->getRows("SELECT * FROM `categor` ");
                                         foreach ( $sql_get_categor as $data_categor ) {
 
-                                          echo "<option value=".$data_categor['id'].">".$data_categor['name']."</option>";
+                                          if($data_categor['parent']){
+                                              $get_categor = $pdo->getRow("SELECT * FROM `categor` WHERE `id` = ?",[$data_categor['parent']]);
+                                              echo "<option value=".$data_categor['id'].">".$get_categor['name']."--".$data_categor['name']."</option>";
+                                          } else {
+                                              echo "<option value=".$data_categor['id'].">".$data_categor['name']."</option>";
+                                          }
+
 
                                         }
                                         ?>
                                         </select>
+                                        <script type='text/javascript'>
+                                            function sorted(id){for(var c=document.getElementById(id),b=c.options,a=0;a<b.length;)
+                                                if(b[a+1]&&b[a].text>b[a+1].text){c.insertBefore(b[a+1],b[a]);a=a>=1?a-1:a+1}else a++;
+                                                b[0].selected=true };
+                                            sorted("selecategor");
+                                        </script>
+
+
+
                                     </div>
                                 </div>
 

@@ -254,12 +254,21 @@ class App
             // получаем название категрии
             $name = $_POST['name'];
 
+            if($_POST['parent']){
+                $parent = $_POST['parent'];
+            }
+
             // вносим новую в базу категорию
             $pdo = new Database();
-            $pdo->insertRow("INSERT INTO `categor` (`name`) VALUES (?)",[$name]);
-
-            // делаем переход на страницу товары
-            $this->goWayClass('products');
+            if($parent){
+                $pdo->insertRow("INSERT INTO `categor` (`name`,`parent`) VALUES (?,?)",[$name,$parent]);
+                // делаем переход на страницу товары
+                $this->goWayClassParams('fl_open_products','id_categor='.$parent);
+            } else {
+                $pdo->insertRow("INSERT INTO `categor` (`name`) VALUES (?)",[$name]);
+                // делаем переход на страницу товары
+                $this->goWayClass('products');
+            }
 
         }
 
@@ -742,13 +751,20 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
         if ( $action == 'del_categor' ) {
 
             $pdo->deleteRow("DELETE FROM `categor` WHERE `id` = ?",[$id]);
+            $pdo->deleteRow("DELETE FROM `categor` WHERE `parent` = ?",[$id]);
             $ids = $pdo->getRows("SELECT * FROM `tovar` WHERE `categor_id` = ?",[$id]);
             foreach ($ids as $items) {
                 $del_photo = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ?",[$items["id"]]);
                 unlink($_SERVER['DOCUMENT_ROOT'].'/'.$del_photo["image"]);
             }
-            $pdo->deleteRow("DELETE FROM `tovar` WHERE `categor_id` = ?",[$id]);
-            $this->goWayClass('products');
+            if($_GET['parent']){
+                $pdo->deleteRow("DELETE FROM `tovar` WHERE `categor_id` = ?",[$id]);
+                $this->goWayClassParams('fl_open_products','id_categor='.$_GET['parent']);
+            } else {
+                $pdo->deleteRow("DELETE FROM `tovar` WHERE `categor_id` = ?",[$id]);
+                $this->goWayClass('products');
+            }
+
 
         }
 
@@ -758,8 +774,14 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $name = $_POST['name'];
             $id = $_POST['id'];
             $sort = $_POST['sort']; // цифра порядка сортировка вывода
-            $pdo->updateRow("UPDATE `categor` SET `name` = ?, `sort` = ? WHERE `id` = ? ",[$name,$sort,$id]);
-            $this->goWayClass('products');
+            if($_POST['parent']){
+                $parent = $_POST['parent'];
+                $pdo->updateRow("UPDATE `categor` SET `name` = ?, `sort` = ?, `parent` = ? WHERE `id` = ? ",[$name,$sort,$parent,$id]);
+                $this->goWayClassParams('fl_open_products',"id_categor=".$parent);
+            } else {
+                $pdo->updateRow("UPDATE `categor` SET `name` = ?, `sort` = ? WHERE `id` = ? ",[$name,$sort,$id]);
+                $this->goWayClass('products');
+            }
 
         }
 

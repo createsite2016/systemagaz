@@ -150,7 +150,7 @@ $id = $_GET['id'];
 
 
 
-  <center><h4><i class="icon-time"></i>Итория товара</h4></center>
+  <center><h4><i class="icon-time"></i>Итория всех продаж товара</h4></center>
   <!-- Панель лога действий с товаром -->
   <section class="panel">
     <br><b></b><br><br>

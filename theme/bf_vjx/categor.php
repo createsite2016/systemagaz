@@ -26,9 +26,35 @@
                     <?}?>
                     <aside class="aside">
                         <ul class="map_site map_site_big">
-                            <?php
+                            <?
+                            // перебор каьегорий
                             foreach ( $template["CATEGORIES"] as $category ) { ?>
-                                <li><a class="hold" href="categor.php?cat=<?php echo $category['id']; ?>"><?php echo $category['name']; ?></a></li>
+
+                                <?if(!$category['parent']){ // если это не дочерняя категория?>
+                                    <li>
+                                        <?$count_parent = array_search($category['id'], array_column($template["CATEGORIES"], 'parent')); // смотрим есть ли дочернии подкатегории?>
+                                        <?if($count_parent>0){ // если есть дочернии подкатегории?>
+                                        <span class="hold">
+                                            <a href="categor.php?cat=<?=$category['id']?>" onclick="location.href = 'categor.php?cat=<?=$category[id]?>';"><?=$category['name']?></a>
+                                        </span>
+                                            <ul style="display: none;">
+                                                <?
+                                                foreach ($template["CATEGORIES"] as $items) {
+                                                    if($items['parent'] == $category['id']){?>
+                                                        <li><a class="hold" href="categor.php?cat=<?=$items['id']?>"><?=$items['name']?></a></li>
+                                                    <?}
+                                                }
+                                                ?>
+                                            </ul>
+                                        <?}else{ // иначе выводим одну главную?>
+                                            <a class="hold" href="categor.php?cat=<?=$category['id']?>"><?=$category['name']?></a>
+                                        <?}?>
+                                    </li>
+                                <?}else{?>
+<!--                                    <li>-->
+<!--                                        <a class="hold" href="categor.php?cat=--><?php //echo $category['id']; ?><!--">--><?php //echo $category['name']; ?><!--</a>-->
+<!--                                    </li>-->
+                                <?}?>
                             <?php } ?>
                         </ul>
                         <!-- end .map_site_big -->

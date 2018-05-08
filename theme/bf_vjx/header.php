@@ -116,7 +116,7 @@ $template["TOVARS_SKIDKI"] = $pdo->getRows("SELECT
         <input type="checkbox" id="menu_check">
         <?
         if($user["RULES"] == 'y') {?>
-            <a class="btn btn_yellow_bord" href="/admin/pages.php" target="_blank">изменить страницы</a>
+            <a class="btn btn_yellow_bord" href="/admin/pages.php" target="_blank">управление страницами</a>
         <?}?>
         <nav class="menu">
             <div class="container">
