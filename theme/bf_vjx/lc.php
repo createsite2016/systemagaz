@@ -25,7 +25,6 @@
                             <th>&nbsp;</th>
                         </tr>
                         </tbody><tbody>
-
                         <? include('admin/showdata_forpeople.php'); // подключение библиотеки для вывода человеко-понятной даты?>
                         <?foreach ($template["priem"] as $item) {?>
                             <tr>
@@ -49,7 +48,7 @@
                                 </td>
                                 <td class="vert_top">
                                     <ul class="dash_list">
-                                        <li><a href="http://magaz/product.php?id=<?=$item["id"]?>&cat=<?=$item["categor_id"]?>" target="_blank"><?=$item["name"]?> (<?=$item["kolvo"]?> шт.)</a></li>
+                                        <li><a href="http://magaz/product.php?id=<?=$item["tovar"]?>&cat=<?=$item["categor_id"]?>" target="_blank"><?=$item["name"]?> (<?=$item["kolvo"]?> шт.)</a></li>
                                     </ul>
                                 </td>
                                 <td><b class="status"><?=$item["status"]?></b></td>
