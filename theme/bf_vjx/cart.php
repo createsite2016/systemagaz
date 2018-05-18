@@ -6,7 +6,9 @@
             <span class="slash">/</span> <?=$template["NAME_OPEN_CATEGOR"]["name"];?>
         </div>
     </nav>
-
+<?
+$_SESSION["USER"]["number_zakaz"] = rand(111111111111, 999999999999);
+?>
     <main>
         <section class="cart_form_sect">
             <div class="container" id="bodycarthtml">

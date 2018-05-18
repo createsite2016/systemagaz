@@ -44,6 +44,15 @@ function plus(id,path) {
             document.getElementById('cart').innerHTML = data;
         }
     });
+    $.ajax({
+        type: "POST",
+        data: "action=" + 'get_summ',
+        url: path+"ajax/cart.php",
+        dataType: "text",
+        success: function (data) {
+            document.getElementById('sum').value = data;
+        }
+    });
 
 
     // увеличиваю на 1-цу количество выбранного товара в корзине
@@ -71,6 +80,16 @@ function minus(id,path) {
             dataType: "text",
             success: function (data) {
                 document.getElementById('cart').innerHTML = data;
+            }
+        });
+
+        $.ajax({
+            type: "POST",
+            data: "action=" + 'get_summ',
+            url: path+"ajax/cart.php",
+            dataType: "text",
+            success: function (data) {
+                document.getElementById('sum').value = data;
             }
         });
 

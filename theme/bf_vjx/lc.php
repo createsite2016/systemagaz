@@ -20,11 +20,12 @@
                             <th>Цена</th>
                             <th>Товар</th>
                             <th>Статус</th>
-                            <th>&nbsp;</th>
+                            <th>Номер заказа</th>
                             <th>&nbsp;</th>
                             <th>&nbsp;</th>
                         </tr>
                         </tbody><tbody>
+
                         <? include('admin/showdata_forpeople.php'); // подключение библиотеки для вывода человеко-понятной даты?>
                         <?foreach ($template["priem"] as $item) {?>
                             <tr>
@@ -52,7 +53,7 @@
                                     </ul>
                                 </td>
                                 <td><b class="status"><?=$item["status"]?></b></td>
-                                <td></td>
+                                <td><?=$item["number_zakaza"]?></td>
                                 <td>
                                     <?if ($item["status"] == 'Новый заказ') {?>
                                     <a class="bnt_close" onclick="lc_delete_order(<?=$item["id"]?>)"></a>

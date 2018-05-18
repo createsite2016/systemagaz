@@ -78,6 +78,7 @@ if ($action == 'plus') {
 
     print_r($out);
 }
+
 // действия при нажатии кнопки - в корзине
 if ($action == 'minus') {
 
@@ -97,14 +98,19 @@ if ($action == 'minus') {
         $count = $count - $value["COUNT"]; // тут количество
         $res_price = $res_price - ($value["PRICE"]*$value["COUNT"]); // тут стоимость
     }
-    $_SESSION["all_price_cart"] = $res_price; // помещаем в сессию общую стоимость покупки.
+
 
     $res_price = -$res_price;
     $count = -$count;
 
+    $_SESSION["all_price_cart"] = $res_price; // помещаем в сессию общую стоимость покупки.
+
     $out =  $res_price.' <span class="top_cart_curr"> руб.</span><span class="top_cart_num" id="cart">'.$count.'</span>';
 
     print_r($out);
+}
+if ($action == 'get_summ') {
+    print_r($_SESSION["all_price_cart"]);
 }
 // действия при нажатии кнопки Х в корзине
 if ($action == 'del') {
@@ -146,9 +152,10 @@ if ($action == 'order') {
     $magazin = $pdo->getRow("SELECT * FROM `magazins`"); // получаем магазин
 
     // перебераю данные из сессии и записываю в БД
+    $insert_number_zakaza = $_SESSION["USER"]["number_zakaz"];
     foreach ($_SESSION["cart"] as $key=>$value) {
-        $number_zakaza = $pdo->lastInsertId("INSERT INTO `priem` (`tovar`,`kolvo`,`fio`,`phone`,`adress`,`komment`,`datatime`,`sklad`) VALUES (?,?,?,?,?,?,?,?) ",
-            [$key,$value["COUNT"],$name,$phone,$adress,$komment,$datatime,$magazin['name']]);
+        $number_zakaza = $pdo->lastInsertId("INSERT INTO `priem` (`tovar`,`kolvo`,`fio`,`phone`,`adress`,`komment`,`datatime`,`sklad`,`number_zakaza`) VALUES (?,?,?,?,?,?,?,?,?) ",
+            [$key,$value["COUNT"],$name,$phone,$adress,$komment,$datatime,$magazin['name'],$insert_number_zakaza]);
     }
 
     // добавление в базу клиентов

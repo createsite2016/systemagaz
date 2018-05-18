@@ -103,11 +103,33 @@
     <div class="modal modal_small" id="order_ok" style="display: none">
     <div class="modal_head">
         <span class="success_ico"></span>
-        Ваш заказ принят.
+        Заказ № <?=$_SESSION["USER"]["number_zakaz"]?> принят.
     </div>
     <!-- end .modal_head -->
     <p class="txt">
-        В ближайшее время с вами свяжется наш менеджер.
+        В ближайшее время с вами свяжется наш менеджер.<br>
+        Для оплаты нажмите кнопку "Оплатить заказ"
+        <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+            <input type="hidden" name="receiver" value="410014588303230">
+            <input type="hidden" name="formcomment" value="<?=$template["MAGAZIN"]["NAME"]?>">
+            <input type="hidden" name="short-dest" value="Оплата заказа № <?=$_SESSION["USER"]["number_zakaz"]?>">
+            <input type="hidden" name="label" value="<?=$_SESSION["USER"]["number_zakaz"]?>">
+            <input type="hidden" name="successURL" value="http://<?=$_SERVER['HTTP_HOST']?>/thankyou.php?orderid=<?=$_SESSION["USER"]["number_zakaz"]?>">
+            <input type="hidden" name="quickpay-form" value="shop">
+            <input type="hidden" name="targets" value="транзакция № <?=$_SESSION["USER"]["number_zakaz"]?>">
+            <input type="hidden" name="sum" id="sum" value="<?=$_SESSION["all_price_cart"]?>" data-type="number">
+            <?
+            $date_today = date("m.d.y");
+            $today[1] = date("H:i:s");
+            ?>
+            <input type="hidden" name="comment" value="Оплачен время: <?=$today[1]?> дата: <?=$date_today?>");">
+            <input type="hidden" name="need-fio" value="false">
+            <input type="hidden" name="need-email" value="false">
+            <input type="hidden" name="need-phone" value="false">
+            <input type="hidden" name="need-address" value="false">
+            <label><input type="hidden" name="paymentType" value="AC"></label>
+            <input type="submit" value="Оплатить заказ">
+        </form>
     </p>
     <a class="modal_close" onclick="close_win();"></a>
 </div>
