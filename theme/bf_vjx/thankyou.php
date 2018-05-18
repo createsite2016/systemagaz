@@ -10,7 +10,7 @@
         <main>
             <article>
                 <div class="container">
-                    <h1>Ваш заказ № <?=$_REQUEST["orderid"];?> успешно оплачен</h1>
+                    <h2>Ваш заказ № <?=$_REQUEST["orderid"];?> успешно оплачен</h2>
                     <p>
                         <?=$_SESSION["USER"]["name"]?>, <?=$template["MAGAZIN"]["name"]?> благодарит Вас, за покупку в нашем интернет-магазине.
                     </p>

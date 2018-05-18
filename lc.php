@@ -38,6 +38,25 @@ if ( $_POST["action"] == 'saveuserdata' ) {
     echo 'y';
 }
 
+// регистрация нового клиента
+if ( $_POST["action"] == 'regnewuser' ) {
+    $name = $_POST["name"];
+    $adress = $_POST["adress"];
+    $password = $_POST["password"];
+    $phone = $_POST["phone"];
+
+    $user = $pdo->getRow("SELECT `name`,`phone`,`password`,`adress` FROM `klient` WHERE `phone` = ?", [$phone]);
+    if ($user) {
+        echo 'no';
+    } else {
+        $pdo->insertRow("INSERT INTO `klient` (`name`,`adress`,`password`,`phone`) VALUES (?,?,?,?)",[$name,$adress,$password, $phone]);
+        $template["USER"] = $pdo->getRow("SELECT `name`,`phone`,`password`,`adress` FROM `klient` WHERE `phone` = ?", [$phone]);
+        $_SESSION["USER"] = $template["USER"];
+        echo 'yes';
+    }
+
+}
+
 if ( $_POST["action"] == 'deluserorder' ) {
     $id = $_POST["id"];
     $pdo->deleteRow("DELETE FROM `priem` WHERE `id` = ?",[$id]);

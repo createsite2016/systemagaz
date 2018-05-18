@@ -47,7 +47,7 @@ $template["TOVARS_SKIDKI"] = $pdo->getRows("SELECT
             <div class="container">
                 <div class="curr">
 
-                    <?if ( !empty($_SESSION["USER"]) ) { // если есть данные в сессии о пользователе?>
+                    <?if ( !empty($_SESSION["USER"]["name"]) ) { // если есть данные в сессии о пользователе?>
                         <ul class="lang">
                             <li>
                                 <a class="prj_label" href="lc.php">Личный кабинет (<?=$_SESSION["USER"]["name"]?>)</a>

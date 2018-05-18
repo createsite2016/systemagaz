@@ -117,11 +117,11 @@ $_SESSION["USER"]["number_zakaz"] = rand(111111111111, 999999999999);
 <!--                                    </label>-->
 <!--                                </div>-->
 <!--                            </div>-->
-<!--                           -->
+<!---->
 <!--                            <div class="half">-->
 <!--                                <div class="cart_choise_blk">-->
 <!--                                    <h3 class="h3">Оплата</h3>-->
-<!--                                    -->
+<!---->
 <!--                                    <label class="custom_check_lab">-->
 <!--                                        <input class="outtaHere" name="payment1" value="" type="radio">-->
 <!--                                        <span class="custom_radio"></span>-->
@@ -144,7 +144,7 @@ $_SESSION["USER"]["number_zakaz"] = rand(111111111111, 999999999999);
 <!--                            <a class="btn btn_red_big" href="#">Активировать</a>-->
 <!--                        </div>-->
 
-
+                        <?if($_SESSION["USER"]["name"]){?>
                         <script type="text/javascript" src="js/mask.js"></script>
 
                         <script>
@@ -198,6 +198,13 @@ $_SESSION["USER"]["number_zakaz"] = rand(111111111111, 999999999999);
                             </div>
                             <!-- end .cart_form_bottom_hold -->
                         </div>
+                    <?}else{?>
+                        <br>
+                        <center><font color="red">Для оформления заказа нужно быть зарегистрированным <a href="registration.php">перейти к регистрации</a></font> или <a onclick="lc();">войти</a></center>
+                        <br>
+                    <?}?>
+
+
                     <?} else {?>
                         Ваша корзина пуста <a href="index.php">перейти к покупкам</a>
                     <?}?>

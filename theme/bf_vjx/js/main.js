@@ -252,6 +252,44 @@ function lc_save_newdata_klient() {
     }
 }
 
+// регистрация клиента в магазине
+function reg_new_user(path) {
+
+    var name = document.getElementById('name').value;
+    var phone = document.getElementById('phone').value;
+    var adress = document.getElementById('adress').value;
+    var password = document.getElementById('password').value;
+
+    if (name !== '' & adress !== '' & phone.length == 15) {
+        error = 0;
+    } else {
+        error = 1;
+    }
+
+    if ( error == 0 ) {
+        $.ajax({
+            type: "POST",
+            data: "name=" + name + "&action=" + 'regnewuser' + "&phone=" + phone + "&adress=" + adress + "&password=" + password,
+            url:  "lc.php",
+            dataType: "text",
+            success: function (data) {
+                if (data.charAt(1)+data.charAt(2)+data.charAt(3) == 'yes') {
+                    alert('Вы зарегистрированны');
+                    document.location.href = "lc.php";
+                }
+                if (data.charAt(1)+data.charAt(2) == 'no') {
+                    alert('Такой пользователь с таким номером телефона уже зарегистрирован');
+                }
+            }
+        });
+    }
+
+    if ( error == 1 ) {
+        alert('Не все данные указанны для регистрации');
+    }
+
+}
+
 // удаление заказа из личного кабинета клиента со статусом новый заказ
 function lc_delete_order(id) {
     $.ajax({
@@ -289,6 +327,8 @@ function acsept() {
     {document.getElementById('btn_order').disabled = true;}
 
 }
+
+
 
 
 

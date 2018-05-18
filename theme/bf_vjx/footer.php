@@ -154,6 +154,9 @@
                         <input name="" required="" id="lcphone" required="" type="text" autocomplete="off">
                     </div>
                 </div>
+
+                    <a href="registration.php" class="btn btn_yellow_bord">Регистрация</a>
+
             </div>
             <!-- end .half -->
             <div class="half">
@@ -163,10 +166,14 @@
                         <input name="" placeholder="" id="password" required="" type="password" autocomplete="off">
                     </div>
                 </div>
+
                 <div class="more">
                     <a onclick="show_reset_password();">Забыли пароль?</a>
                 </div>
+
+
                 <button class="btn btn_red_big" onclick="login_klient();">Войти</button>
+
             </div>
             <!-- end .half -->
         </div>
