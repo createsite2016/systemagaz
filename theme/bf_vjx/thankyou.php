@@ -18,7 +18,7 @@
                         Вы можете отследить статус своего заказа в <a href="/lc.php">личном кабинете</a>.
                     </p>
                     <p>
-                        Будем рады ответить на все ваши вопросы по вот этим контактам: <a href="tel:<?=$template["MAGAZIN"]['phone']?>"><?=$template["MAGAZIN"]['phone']?></a>, <a href="mailto:<?=$template["MAGAZIN"]['email']?>"><?=$template["MAGAZIN"]['email']?></a>
+                        Будем рады ответить на все ваши вопросы: <a href="tel:<?=$template["MAGAZIN"]['phone']?>"><?=$template["MAGAZIN"]['phone']?></a>, <a href="mailto:<?=$template["MAGAZIN"]['email']?>"><?=$template["MAGAZIN"]['email']?></a>
                     </p>
                 </div>
             </article>
