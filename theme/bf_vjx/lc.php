@@ -52,7 +52,7 @@
                                         <li><a href="http://magaz/product.php?id=<?=$item["tovar"]?>&cat=<?=$item["categor_id"]?>" target="_blank"><?=$item["name"]?> (<?=$item["kolvo"]?> шт.)</a></li>
                                     </ul>
                                 </td>
-                                <td><b class="status"><?=$item["status"]?></b></td>
+                                <td><b class="status"><?=$item["status"]?></b><br>(<?=$item["oplata"]?>)</td>
                                 <td><?=$item["number_zakaza"]?></td>
                                 <td>
                                     <?if ($item["status"] == 'Новый заказ') {?>
