@@ -49,7 +49,7 @@
         <div class="bottom_blk">
             <div class="price">
 
-                <?if ($tovar['skidka'] !== ''){?>
+                <?if ($tovar['skidka']){?>
                     <span class="price_num"><?$res_chena = $tovar['chena_output']-($tovar['chena_output']/100 * $tovar['skidka']); echo number_format($res_chena, 0, ',', ' ');?> руб.
                                             <del><?=$tovar['chena_output'];?> руб.</del>
                                         </span>
