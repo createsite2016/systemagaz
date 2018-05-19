@@ -66,34 +66,39 @@
                                             $summa = ($value["kolvo"] * $value["chena_output"]) + $summa;
                                         }
                                     }
-                                    //echo $summa;
                                     ?>
                                     <br>
-                                    <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
-                                        <input type="hidden" name="receiver" value="<?=$template["MAGAZIN"]["ya_money"]?>">
-                                        <input type="hidden" name="formcomment" value="<?=$template["MAGAZIN"]["name"]?>">
-                                        <input type="hidden" name="short-dest" value="Оплата заказа № <?=$item["number_zakaza"]?>">
-                                        <input type="hidden" name="label" value="<?=$item["number_zakaza"]?>">
-                                        <input type="hidden" name="successURL" value="http://<?=$_SERVER['HTTP_HOST']?>/thankyou.php?orderid=<?=$item["number_zakaza"]?>">
-                                        <input type="hidden" name="quickpay-form" value="shop">
-                                        <input type="hidden" name="targets" value="транзакция № <?=$item["number_zakaza"]?>">
-                                        <input type="hidden" name="sum" id="sum" value="<?=$summa?>">
-                                        <?
-                                        $date_today = date("m.d.y");
-                                        $today[1] = date("H:i:s");
-                                        ?>
-                                        <input type="hidden" name="comment" value="Оплачен время: <?=$today[1]?> дата: <?=$date_today?>");">
-                                        <input type="hidden" name="need-fio" value="false">
-                                        <input type="hidden" name="need-email" value="false">
-                                        <input type="hidden" name="need-phone" value="false">
-                                        <input type="hidden" name="need-address" value="false">
-                                        <label><input type="hidden" name="paymentType" value="AC"></label>
-                                        <input type="submit" value="Оплатить заказ (<?=$summa?> рублей)">
-                                    </form>
+                                    <?if($item["oplata"]=="Оплачен"){echo '<font color="green">('.$item["oplata"].')</font>';}else{?>
+                                        <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
+                                            <input type="hidden" name="receiver" value="<?=$template["MAGAZIN"]["ya_money"]?>">
+                                            <input type="hidden" name="formcomment" value="<?=$template["MAGAZIN"]["name"]?>">
+                                            <input type="hidden" name="short-dest" value="Оплата заказа № <?=$item["number_zakaza"]?>">
+                                            <input type="hidden" name="label" value="<?=$item["number_zakaza"]?>">
+                                            <input type="hidden" name="successURL" value="http://<?=$_SERVER['HTTP_HOST']?>/thankyou.php?orderid=<?=$item["number_zakaza"]?>">
+                                            <input type="hidden" name="quickpay-form" value="shop">
+                                            <input type="hidden" name="targets" value="транзакция № <?=$item["number_zakaza"]?>">
+                                            <input type="hidden" name="sum" id="sum" value="<?=$summa?>">
+                                            <?
+                                            $date_today = date("m.d.y");
+                                            $today[1] = date("H:i:s");
+                                            ?>
+                                            <input type="hidden" name="comment" value="Оплачен время: <?=$today[1]?> дата: <?=$date_today?>");">
+                                            <input type="hidden" name="need-fio" value="false">
+                                            <input type="hidden" name="need-email" value="false">
+                                            <input type="hidden" name="need-phone" value="false">
+                                            <input type="hidden" name="need-address" value="false">
+                                            <label><input type="hidden" name="paymentType" value="AC"></label>
+                                            <input type="submit" value="Оплатить заказ (<?=$summa?> рублей)">
+                                        </form>
+                                    <?}?>
                                 </td>
                                 <td>
                                     <?if ($item["status"] == 'Новый заказ') {?>
-                                    <a class="bnt_close" onclick="lc_delete_order(<?=$item["id"]?>)"></a>
+                                        <?if($item["oplata"]=="Оплачен"){
+
+                                        }else{?>
+                                            <a class="bnt_close" onclick="lc_delete_order(<?=$item["id"]?>)"></a>
+                                        <?}?>
                                     <?}?>
 
                                 </td>

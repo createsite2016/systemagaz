@@ -97,7 +97,7 @@ include('showdata_forpeople.php');
 if ($user_role=='3') {
     if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
 
-    $sql_tovar = $pdo->getRows("SELECT priem.id,priem.color as id_status,datatime,fio,phone,number_zakaza,adress,dostavka,tovar,status,kolvo,user_name,postavshik,priem.komment,status.color  FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
+    $sql_tovar = $pdo->getRows("SELECT priem.id,priem.color as id_status,datatime,fio,phone,number_zakaza,adress,dostavka,oplata,tovar,status,kolvo,user_name,postavshik,priem.komment,status.color  FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
     foreach ($sql_tovar as $tovar) { ?>
                   <tr>
                     <td>
@@ -120,7 +120,8 @@ if ($user_role=='3') {
                     <?php $tovar_name = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ? ",[$tovar['tovar']]) ?>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><a href="../product.php?id=<?php echo $tovar['tovar']; ?>&statistic=false" target="_blank"><?php echo $tovar_name['name']; echo '<br>('; echo $tovar_name['article'].')'; // содержание ?></a></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['kolvo']; // количество ?></font></b></td>
-                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['status']; ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['status']; ?></font><br>
+                        <?if($tovar["oplata"]=="Оплачен"){echo '<font color="green">(Оплачен)</font>';}else{echo '<font color="red">(Не оплачен)</font>';}?></br></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['user_name']; ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['komment']; ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>">
