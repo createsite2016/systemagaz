@@ -51,6 +51,14 @@ else { include("verh.php"); ?>
                         $messagesl = '';
                     }?>
 
+                    <?if ($_GET["razdel"] == "money" ) {
+                        $money = 'tab-pane active';
+                        $moneyl = 'active';
+                    } else {
+                        $money = 'tab-pane';
+                        $moneyl = '';
+                    }?>
+
                     <?if ($_GET["razdel"] == "settings" ) {
                         $settings = 'tab-pane active';
                         $settingsl = 'active';
@@ -87,6 +95,7 @@ else { include("verh.php"); ?>
                   <li class="<?=$homel?>"><a href="#home" data-toggle="tab">Магазин</a></li>
                   <li class="<?=$profilel?>"><a href="#profile" data-toggle="tab">Одноклассники</a></li>
                   <li class="<?=$messagesl?>"><a href="#messages" data-toggle="tab">Instagram</a></li>
+                  <li class="<?=$moneyl?>"><a href="#money" data-toggle="tab">Яндекс Деньги</a></li>
                   <li class="<?=$settingsl?>"><a href="#settings" data-toggle="tab">SEO (Продвижение)</a></li>
                   <li class="<?=$smsl?>"><a href="#sms" data-toggle="tab">SMS сервер
                                                   <i class="icon-info-sign text-muted" data-toggle="popover" data-html="true" data-placement="top" data-content="API сервиса: (https://smsgateway.me)" title="" data-trigger="hover" data-original-title=""></i>
@@ -228,22 +237,49 @@ else { include("verh.php"); ?>
                     </div>
                   </div>
 
-<!--Инстаграмм-->
-                  <div class="<?=$messages?>" id="messages">
+<!--Яндекс Деньги-->
+                  <div class="<?=$money?>" id="money">
+
+
+                      <div class="form-group">
+                          <label class="col-lg-3 control-label"> Адрес для уведомлений::</label>
+                          <div class="col-lg-8">
+                              <input type="text" autocomplete="off" name="instagramlogin" placeholder="" class="form-control parsley-validated" value="http://<?=$_SERVER['HTTP_HOST']?>/thankyou.php">
+                          </div>
+                      </div>
+
                     <div class="form-group">
-                      <label class="col-lg-3 control-label">Instagram логин:</label>
+                      <label class="col-lg-3 control-label">Яндекс кошелек:</label>
                       <div class="col-lg-8">
-                        <input type="text" autocomplete="off" name="instagramlogin" placeholder="" class="form-control parsley-validated" value="<?php echo $params['instagram_login']; ?>">
+                        <input type="text" autocomplete="off" name="ya_money" placeholder="" class="form-control parsley-validated" value="<?php echo $params['ya_money']; ?>">
                       </div>
                     </div>
 
                     <div class="form-group">
-                      <label class="col-lg-3 control-label">Instagram пароль:</label>
+                      <label class="col-lg-3 control-label">Яндекс секретное слово:</label>
                       <div class="col-lg-8">
-                        <input type="password" autocomplete="off" name="instagrampassword" placeholder="" class="form-control parsley-validated" value="<?php echo $params['instagram_password']; ?>">
+                        <input type="password" autocomplete="off" name="ya_secret" placeholder="" class="form-control parsley-validated" value="<?php echo $params['ya_secret']; ?>">
                       </div>
                     </div>
                   </div>
+
+
+<!--Инстаграмм-->
+                    <div class="<?=$messages?>" id="messages">
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Instagram логин:</label>
+                            <div class="col-lg-8">
+                                <input type="text" autocomplete="off" name="instagramlogin" placeholder="" class="form-control parsley-validated" value="<?php echo $params['instagram_login']; ?>">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="col-lg-3 control-label">Instagram пароль:</label>
+                            <div class="col-lg-8">
+                                <input type="password" autocomplete="off" name="instagrampassword" placeholder="" class="form-control parsley-validated" value="<?php echo $params['instagram_password']; ?>">
+                            </div>
+                        </div>
+                    </div>
 
 <!--SEO продвижение-->
                   <div class="<?=$settings?>" id="settings">
@@ -282,8 +318,8 @@ else { include("verh.php"); ?>
                       </div>
                     </div>
                   </div>
-                    
-                    
+
+
 <!--SMS сервер-->
                    <div class="<?=$sms?>" id="sms">
                        

@@ -164,7 +164,9 @@ $db->exec("CREATE TABLE `magazins` (
   `city` varchar(255) DEFAULT NULL COMMENT 'Название города',
   `theme` varchar(55) DEFAULT NULL COMMENT 'Тема магазина',
   `vklink` varchar(255) DEFAULT NULL COMMENT 'Ссылка на профиль ВК',
-  `facebooklink` varchar(255) DEFAULT NULL COMMENT 'Ссылка на профиль Фэйсбук'
+  `facebooklink` varchar(255) DEFAULT NULL COMMENT 'Ссылка на профиль Фэйсбук',
+  `ya_money` varchar(255) DEFAULT NULL COMMENT 'Яндекс кошелек',
+  `ya_secret` varchar(255) DEFAULT NULL COMMENT 'Яндекс секретное слово'
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица magazins<br>';
 

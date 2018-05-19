@@ -110,7 +110,7 @@
         В ближайшее время с вами свяжется наш менеджер.<br>
         Для оплаты нажмите кнопку "Оплатить заказ"
         <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
-            <input type="hidden" name="receiver" value="410014588303230">
+            <input type="hidden" name="receiver" value="<?=$template["MAGAZIN"]["ya_money"]?>">
             <input type="hidden" name="formcomment" value="<?=$template["MAGAZIN"]["NAME"]?>">
             <input type="hidden" name="short-dest" value="Оплата заказа № <?=$_SESSION["USER"]["number_zakaz"]?>">
             <input type="hidden" name="label" value="<?=$_SESSION["USER"]["number_zakaz"]?>">

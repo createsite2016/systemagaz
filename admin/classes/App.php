@@ -1396,6 +1396,8 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $reklama = $_POST['reklama']; // показ рекламы ('Да' или 'Нет')
             $instagram_login = $_POST['instagramlogin']; // логин инстаграмм
             $instagram_password = $_POST['instagrampassword']; // пароль инстаграмм
+            $ya_money = $_POST['ya_money']; // яндекс кошелек
+            $ya_secret = $_POST['ya_secret']; // секретное слово яндекса
             $token = $_POST['token'];
             $private_key = $_POST['private_key'];
             $public_key = $_POST['public_key'];
@@ -1414,7 +1416,7 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $vklink = $_POST["vklink"]; // ссылка на ВК профиль
             $facebooklink = $_POST["facebooklink"]; // ссылка на фэйсбук профиль
             
-            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`id_ok_page` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?,`keywords` = ?,`city` = ?,`description` = ?,`title` = ?,`smslogin` = ?,`smspassword` = ?,`smsid` = ?,`smsnumber` = ?,`chatbroscript` = ?,`redconnectscript` = ?,`theme` = ?,`vklink` = ?, `facebooklink` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$idokpage,$komment,$reklama,$instagram_login,$instagram_password,$token,$private_key,$public_key,$time_day,$keywords,$city,$description,$title,$sms_login,$sms_password,$sms_id,$sms_number,$chatbroscript,$redconnectscript,$theme,$vklink,$facebooklink,$id]);
+            $pdo->updateRow("UPDATE `magazins` SET `name` = ?,`phone` = ?, `email` = ?,`id_ok_group` = ?,`id_ok_page` = ?,`komment`= ?, `reklama` = ?, `instagram_login` = ?, `instagram_password` = ?, `ya_money` = ?, `ya_secret` = ?, `token` = ?, `private_key` = ?, `public_key` = ?,`time_day` = ?,`keywords` = ?,`city` = ?,`description` = ?,`title` = ?,`smslogin` = ?,`smspassword` = ?,`smsid` = ?,`smsnumber` = ?,`chatbroscript` = ?,`redconnectscript` = ?,`theme` = ?,`vklink` = ?, `facebooklink` = ?  WHERE `id` = ? ",[$name,$phone,$email,$idokgroup,$idokpage,$komment,$reklama,$instagram_login,$instagram_password,$ya_money,$ya_secret,$token,$private_key,$public_key,$time_day,$keywords,$city,$description,$title,$sms_login,$sms_password,$sms_id,$sms_number,$chatbroscript,$redconnectscript,$theme,$vklink,$facebooklink,$id]);
             $this->goWayClass('magazins');
         }
 
