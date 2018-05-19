@@ -215,7 +215,8 @@ $db->exec("CREATE TABLE `priem` (
   `postavshik` varchar(255) NOT NULL,
   `kolvo` varchar(255) NOT NULL DEFAULT '' COMMENT 'количество',
   `tovar` varchar(255) NOT NULL DEFAULT '' COMMENT 'ключ товара',
-  `number_zakaza` varchar(255) NOT NULL DEFAULT '' COMMENT 'номер заказа'
+  `number_zakaza` varchar(255) NOT NULL DEFAULT '' COMMENT 'номер заказа',
+  `oplata` varchar(255) DEFAULT 'Не оплачен' COMMENT 'Состояние оплаты'
 ) ENGINE=InnoDB DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица priem<br>';
 
