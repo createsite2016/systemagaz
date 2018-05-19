@@ -21,7 +21,7 @@
 
                         }
                         // тут код на случай, если проверка прошла успешно
-                        $pdo->updateRow("UPDATE `priem` SET `color`= ?,`oplata`= ? WHERE `number_zakaza`= ? ", ['3', 'Оплачен', $_POST['label']]);
+                        $pdo->updateRow("UPDATE `priem` SET `color`= ?,`oplata`= ? WHERE `number_zakaza`= ? ", ['1', 'Оплачен', $_POST['label']]);
 
                     }
                     ?>
