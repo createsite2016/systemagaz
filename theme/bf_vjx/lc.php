@@ -40,9 +40,9 @@
                                     <span class="price">
                                         <?if ($item["skidka"] !== ''){?>
                                             <?$res_chena = $item["chena_output"]-($item["chena_output"]/100 * $item["skidka"]);?>
-                                            <?=$res_chena;?> Р
+                                            <?=$res_chena;?> руб.
                                         <?} else {?>
-                                            <?=$res_chena = $item["chena_output"]?> Р
+                                            <?=$res_chena = $item["chena_output"]?> руб.
                                         <?}?>
                                     </span>
                                     <span class="price_met"><img src="<?=$item["image"]?>" alt="image" width="47" height="28"></span>
@@ -56,8 +56,17 @@
                                 <td>
                                     <?=$item["number_zakaza"]?>
                                     <?
-                                    $zakaz = $pdo->getRow("SELECT SUM(`kolvo`) FROM `priem` WHERE `number_zakaza` = ?", [$item[number_zakaza]]);
-                                    var_dump($zakaz);
+                                    $summa = 0;
+                                    $zakaz = $pdo->getRows("SELECT * FROM `tovar` AS `t`, `priem` AS `p` WHERE `p`.`tovar` = `t`.`id` AND `p`.`number_zakaza` = ?",[$item[number_zakaza]]);
+                                    foreach ($zakaz as $value){
+                                        if($value["skidka"]){
+                                            $res_chena = $value["chena_output"]-($value["chena_output"]/100 * $value['skidka']);
+                                            $summa = ($value["kolvo"]*$res_chena) + $summa;
+                                        } else {
+                                            $summa = ($value["kolvo"] * $value["chena_output"]) + $summa;
+                                        }
+                                    }
+                                    //echo $summa;
                                     ?>
                                     <br>
                                     <form method="POST" action="https://money.yandex.ru/quickpay/confirm.xml">
@@ -68,7 +77,7 @@
                                         <input type="hidden" name="successURL" value="http://<?=$_SERVER['HTTP_HOST']?>/thankyou.php?orderid=<?=$item["number_zakaza"]?>">
                                         <input type="hidden" name="quickpay-form" value="shop">
                                         <input type="hidden" name="targets" value="транзакция № <?=$item["number_zakaza"]?>">
-                                        <input type="hidden" name="sum" id="sum" value="<?=$_SESSION["all_price_cart"]?>" data-type="number">
+                                        <input type="hidden" name="sum" id="sum" value="<?=$summa?>">
                                         <?
                                         $date_today = date("m.d.y");
                                         $today[1] = date("H:i:s");
@@ -79,7 +88,7 @@
                                         <input type="hidden" name="need-phone" value="false">
                                         <input type="hidden" name="need-address" value="false">
                                         <label><input type="hidden" name="paymentType" value="AC"></label>
-                                        <input type="submit" value="Оплатить заказ">
+                                        <input type="submit" value="Оплатить заказ (<?=$summa?> рублей)">
                                     </form>
                                 </td>
                                 <td>

@@ -239,10 +239,12 @@ else { include("verh.php"); ?>
 
 <!--Яндекс Деньги-->
                   <div class="<?=$money?>" id="money">
-
+                      <div class="form-group">
+                          <center><a href="https://money.yandex.ru/myservices/online.xml" target="_blank">Настройки HTTP-уведомления по этой ссылке</a></center>
+                      </div>
 
                       <div class="form-group">
-                          <label class="col-lg-3 control-label"> Адрес для уведомлений::</label>
+                          <label class="col-lg-3 control-label"> Адрес для уведомлений:</label>
                           <div class="col-lg-8">
                               <input type="text" autocomplete="off" name="instagramlogin" placeholder="" class="form-control parsley-validated" value="http://<?=$_SERVER['HTTP_HOST']?>/thankyou.php">
                           </div>
