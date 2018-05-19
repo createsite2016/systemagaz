@@ -97,7 +97,7 @@ include('showdata_forpeople.php');
 if ($user_role=='3') {
     if ( $_REQUEST['page'] == '1' ) { $b = '0'; } // вывод постранично
 
-    $sql_tovar = $pdo->getRows("SELECT priem.id,priem.color as id_status,datatime,fio,phone,adress,dostavka,tovar,status,kolvo,user_name,postavshik,priem.komment,status.color  FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
+    $sql_tovar = $pdo->getRows("SELECT priem.id,priem.color as id_status,datatime,fio,phone,number_zakaza,adress,dostavka,tovar,status,kolvo,user_name,postavshik,priem.komment,status.color  FROM `priem` INNER JOIN `status` ON status.id=priem.color ORDER BY `sort`,`datatime` DESC LIMIT $b,$articles_per_page ");
     foreach ($sql_tovar as $tovar) { ?>
                   <tr>
                     <td>
@@ -108,7 +108,7 @@ if ($user_role=='3') {
                             </label>
                         </div>
                     </td>
-                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['id']; // Заказ ?></font></b></td>
+                    <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['number_zakaza']; // Заказ ?></font></b></td>
                       <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php $date = new DateTime($tovar['datatime']); echo $date->format('d.m.y | H:i'); ?></font></b></td>
                       <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black"><?php echo $tovar['fio']; // фамилия ?></font></b></td>
                     <td bgcolor="<?php echo $tovar['color'];?>"><b><font color="black">
