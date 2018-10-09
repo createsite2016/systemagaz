@@ -101,42 +101,9 @@ $_SESSION["USER"]["number_zakaz"] = rand(111111111111, 999999999999);
                         </div>
 
                         <!-- Оплата и доставка -->
-<!--                        <div class="half_hold">-->
-<!--                            <div class="half">-->
-<!--                                <div class="cart_choise_blk">-->
-<!--                                    <h3 class="h3">Доставка</h3>-->
-<!--                                    <label class="custom_check_lab">-->
-<!--                                        <input class="outtaHere" name="delivery1" value="" type="radio">-->
-<!--                                        <span class="custom_radio"></span>-->
-<!--                                        Почта России: <b>200 Р</b>-->
-<!--                                    </label>-->
-<!--                                    <label class="custom_check_lab">-->
-<!--                                        <input class="outtaHere" name="delivery1" value="" type="radio">-->
-<!--                                        <span class="custom_radio"></span>-->
-<!--                                        Доставка курьером: <b>500 Р</b>-->
-<!--                                    </label>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!---->
-<!--                            <div class="half">-->
-<!--                                <div class="cart_choise_blk">-->
-<!--                                    <h3 class="h3">Оплата</h3>-->
-<!---->
-<!--                                    <label class="custom_check_lab">-->
-<!--                                        <input class="outtaHere" name="payment1" value="" type="radio">-->
-<!--                                        <span class="custom_radio"></span>-->
-<!--                                        Счет на оплату-->
-<!--                                    </label>-->
-<!--                                    <label class="custom_check_lab">-->
-<!--                                        <input class="outtaHere" name="payment1" value="" type="radio">-->
-<!--                                        <span class="custom_radio"></span>-->
-<!--                                        Наличный расчет-->
-<!--                                    </label>-->
-<!--                                </div>-->
-<!--                            </div>-->
-<!--                        </div>-->
+                    <? include_once 'include/delivery.php'; // подключение футера ?>
 
-                        <!-- Купон на скидку -->
+<!--                         Купон на скидку-->
 <!--                        <div class="discount_coupon">-->
 <!--                            <h4 class="h4">Купон на скидку</h4>-->
 <!--                            <img src="--><?//=$template["TEMPLATE_PATH"]?><!--img/discont_ico.png" alt="image" width="134" height="134">-->

@@ -33,7 +33,7 @@ if ( !empty($_SESSION["cart"]) ) {
 }
 
 
-
+$template["DELIVERY"] = $pdo->getRows("SELECT `id`,`name`,`komment`,`chena` FROM `dostavka` ORDER BY `sort`"); // список служб доставки
 $template["PAGES"] = $pdo->getRows("SELECT `name`,`id`,`about` FROM `pages` ORDER BY `id`"); // получение страниц пользователя
 $template["SEO"]["TITLE"]       = $template["NAME_OPEN_CATEGOR"]['name'].' '.$template["MAGAZIN"]['city'].' - корзина'; // Заголовок
 $template["SEO"]["KEYWORDS"]    = $template["MAGAZIN"]['keywords'].' '.$template["MAGAZIN"]['city']; // Ключевые слова

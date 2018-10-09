@@ -4676,7 +4676,7 @@ blockquote.blockquote_white:before {
   font-size: 18px;
   font-weight: 900;
   text-align: center;
-  padding: 0 37%;
+  /*padding: 0 57%;*/
 }
 .cart_form_sect .cart_row_price del {
   display: block;

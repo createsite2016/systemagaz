@@ -28,6 +28,7 @@ else { include("verh.php"); ?>
       </div>
       <div class="row">
 <?php
+$id_categor = $_GET['categor'];
 $id = $_GET['id'];
   $params = $pdo->getRow("SELECT * FROM `tovar` WHERE `id`= ? ",[$id]);
 ?>

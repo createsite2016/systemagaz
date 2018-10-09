@@ -48,10 +48,24 @@ else { include("verh.php"); ?>
                   </div>
                 </div>
 
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Цена (рублей):</label>
+                      <div class="col-lg-8">
+                          <textarea placeholder="Цена (только цифры)" rows="3" name="chena" class="form-control parsley-validated" data-trigger="keyup" ><?php echo $params['chena']; ?></textarea>
+                      </div>
+                  </div>
+
+                  <div class="form-group">
+                      <label class="col-lg-3 control-label">Примечание:</label>
+                      <div class="col-lg-8">
+                          <textarea placeholder="Примечание" rows="3" name="komment" class="form-control parsley-validated" data-trigger="keyup" ><?php echo $params['komment']; ?></textarea>
+                      </div>
+                  </div>
+
                 <div class="form-group">
-                  <label class="col-lg-3 control-label">Примечание:</label>
+                  <label class="col-lg-3 control-label">Сортировка:</label>
                   <div class="col-lg-8">
-                    <textarea placeholder="Содержание" rows="3" name="komment" class="form-control parsley-validated" data-trigger="keyup" ><?php echo $params['komment']; ?></textarea>
+                    <textarea placeholder="Сортировка" rows="3" name="sort" class="form-control parsley-validated" data-trigger="keyup" ><?php echo $params['sort']; ?></textarea>
                   </div>
                 </div>
 

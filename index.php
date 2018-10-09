@@ -65,7 +65,7 @@ $template["NAVIGATION"][] = "<a href='".$PHP_SELF."?page=".$page_number."'> ".($
 
 
 
-$template["TOVARS"] = $pdo->getRows("SELECT COUNT(*) AS kolvo_in_group, 
+$template["TOVARS"] = $pdo->getRows("SELECT COUNT(*) AS `kolvo_in_group`, 
 `id`,
 `image`,
 `name`,

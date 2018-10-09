@@ -1577,7 +1577,7 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $name = $_POST['name'];
             $komment = $_POST['komment'];
 
-            $pdo->insert("INSERT INTO `status_rs` (`name`,`komment`) VALUES (?,?)",[$name,$komment]);
+            $pdo->insertRow("INSERT INTO `status_rs` (`name`,`komment`) VALUES (?,?)",[$name,$komment]);
             $this->goWayClass('status_rs');
         }
 
@@ -1597,9 +1597,11 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
         if ( $action == 'add_dostavka' ) {
 
             $name = $_POST['name'];
+            $chena = $_POST['chena'];
+            $sort = $_POST['sort'];
             $komment = $_POST['komment'];
 
-            $pdo->insertRow("INSERT INTO `dostavka` (`name`,`komment`) VALUES (?,?)",[$name,$komment]);
+            $pdo->insertRow("INSERT INTO `dostavka` (`name`,`chena`,`sort`,`komment`) VALUES (?,?,?,?)",[$name,$chena,$sort,$komment]);
             $this->goWayClass('dostavka');
         }
 
@@ -1609,8 +1611,10 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $name = $_POST['name'];
             $id = $_POST['id'];
             $komment = $_POST['komment'];
+            $chena = $_POST['chena'];
+            $sort = $_POST['sort'];
 
-            $pdo->updateRow("UPDATE `dostavka` SET `name` = ?,`komment`= ? WHERE `id` = ? ",[$name,$komment,$id]);
+            $pdo->updateRow("UPDATE `dostavka` SET `name` = ?,`komment`= ?,`chena`=?,`sort`=? WHERE `id` = ? ",[$name,$komment,$chena,$sort,$id]);
             $this->goWayClass('dostavka');
         }
 

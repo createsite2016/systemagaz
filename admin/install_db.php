@@ -50,14 +50,16 @@ $db->exec("CREATE TABLE IF NOT EXISTS `categor` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `sort` varchar(55) NOT NULL DEFAULT '' COMMENT 'Сортировка вывода на ветрине',
-  `parent` varchar(255) NOT NULL
+  `parent` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB DEFAULT CHARSET=$charset;");
 echo '<font color="green"><br>Успешно мигрированна таблица categor<br>';
 
 $db->exec("CREATE TABLE `dostavka` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
-  `komment` varchar(255) NOT NULL
+  `komment` varchar(255) NOT NULL,
+  `chena` varchar(255) DEFAULT '0',
+  `sort` varchar(255) DEFAULT '0'
 ) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица dostavka<br>';
 
@@ -93,56 +95,57 @@ echo 'Успешно мигрированна таблица klient<br>';
 
 $db->exec("CREATE TABLE `log_priem` (
   `id` int(11) NOT NULL,
-  `id_zakaz` varchar(255) NOT NULL,
+  `id_zakaz` varchar(255) NOT NULL DEFAULT '',
   `datatime` datetime NOT NULL,
-  `meneger` varchar(255) NOT NULL,
-  `status` varchar(255) NOT NULL,
-  `komment` varchar(255) NOT NULL,
-  `fio` varchar(25) NOT NULL,
-  `phone` varchar(255) NOT NULL,
-  `adress` varchar(255) NOT NULL,
-  `dostavka` varchar(255) NOT NULL,
-  `store` varchar(255) NOT NULL,
-  `postavshik` varchar(255) NOT NULL
+  `meneger` varchar(255) NOT NULL DEFAULT '',
+  `status` varchar(255) NOT NULL DEFAULT '',
+  `komment` varchar(255) NOT NULL DEFAULT '',
+  `fio` varchar(25) NOT NULL DEFAULT '',
+  `phone` varchar(255) NOT NULL DEFAULT '',
+  `adress` varchar(255) NOT NULL DEFAULT '',
+  `dostavka` varchar(255) NOT NULL DEFAULT '',
+  `store` varchar(255) NOT NULL DEFAULT '',
+  `postavshik` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=122 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица log_priem<br>';
 
 $db->exec("CREATE TABLE `log_prihod` (
   `id` int(11) NOT NULL,
-  `id_tovara` varchar(255) NOT NULL,
+  `id_tovara` varchar(255) NOT NULL DEFAULT '',
   `datatime` datetime NOT NULL,
-  `kolvo` varchar(255) NOT NULL,
-  `chena` varchar(255) NOT NULL,
-  `valuta` varchar(255) NOT NULL,
-  `postavshik` varchar(255) NOT NULL,
-  `komment` varchar(255) NOT NULL,
-  `meneger` varchar(255) NOT NULL
+  `kolvo` varchar(255) NOT NULL DEFAULT '',
+  `chena` varchar(255) NOT NULL DEFAULT '',
+  `valuta` varchar(255) NOT NULL DEFAULT '',
+  `postavshik` varchar(255) NOT NULL DEFAULT '',
+  `komment` varchar(255) NOT NULL DEFAULT '',
+  `meneger` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=352 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица log_prihod<br>';
 
 $db->exec("CREATE TABLE `log_rashod` (
   `id` int(11) NOT NULL,
-  `id_tovara` varchar(255) NOT NULL,
+  `id_tovara` varchar(255) NOT NULL DEFAULT '',
   `datatime` datetime NOT NULL,
-  `kolvo` varchar(255) NOT NULL,
-  `chena` varchar(255) NOT NULL,
-  `prifut` varchar(255) NOT NULL,
-  `nakladnaya` varchar(255) NOT NULL,
-  `komment` varchar(255) NOT NULL,
-  `magazin` varchar(255) NOT NULL,
-  `menedger` varchar(255) NOT NULL,
-  `prodavec` varchar(255) NOT NULL,
-  `nalogka` varchar(255) NOT NULL,
-  `valuta` varchar(255) NOT NULL
+  `kolvo` varchar(255) NOT NULL DEFAULT '',
+  `chena` varchar(255) NOT NULL DEFAULT '',
+  `prifut` varchar(255) NOT NULL DEFAULT '',
+  `nakladnaya` varchar(255) NOT NULL DEFAULT '',
+  `komment` varchar(255) NOT NULL DEFAULT '',
+  `magazin` varchar(255) NOT NULL DEFAULT '',
+  `menedger` varchar(255) NOT NULL DEFAULT '',
+  `prodavec` varchar(255) NOT NULL DEFAULT '',
+  `nalogka` varchar(255) NOT NULL DEFAULT '',
+  `valuta` varchar(255) NOT NULL DEFAULT ''
 ) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица log_rashod<br>';
 
-$db->exec("CREATE TABLE `magazins` (
+
+try {$db->exec("CREATE TABLE `magazins` (
   `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `komment` varchar(255) NOT NULL,
-  `phone` varchar(20) NOT NULL,
-  `email` varchar(55) NOT NULL,
+  `phone` varchar(20) NOT NULL DEFAULT '',
+  `email` varchar(55) NOT NULL DEFAULT '',
   `reklama` varchar(11) NOT NULL DEFAULT '' COMMENT 'Вывод рекламы',
   `id_ok_group` varchar(55) NOT NULL DEFAULT '' COMMENT 'ID группы в ОК',
   `id_ok_page` varchar(55) NOT NULL DEFAULT '' COMMENT 'ID страницы в ОК',
@@ -152,23 +155,28 @@ $db->exec("CREATE TABLE `magazins` (
   `smspassword` varchar(55) NOT NULL DEFAULT '' COMMENT 'Пароль для смс отправки',
   `smsid` varchar(55) NOT NULL DEFAULT '' COMMENT 'айди устройства',
   `smsnumber` varchar(55) NOT NULL DEFAULT '' COMMENT 'Номер на который будет приходить смс',
-  `chatbroscript` LONGTEXT NOT NULL DEFAULT '' COMMENT 'скрипт для чата',
-  `redconnectscript` LONGTEXT NOT NULL DEFAULT '' COMMENT 'скрипт для обратного звонка',
+  `chatbroscript` LONGTEXT NULL COMMENT 'скрипт для чата',
+  `redconnectscript` LONGTEXT NULL COMMENT 'скрипт для обратного звонка',
   `token` varchar(255) NOT NULL DEFAULT '' COMMENT 'Вечный токен',
   `private_key` varchar(255) NOT NULL DEFAULT '' COMMENT 'Секретный ключ приложения',
   `public_key` varchar(255) NOT NULL DEFAULT '' COMMENT 'Публичный ключ приложения',
-  `time_day` varchar(255) DEFAULT NULL COMMENT 'Время через которое помечается товар',
-  `keywords` varchar(255) NOT NULL COMMENT 'Ключевые слова',
-  `description` varchar(55) NOT NULL COMMENT 'Описание',
-  `title` varchar(255) NOT NULL COMMENT 'Тайт, заголовок страницы',
-  `city` varchar(255) DEFAULT NULL COMMENT 'Название города',
-  `theme` varchar(55) DEFAULT NULL COMMENT 'Тема магазина',
-  `vklink` varchar(255) DEFAULT NULL COMMENT 'Ссылка на профиль ВК',
-  `facebooklink` varchar(255) DEFAULT NULL COMMENT 'Ссылка на профиль Фэйсбук',
-  `ya_money` varchar(255) DEFAULT NULL COMMENT 'Яндекс кошелек',
-  `ya_secret` varchar(255) DEFAULT NULL COMMENT 'Яндекс секретное слово'
+  `time_day` varchar(255) NOT NULL DEFAULT '' COMMENT 'Время через которое помечается товар',
+  `keywords` varchar(255) NOT NULL DEFAULT '' COMMENT 'Ключевые слова',
+  `description` varchar(55) NOT NULL DEFAULT '' COMMENT 'Описание',
+  `title` varchar(255) NOT NULL DEFAULT '' COMMENT 'Тайт, заголовок страницы',
+  `city` varchar(255) NOT NULL DEFAULT '' COMMENT 'Название города',
+  `theme` varchar(55) NOT NULL DEFAULT '' COMMENT 'Тема магазина',
+  `vklink` varchar(255) NOT NULL DEFAULT '' COMMENT 'Ссылка на профиль ВК',
+  `facebooklink` varchar(255) NOT NULL DEFAULT '' COMMENT 'Ссылка на профиль Фэйсбук',
+  `ya_money` varchar(255) NOT NULL DEFAULT '' COMMENT 'Яндекс кошелек',
+  `ya_secret` varchar(255) NOT NULL DEFAULT '' COMMENT 'Яндекс секретное слово'
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=$charset;");
-echo 'Успешно мигрированна таблица magazins<br>';
+    echo 'Успешно мигрированна таблица magazins<br>';
+}
+catch(PDOException $e) {
+    echo $e->getMessage();
+}
+
 
 $db->exec("CREATE TABLE `money` (
   `id` int(11) NOT NULL,
@@ -205,16 +213,16 @@ $db->exec("CREATE TABLE `priem` (
   `phone` varchar(255) NOT NULL,
   `fio` varchar(255) NOT NULL COMMENT 'фио',
   `adress` varchar(255) NOT NULL COMMENT 'адрес-содержание',
-  `user_name` varchar(255) NOT NULL,
+  `user_name` varchar(255) NOT NULL DEFAULT '',
   `komment` varchar(255) NOT NULL DEFAULT '' COMMENT 'Комментарий к заказу',
   `datatime` datetime NOT NULL COMMENT 'дата приема',
   `rem_datatime` datetime DEFAULT NULL COMMENT 'дата ремонта',
   `status` varchar(255) NOT NULL DEFAULT 'Новый заказ' COMMENT 'статус',
   `sklad` varchar(255) NOT NULL,
   `color` varchar(255) NOT NULL DEFAULT '1',
-  `dostavka` varchar(255) NOT NULL,
-  `status_id` varchar(255) NOT NULL,
-  `postavshik` varchar(255) NOT NULL,
+  `dostavka` varchar(255) NOT NULL DEFAULT '',
+  `status_id` varchar(255) NOT NULL DEFAULT '',
+  `postavshik` varchar(255) NOT NULL DEFAULT '',
   `kolvo` varchar(255) NOT NULL DEFAULT '' COMMENT 'количество',
   `tovar` varchar(255) NOT NULL DEFAULT '' COMMENT 'ключ товара',
   `number_zakaza` varchar(255) NOT NULL DEFAULT '' COMMENT 'номер заказа',
@@ -248,15 +256,15 @@ $db->exec("CREATE TABLE `prihod` (
 CREATE TABLE `rashod` (
   `id` int(11) NOT NULL,
   `datatime` datetime NOT NULL,
-  `uah` varchar(255) NOT NULL,
-  `usd` varchar(255) NOT NULL,
-  `eur` varchar(255) NOT NULL,
-  `cash1` varchar(255) NOT NULL,
-  `cash2` varchar(255) NOT NULL,
-  `cash3` varchar(255) NOT NULL,
-  `cash4` varchar(255) NOT NULL,
-  `cash5` varchar(255) NOT NULL,
-  `cash6` varchar(255) NOT NULL,
+  `uah` varchar(255) NOT NULL DEFAULT '',
+  `usd` varchar(255) NOT NULL DEFAULT '',
+  `eur` varchar(255) NOT NULL DEFAULT '',
+  `cash1` varchar(255) NOT NULL DEFAULT '',
+  `cash2` varchar(255) NOT NULL DEFAULT '',
+  `cash3` varchar(255) NOT NULL DEFAULT '',
+  `cash4` varchar(255) NOT NULL DEFAULT '',
+  `cash5` varchar(255) NOT NULL DEFAULT '',
+  `cash6` varchar(255) NOT NULL DEFAULT '',
   `manager` varchar(255) NOT NULL,
   `statya` varchar(255) NOT NULL,
   `komment` varchar(255) NOT NULL
@@ -322,10 +330,10 @@ $db->exec("CREATE TABLE `tovar` (
   `model` varchar(255) NOT NULL DEFAULT '' COMMENT 'Страна производитель',
   `chena_input` varchar(255) NOT NULL DEFAULT '' COMMENT 'Цена закупки',
   `chena_output` varchar(255) NOT NULL DEFAULT '' COMMENT 'Цена продажи',
-  `money_input` varchar(255) NOT NULL DEFAULT '' COMMENT '-Неиспользуется',
-  `money_output` varchar(255) NOT NULL DEFAULT '' COMMENT '-Неиспользуется',
+  `money_input` varchar(255) NULL COMMENT '-Неиспользуется',
+  `money_output` varchar(255) NULL COMMENT '-Неиспользуется',
   `komment` varchar(255) NOT NULL DEFAULT '' COMMENT 'Описание',
-  `status` varchar(255) NOT NULL DEFAULT '' COMMENT 'Витрина',
+  `status` varchar(255) NULL COMMENT 'Витрина',
   `datatime` datetime NOT NULL COMMENT 'Дата добавления товара',
   `kolvo` varchar(255) NOT NULL DEFAULT '0' COMMENT 'Количество товара',
   `user_id` varchar(255) NOT NULL DEFAULT '' COMMENT 'Пользователь который добавил товар',
@@ -359,6 +367,9 @@ $db->exec("CREATE TABLE `users_8897532` (
   `phone` varchar(55) NOT NULL DEFAULT '' COMMENT 'Номер телефона'
 ) ENGINE=InnoDB AUTO_INCREMENT=155 DEFAULT CHARSET=$charset;");
 echo 'Успешно мигрированна таблица users_8897532<br>';
+
+$db->exec("INSERT INTO `magazins` (`id`, `name`, `komment`, `phone`, `email`, `reklama`, `id_ok_group`, `id_ok_page`, `instagram_login`, `instagram_password`, `smslogin`, `smspassword`, `smsid`, `smsnumber`, `chatbroscript`, `redconnectscript`, `token`, `private_key`, `public_key`, `time_day`, `keywords`, `description`, `title`, `city`, `theme`, `vklink`, `facebooklink`, `ya_money`, `ya_secret`) VALUES
+(1, 'Магазин', 'Тут что - то о магазине', '', '', 'Нет', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', '', 'yelow', '', '', '', '');");
 
 $db->exec("INSERT INTO `status` (`id`, `name`, `color`, `name_color`, `komment`, `sort`) VALUES
 (1, 'Новый заказ', '#FFFFFF', 'Без цвета', 'Этот статус не удалять!!!', '0');");

@@ -1,7 +1,8 @@
 <?php
 session_start(); // вкл сессию
-include_once "../../../admin/classes/Database.php"; // подключаем БД
-include_once "../../../smsGateway.php";
+//include_once '../../../admin/classes/App.php'; // подключаем БД
+include_once '../../../admin/classes/Database.php'; // подключаем БД
+include_once '../../../smsGateway.php';
 $product_id = $_POST['id']; // получаем ID товара
 $product_chena = $_POST['chena']; // получаем цену товара
 $action = $_POST['action']; // экшен который будет выполнятся

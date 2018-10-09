@@ -49,7 +49,7 @@
                                 </td>
                                 <td class="vert_top">
                                     <ul class="dash_list">
-                                        <li><a href="http://magaz/product.php?id=<?=$item["tovar"]?>&cat=<?=$item["categor_id"]?>" target="_blank"><?=$item["name"]?> (<?=$item["kolvo"]?> шт.)</a></li>
+                                        <li><a href="/product.php?id=<?=$item["tovar"]?>&cat=<?=$item["categor_id"]?>" target="_blank"><?=$item["name"]?> (<?=$item["kolvo"]?> шт.)</a></li>
                                     </ul>
                                 </td>
                                 <td><b class="status"><?=$item["status"]?></b><br>(<?=$item["oplata"]?>)</td>

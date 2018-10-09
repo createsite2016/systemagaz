@@ -37,7 +37,9 @@ else { include("verh.php"); ?>
               <table class="table text-small">
                 <thead>
                   <tr>
+                    <th><b>Сортировка</b></th>
                     <th><b>Служба доставки</b></th>
+                    <th><b>Цена (руб.)</b></th>
                     <th><b>Примечание</b></th>
                     <th><b>Действие</b></th>
                   </tr>
@@ -49,7 +51,9 @@ if ($user_role=='1') {
     $sql_get_device = $pdo->getRows("SELECT * FROM `dostavka` ORDER BY `name` DESC ");
     foreach ( $sql_get_device as $data_get_device ) { ?>
                   <tr>
+                    <td><?php echo $data_get_device['sort']; ?></td>
                     <td><?php echo $data_get_device['name']; ?></td>
+                    <td><?php echo $data_get_device['chena']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
                     <td><a href="classes/App.php?action=del_dostavka&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_dostavka.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
@@ -59,10 +63,12 @@ if ($user_role=='1') {
 
 // Если роль пользователя 3
 if ($user_role=='3') {
-    $sql_get_device = $pdo->getRows("SELECT * FROM `dostavka` ORDER BY `name` DESC ");
+    $sql_get_device = $pdo->getRows("SELECT * FROM `dostavka` ORDER BY `sort` ASC ");
     foreach ( $sql_get_device as $data_get_device ) { ?>
                   <tr>
+                    <td><?php echo $data_get_device['sort']; ?></td>
                     <td><?php echo $data_get_device['name']; ?></td>
+                    <td><?php echo $data_get_device['chena']; ?></td>
                     <td><?php echo $data_get_device['komment']; ?></td>
                     <td><a href="classes/App.php?action=del_dostavka&id=<?php echo $data_get_device['id']; ?>"><font color="red">Удалить</font></a>
                     <a href="fl_izm_dostavka.php?id=<?php echo $data_get_device['id']; ?>"><font color="Green">Изменить</font></a></td>
@@ -90,12 +96,27 @@ if ($user_role=='3') {
                     </div>
                     </div>
 
+                        <div class="modal-body">
+                            <div class="block">
+                                <label class="control-label">Цена:</label>
+                                <input class="form-control parsley-validated" placeholder="" type="text" name="chena" autofocus autocomplete="off">
+                            </div>
+                        </div>
+
+
                     <div class="modal-body">
                     <div class="block">
                     <label class="control-label">Примечание:</label>
                     <input class="form-control parsley-validated" placeholder="" type="text" name="komment" autofocus autocomplete="off">
                     </div>
                     </div>
+
+                        <div class="modal-body">
+                            <div class="block">
+                                <label class="control-label">Сортировка:</label>
+                                <input class="form-control parsley-validated" placeholder="" type="text" name="sort" autofocus autocomplete="off">
+                            </div>
+                        </div>
 
                     <div class="modal-footer">
                     <button type="submit" class="btn btn-primary">Внести в справочник</button>
