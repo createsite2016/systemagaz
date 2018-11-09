@@ -124,10 +124,10 @@ class App
     }
 
 // переход на страницу
-    public function goWay($way,$message){
+    public function goWay($way,$message,$second=2){
         // если переданно сообщение, то выводим его, а потом делаем переадресацию
         if (!empty($message)) {
-            exit("<html><head><meta http-equiv='Refresh' content='2; URL=admin/../".$way.".php'></head><body><center><br><br><br><h3><font color='red'>".$message."</font></h3></center></body></html>");
+            exit("<html><head><meta http-equiv='Refresh' content='".$second."; URL=admin/../".$way.".php'></head><body><center><br><br><br><h3><font color='red'>".$message."</font></h3></center></body></html>");
         }
         if (empty($message)) {
             exit("<html><head><meta http-equiv='Refresh' content='0; URL=admin/../".$way.".php'></head></html>");
@@ -890,7 +890,8 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $id = $_GET['id']; // айдишник талона
             $id_categor = $_GET['categor'];
             $del_photo = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ?",[$id]);
-            unlink($_SERVER['DOCUMENT_ROOT'].'/'.$del_photo["image"]);
+            //unlink($_SERVER['DOCUMENT_ROOT'].'/foto_tovar/'.$del_photo["image"]);
+            unlink('../../'.$del_photo["image"]);
             $pdo->deleteRow("DELETE FROM `tovar` WHERE `id` = ?",[$id]);
             $pdo->deleteRow("DELETE FROM `log_rashod` WHERE `id_tovara` = ?",[$id]);
             $pdo->deleteRow("DELETE FROM `log_prihod` WHERE `id_tovara` = ?",[$id]);
