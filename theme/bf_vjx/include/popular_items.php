@@ -29,8 +29,12 @@ $template["TOVARS_POPULARS"] = $pdo->getRows("SELECT COUNT(*) AS kolvo_in_group,
                                             <div class="caregory_prod_block">
                                                 <div class="top_block">
                                                     <div class="img">
-                                                        <img src="<?=$tovar['image'];?>" width="160" height="160"
-                                                             alt="image">
+                                                        <?
+                                                        include_once 'vendor/get_path.php';
+                                                        $cache_file = get_cache_path($tovar['image'],11);
+                                                        $mini_img = 'cache_img/'.$cache_file;
+                                                        ?>
+                                                        <img src="<?=$mini_img;?>" width="160" height="160" alt="image">
                                                     </div>
                                                     <!-- end .img -->
                                                     <div class="open_blk">

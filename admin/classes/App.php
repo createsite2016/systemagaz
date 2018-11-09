@@ -278,6 +278,10 @@ class App
             $uploadfile = "../../foto_tovar/" . $_FILES['foto']['name'];
             move_uploaded_file($_FILES['foto']['tmp_name'], $uploadfile);
             $dbfile = "foto_tovar/" . $_FILES['foto']['name'];
+
+            include_once '../../vendor/resize_img.php'; // подключаю функцию сжатия картинки
+            resize_img('../../',$_FILES['foto']['name']); // передаю путь и имя файла
+
             $name = $_POST['name']; // наименование
             $article = $_POST['article']; // артикул товара
             $model = $_POST['model']; // страна производитель
@@ -468,7 +472,6 @@ $message            = $name.' Цена: '.$chena_output.'руб. '.$komment.' А
             if (isset($step1['error_code'])) {
                 echo "Ошибка подписания параметров запроса на сервер Одноклассников";
                 echo "<br>Проверьте актуальность токена и ключей в настройках профиля";
-                //var_dump($step1);
                 exit();
             }
 
@@ -792,6 +795,9 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             move_uploaded_file($_FILES['foto']['tmp_name'], $uploadfile);
             $dbfile = "foto_tovar/" . $_FILES['foto']['name'];
 
+            include_once '../../vendor/resize_img.php'; // подключаю функцию сжатия картинки
+            resize_img('../../',$_FILES['foto']['name']); // передаю путь и имя файла
+
             $old_file = $_POST['path_file_old'];
             $article = $_POST['article']; // артикул товара
             $categor_id = $_POST['categor_id'];
@@ -890,8 +896,13 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $id = $_GET['id']; // айдишник талона
             $id_categor = $_GET['categor'];
             $del_photo = $pdo->getRow("SELECT * FROM `tovar` WHERE `id` = ?",[$id]);
-            //unlink($_SERVER['DOCUMENT_ROOT'].'/foto_tovar/'.$del_photo["image"]);
             unlink('../../'.$del_photo["image"]);
+
+            // подключаю файл с функциями
+            include_once '../../vendor/get_path.php';
+            $cache_file = get_cache_path($del_photo["image"],11); // получаю полный путь к файлу и обрезаю его
+            unlink('../../cache_img/'.$cache_file); // создаю путь к мини картинке и удаляю ее
+
             $pdo->deleteRow("DELETE FROM `tovar` WHERE `id` = ?",[$id]);
             $pdo->deleteRow("DELETE FROM `log_rashod` WHERE `id_tovara` = ?",[$id]);
             $pdo->deleteRow("DELETE FROM `log_prihod` WHERE `id_tovara` = ?",[$id]);
@@ -904,6 +915,13 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             $id = $_GET['id']; // айдишник талона
             $del_photo = $pdo->getRow("SELECT `image` FROM `tovar` WHERE `id` = ?",[$id]);
             unlink($del_photo);
+
+            // подключаю файл с функциями
+            include_once '../../vendor/get_path.php';
+            $cache_file = get_cache_path($del_photo["image"],11);
+            unlink('../../cache_img/'.$cache_file);
+
+
             $pdo->deleteRow("DELETE FROM `tovar` WHERE `id` = ?",[$id]);
             $pdo->deleteRow("DELETE FROM `log_rashod` WHERE `id_tovara` = ?",[$id]);
             $pdo->deleteRow("DELETE FROM `log_prihod` WHERE `id_tovara` = ?",[$id]);
