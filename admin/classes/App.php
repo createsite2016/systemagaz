@@ -854,6 +854,12 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
                 WHERE `id` = ? ",[$article,$name,$model,$chena_input,$chena_output,$money_input,$money_output,$komment,$categor_id,$status,$dbfile,$new,$skidka,$firma,   $razmer,$ves,$obem,$dlina,$material,$color,$garant,$complect,$id]);
 
                 unlink($old_file);
+                // подключаю файл с функциями
+                include_once '../../vendor/get_path.php';
+                $cache_file = get_cache_path($old_file,17); // получаю полный путь к файлу и обрезаю его
+                unlink('../../cache_img/'.$cache_file); // создаю путь к мини картинке и удаляю ее
+
+
                 $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
             }
             
