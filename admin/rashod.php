@@ -34,6 +34,9 @@ else { include("verh.php"); ?>
 
 <section class="panel">
 <br><b><span class="center"> | <a class="btn btn-sm btn-info" data-toggle="modal" href="#modal"><i class="icon-minus"></i> Новый расход</a> | </span></b><br><br>
+
+
+
     <div class="table-responsive">
         <table class="table table-striped b-t text-small">
                 <thead>

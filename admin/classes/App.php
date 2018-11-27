@@ -147,8 +147,8 @@ class App
 // ЭКШЕНЫ
     public function get_action($action){
 
-        $id = $_REQUEST['id']; // айдишник
-        $this->Clear($id);
+        //$id = $_REQUEST['id']; // айдишник
+        //$this->Clear($id);
         global $pdo; // Делаем PDO глобальным, для того чтобы видеть ее везде
         $pdo = new Database();
 
@@ -1853,7 +1853,11 @@ $this->goWayClassParams('fl_open_products',"id_categor=".$id_categor);
     }
 }
 // получениея экшена
-$action = $_REQUEST['action'];
+$action = null;
+if(isset($_REQUEST['action'])){
+    $action = $_REQUEST['action'];
+}
+
 $act = new App();
 // обработка сценария экшена
 $act->get_action($action);

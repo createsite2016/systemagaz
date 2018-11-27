@@ -8,7 +8,9 @@ $udata = $pdo->getRows("SELECT * FROM `users_8897532` WHERE `login`= ? ",[$login
 foreach ($udata as $value) {
     $login = $value['login']; // логин пользователя
     $name = $value['name']; // имя пользователя
-    $user_sc = $value['sklad']; //
+    if(isset($value['sklad'])){
+        $user_sc = $value['sklad']; //
+    }
     $id_user = $value['id']; // адишник пользователя
     $user_role = $value['role']; // права пользователя
     $avatar = $value['image']; // права пользователя
